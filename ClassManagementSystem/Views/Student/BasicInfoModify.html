@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no">
+    <title>学生基本信息修改</title>
+    <link href="../css/basicInfo_modify.css" rel="stylesheet" type="text/css"/>
+    <!-- <link href="../css/content.css" rel="stylesheet" type="text/css"> -->
+    <style>
+    	.userImg{
+    		height: 100%;
+    		margin-left: 5%;
+    		margin-top: 4%;
+    		text-align: center;
+    		float: left;
+    	}
+    	.userInfo{
+    		width: 64%;
+    		height: 100%;
+    		margin-top: 4%;
+    		margin-left: 20%;
+    	}
+    	.updateButton{
+    	    width: 15%;
+    	    height: 15%;
+    	    margin-top: -5%;
+    	    margin-left: 38%;
+    	    font-size: 18px;
+    	    float: left;
+    	    background-color: #D4EEF2;
+    	    border: 1px solid #D4EEF2;
+    	    border-radius: 8px;
+    	    text-align: center;
+    		/* width: 13%;
+    		height: 10%;
+    		margin: 0 auto;
+    		background-color: #D4EEF2;
+        	border: 1px solid #D4EEF2;
+        	border-radius: 8px;
+        	text-align: center; */
+    	}
+    	.itemName{
+    		font-family: Arial;
+    		font-size: 18px;
+    	}
+    	.guidefont{
+    		width: 100%;
+    		height: 7%;
+    		display: block;
+    		padding-left: 10%;
+    		font-family: Arial;
+    		font-size: 18px;
+    		color: #282828;
+    		/*font-style: normal;*/
+    		text-decoration: none;
+			/*background-color: #00EEF2;*/
+    	}
+    	a:hover
+		{
+			background-color: #D4EEF2;
+		}
+    </style>
+</head>
+<body>
+    	<div class="top">
+        	<div class="font">
+        		课堂管理系统
+        	</div>
+        	<div class="icon">
+        		<img src="../image/home.png">首页
+        		<img src="../image/help.png">帮助
+        		<img src="../image/exit.png">退出
+        	</div>
+        	<div class="clear"></div>
+    	</div>
+        <div class="body">
+            <div class="navigation">
+                <div class="title" style="margin-left:13%">导航</div>
+                <div class="line"></div>
+                <div class="courseIntroduction"><a class="guidefont" href="#">基本信息</a>
+                  <a class="guidefont" href="#">课程信息</a>
+                  <a class="guidefont" href="#">选择课程</a>
+                </div>
+            </div>
+            <div class="content">
+              <div class="title">基本信息</div>
+              <hr class="line"/>
+                <div class="imgarea"><img class="img" src="../image/user.png"/></div>
+                
+                 <div class="info">
+                
+        <form>
+        <table class="table">
+        <tr class="itemName">
+        <td>用户名：<span>12345678978</span></td>
+        <td>教工号：<input type="text" name="idnum"/></td>
+        </tr>
+        <tr class="itemName">
+        <td>姓名：<input type="text" name="name"/></td>
+        <td>性别：<input type="text" name="sex"/></td>
+        </tr>
+        <tr class="itemName">
+        <td>学校：<input type="text" name="school"/></td>
+        <td>职称：<input type="text" name="title"/></td>
+        </tr>
+        <tr class="itemName">
+        <td>E-mail：<input type="text" name="e-mail"/></td>
+        <td>联系方式：<input type="text" name="phone"/></td>
+        </tr>
+         </table>
+         <br/>
+        <br/>
+        <br/>
+        <br/>
+       <div >
+        <input class="button" type="submit" name="submit"/>
+        </div>
+        </form>
+       
+        
+        </div>
+            </div>
+            <div class="clear"></div>       
+        </div>
+</body>
+</html>

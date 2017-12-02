@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,shrink-to-fit=no">
+    <title>学生基本信息</title>
+    <link href="../css/basicInfo.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/content.css" rel="stylesheet" type="text/css">
+    <style>
+    	.userImg{
+    		height: 100%;
+    		margin-left: 5%;
+    		margin-top: 4%;
+    		text-align: center;
+    		float: left;
+    	}
+    	.userInfo{
+    		width: 64%;
+    		height: 100%;
+    		margin-top: 4%;
+    		margin-left: 20%;
+    	}
+    	.updateButton{
+    	    width: 15%;
+    	    height: 15%;
+    	    margin-top: -5%;
+    	    margin-left: 38%;
+    	    font-size: 18px;
+    	    float: left;
+    	    background-color: #D4EEF2;
+    	    border: 1px solid #D4EEF2;
+    	    border-radius: 8px;
+    	    text-align: center;
+    		/* width: 13%;
+    		height: 10%;
+    		margin: 0 auto;
+    		background-color: #D4EEF2;
+        	border: 1px solid #D4EEF2;
+        	border-radius: 8px;
+        	text-align: center; */
+    	}
+    	.itemName{
+    		font-family: Arial;
+    		font-size: 18px;
+    	}
+    	.guidefont{
+    		width: 100%;
+    		height: 7%;
+    		display: block;
+    		padding-left: 10%;
+    		font-family: Arial;
+    		font-size: 18px;
+    		color: #282828;
+    		/*font-style: normal;*/
+    		text-decoration: none;
+			/*background-color: #00EEF2;*/
+    	}
+    	a:hover
+		{
+			background-color: #D4EEF2;
+		}
+    </style>
+</head>
+<body>
+    	<div class="top">
+        	<div class="font">
+        		课堂管理系统
+        	</div>
+        	<div class="icon">
+        		<img src="../image/home.png">首页
+        		<img src="../image/help.png">帮助
+        		<img src="../image/exit.png">退出
+        	</div>
+        	<div class="clear"></div>
+    	</div>
+        <div class="body">
+            <div class="navigation">
+                <div class="title" style="margin-left:13%">导航</div>
+                <div class="line"></div>
+                <div class="courseIntroduction"><a class="guidefont" href="#">基本信息</a>
+                  <a class="guidefont" href="#">课程信息</a>
+                  <a class="guidefont" href="#">选择课程</a>
+                </div>
+            </div>
+            <div class="content">
+            	<div class="block">
+                    <div class="title">基本信息</div>
+                    <div class="line"></div>
+                    <div class="itemBody">
+                        <div class="userImg"><img src="../image/user.png"></div>
+                        <div class="userInfo">
+                        	<div class="item">
+                        		<label class="itemName">用户名: </label>
+                        		<label class="itemName">ssss</label>
+                        		<label class="itemName" style="margin-left: 20%;">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号: </label>
+                        		<label class="itemName">12344567</label>
+                        	</div>
+                        	<div class="item">
+                        		<label class="itemName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名: </label>
+                        		<label class="itemName">ss</label>
+                        		<label class="itemName" style="margin-left: 20%;">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别: </label>
+                        		<label class="itemName">男</label>
+                        	</div>
+                        	<div class="item">
+                        		<label class="itemName">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校: </label>
+                        		<label class="itemName">厦门大学</label>
+                        		<label class="itemName" style="margin-left: 20%;">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历: </label>
+                        		<label class="itemName">本科</label>
+                        	</div>
+                        	<div class="item">
+                        		<label class="itemName">E - mail: </label>
+                        		<label class="itemName">xxx@xxxxxx</label>
+                        		<label class="itemName" style="margin-left: 20%;">联系方式: </label>
+                        		<label class="itemName">1380065658</label>
+                        	</div>
+                        </div>
+                        <div class="clear"></div>
+                        <button class="updateButton">修 改</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>       
+        </div>
+</body>
+</html>
