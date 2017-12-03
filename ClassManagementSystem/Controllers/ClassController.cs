@@ -11,9 +11,9 @@ namespace ClassManagementSystem.Controllers
     [Route("/Class")]
     public class ClassController : Controller
     {
-        // GET: /Class
+        // GET: /Class?courseName={courseName}&&courseTeacher={courseTeacher}
         [HttpGet]
-        public IActionResult GetClassListFromQuery()
+        public IActionResult GetClassListFromQuery([FromQuery]string courseName, [FromQuery]string courseTeacher)
         {
             return Ok();
         }
