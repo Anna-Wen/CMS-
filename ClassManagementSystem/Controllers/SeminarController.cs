@@ -23,7 +23,7 @@ namespace ClassManagementSystem.Controllers
         }
 
         // GET: /Seminar/5/topic
-        [HttpGet("{id}/topic", Name = "Get")]
+        [HttpGet("{id}/topic")]
         public IActionResult GetSeminarTopics(int seminarId)
         {
             List<Topic> topics = new List<Topic>();
