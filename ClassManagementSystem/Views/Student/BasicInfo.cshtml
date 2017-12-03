@@ -148,7 +148,10 @@
 
                          $("#studentId").text(studentInfo.Number);
                          $("#studentName").text(studentInfo.Name);
-                         $("#studentGender").text(studentInfo.Gender);
+                         if (studentInfo.Gender == "male")
+                             $("#studentGender").text("男");
+                         else
+                             $("#studentGender").text("女");
                          $("#studentSchool").text(studentInfo.School);
                          $("#studentEducation").text(studentInfo.Title);
                          $("#studentEmail").text(studentInfo.Email);
