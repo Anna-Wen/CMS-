@@ -13,60 +13,7 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>新讨论课</title>
     <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        $(document).ready(function() {
-            //var str = window.location.href.split("=")[1];
-            document.write("xxxx");
-            $.ajax({
-                type: 'GET',
-                url: '/seminar/' + str,
-                contentType: "application/json;charset=utf-8",
-                success: function (data, status) {
-                    document.write("xxxx");
-                    $('#sName').text(data.name);
-                    $('#sDescription').text(data.description);
-                    $('#sGroupingMethod').text(data.groupingMethod);
-                    $('#sStartTime').text(data.startTime);
-                    $('#sEndTime').text(data.endTime);
-                }
-            });
-
-
-            //$("#delete").click(function () {
-            //    //var str = window.location.href.split("=")[1];
-            //    $ajax({
-            //        type: "DELETE",
-            //        url: "/seminar/1",
-            //        success: function (data) {
-            //            alert("delete success！" + data);
-            //        },
-            //        error: function (err) {
-            //            alert(err);
-            //        }
-            //    })
-            //});
-            //$("#score").click(function () {
-            //    document.write("1");
-            //    var index = "1";
-            //    var url = "/Teacher/TeacherScoreReportPage?index=" + index;
-            //    window.location.href = url;
-            //});
-            //$("#edit").click(function () {
-            //    document.write($("#Id").val());
-            //    var index = "1";
-            //    var url = "/Teacher/TeacherEditSeminarPage?index=" + index;
-            //    window.location.href = url;
-            //});
-            //$("#add").click(function () {
-
-            //    var index = "1";
-            //    var url = "/Teacher/CreateTopic?index=" + index;
-            //    window.location.href = url;
-            //});
-        })
-    </script>
-
+   
 </head>
 <body>
     <div class="top">
@@ -137,6 +84,61 @@
 
         <div class="clear"></div>
     </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //var str = window.location.href.split("=")[1];
+            //document.write("xxxx");
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + str,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    document.write("xxxx");
+                    $('#sName').text(data.name);
+                    $('#sDescription').text(data.description);
+                    $('#sGroupingMethod').text(data.groupingMethod);
+                    $('#sStartTime').text(data.startTime);
+                    $('#sEndTime').text(data.endTime);
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+            $("#delete").click(function () {
+                //var str = window.location.href.split("=")[1];
+                $ajax({
+                    type: "DELETE",
+                    url: "/seminar/1",
+                    success: function (data) {
+                        alert("delete success！" + data);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            });
+            $("#score").click(function () {
+                //document.write("score");//---------
+                var index = "1";
+                var url = "/Teacher/TeacherScoreReportPage?index=" + index;//这个页面还没写
+                window.location.href = url;
+            });
+            $("#edit").click(function () {
+                //document.write("edit");//-----------
+                var index = "1";
+                var url = "/Teacher/TeacherEditSeminarPage?index=" + index;
+                window.location.href = url;
+            });
+            $("#add").click(function () {
+                document.write("add");//---------------
+                var index = "1";
+                var url = "/Teacher/CreateTopic?index=" + index;
+                window.location.href = url;
+            });
+    </script>
 </body>
 </html>
 
