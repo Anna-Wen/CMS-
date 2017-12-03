@@ -8,16 +8,12 @@ namespace ClassManagementSystem.Controllers
 {
     public class StudentController : Controller
     {
-<<<<<<< HEAD
-        public IActionResult DiscussionClassPage_Fixed()
-=======
         public IActionResult BasicInfo()
         {
             return View();
         }
 
         public IActionResult CourseInfo()
->>>>>>> master
         {
             return View();
         }

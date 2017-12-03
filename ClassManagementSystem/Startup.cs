@@ -43,11 +43,7 @@ namespace ClassManagementSystem
             {
                 routes.MapRoute(
                     name: "default",
-<<<<<<< HEAD
                     template: "{controller=Teacher}/{action=CheckTopicBeforeClass}/{id?}");
-=======
-                    template: "{controller=Student}/{action=BasicInfo}/{id?}");
->>>>>>> master
             });
         }
     }

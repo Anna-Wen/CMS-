@@ -10,57 +10,7 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>新讨论课查看话题（上课前）</title>
     <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
-    <script scr="//code.jquery.com/jquery-1.10.2.js"></script>
     
-    <script>
-
-         $(document).ready(function () {
-             var str = window.location.href.split("=")[1];//当前讨论课号
-             var urlSkip = "/Teacher/EditTopic?index=" + str;//修改话题的页面还没写
-
-             //显示选择该话题的小组ID
-             var addgroupInfo = function (a) {
-
-                 $.ajax({
-                     type: 'GET',
-                     url: '/topic/' + a + "/group",
-                     contentType: "application/json;charset=utf-8",
-                     success: function (data, status) {
-
-                         for (var i = 0; i < data.members.length; i++)
-                             $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data.members[i].id + "</label></div>");
-                     }
-                 })
-
-             }
-
-            
-             //初始化
-             $.ajax({
-                 type: 'GET',
-                 url: '/Topic/' + str,
-                 contentType: "application/json;charset=utf-8",
-                 success: function (data, status) {
-
-                     //显示讨论课信息
-                     $('#name').text(data.id);
-                     $('#description').text(data.description);
-                     $('#groupLimit').text(data.groupMethod);
-                     $('#groupLeft').text(data.groupLeft);
-                     
-                     //显示小组信息
-                     addgroupInfo(str);
-                 }
-             });
-
-             $("#edit").click(function () { 
-                 window.location.href = url;
-             })
-            
-        })
-
-
-    </script>
 </head>
 <body>
     <div class="top">
@@ -88,19 +38,28 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">题    目*:</label>
-                        <label class="itemName" id="name"></label>
+                        <label class="itemName" id="topicName"></label>
+                        <input class="itemName" type="text" id="inputName" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">说    明*:</label>
-                        <label class="itemName" id="description"></label>
+                        <label class="itemName" id="topicDescription"></label>
+                        <input class="itemName" type="text" id="inputDescription" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">组 数 限 制*:</label>
-                        <label class="itemName" id="groupLimit"></label>
+                        <label class="itemName" id="topicGroupLimit"></label>
+                        <input class="itemName" type="text" id="inputGroupLimit" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">组内人数上线*:</label>
-                        <label class="itemName" id="groupLeft"></label>
+                        <label class="itemName" id="topicGroupMemberLimit"></label>
+                        <input class="itemName" type="text" id="inputGroupMemberLimit" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">剩余小组*:</label>
+                        <label class="itemName" id="topicGroupLeft"></label>
+                        <input class="itemName" type="text" id="inputgroupLeft" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">已 选 小 组:</label>
@@ -111,7 +70,7 @@
                     </div>
 
                     <div class="item">
-                        <button class="submit" id="edit">修改</button>
+                        <button class="submit" onclick="update_submit()" id="up_sub">修改</button>
                         <button class="reset" id="delete">删除话题</button>
                         <div class="clear"></div>
                     </div>
@@ -121,5 +80,99 @@
         </div>
         <div class="clear"></div>
     </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var str = window.location.href.split("=")[1];//当前讨论课号
+
+            //显示选择该话题的小组ID
+            var addgroupInfo = function (a) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/topic/' + a + "/group",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        for (var i = 0; i < data.members.length; i++)
+                            $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data.members[i].id + "</label></div>");
+                    }
+                })
+
+            }//显示小组ID结束
+
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/Topic/' + str,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    //显示讨论课信息
+                    $('#topicName').text(data.id);
+                    $('#topicDescription').text(data.description);
+                    $('#topicGroupLimit').text(data.groupMethod);
+                    $('#topicGroupMemberLimit').text(data.groupMemberLimit);
+                    $('#topicGroupLeft').text(data.groupLeft);
+
+                    //显示小组信息
+                    addgroupInfo(str);
+                }
+            });//初始化结束
+
+        });
+    </script>
+    <script type="text/javascript">
+        var str = window.location.href.split("=")[1];//当前讨论课号
+        function update_submit() {
+            if ($("#up_sub").text() == "修改") {
+                var topicInfo = {
+                    Name: $("#topicName").text(),
+                    Description: $("#topicDescription").text(),
+                    GroupLimit: $("#topicGroupLimit").text(),
+                    GroupMemberLimit: $("#topicGroupMemberLeft").text(),
+                };
+                $("[id^='topic']").hide();
+                $("[id^='input']").show();
+                $("#up_sub").text("提交");
+
+                $("#inputName").val(studentInfo.Name);
+                $("#inputDescription").val(studentInfo.Description);
+                $("#inputGroupLimit").val(studentInfo.GroupLimit);
+                $("#inputGroupMemberLimit").val(studentInfo.GroupMemberLimit);
+            }
+            else {
+                
+                var topicInfo = {
+                    Name: $("#inputName").val(),
+                    Description: $("#inputDescription").val(),
+                    GroupLimit: $("#inputGroupLimit").val(),
+                    GroupMemberLimit: $("#inputGroupMemberLimit").val()
+                };
+
+                $.ajax({
+                    
+                    url: "/topic/" + str,
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(topicInfo),
+                    success: function (data, status) {
+                $("[id^='input']").hide();
+                $("[id^='topic']").show();
+                $("#up_sub").text("修改");
+
+                $("#topicName").text(topicInfo.Name);
+                $("#topicDescription").text(topicInfo.Description);
+                $("#topicGroupLimit").text(topicInfo.GroupLimit);
+                $("#topicGroupMemberLimit").text(topicInfo.GroupMemberLimit);
+                    }
+                    //error:
+                });
+            }
+        }//修改/确认点击结束
+    </script>
+
 </body>
 </html>

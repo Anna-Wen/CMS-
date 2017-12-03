@@ -19,7 +19,7 @@ namespace ClassManagementSystem.Controllers
         {
             //Fake Data
             School xmu = new School { Id = 12, Name = "厦门大学", Province = "福建", City = "厦门" };
-            User student = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avator = "/images/user.png" };
+            User student = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avatar = "/images/user.png" };
 
             return Json(student);
         }
@@ -32,7 +32,7 @@ namespace ClassManagementSystem.Controllers
 
             // Fetch info from database
             School xmu = new School { Id = 12, Name = "厦门大学", Province = "福建", City = "厦门" };
-            User dataUser = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avator = "/images/user.png" };
+            User dataUser = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avatar = "/images/user.png" };
 
             if (dataUser == null)
                 return BadRequest();
@@ -42,7 +42,7 @@ namespace ClassManagementSystem.Controllers
                 dataUser.Number = json.Number;
                 dataUser.Gender = json.Gender;
                 dataUser.Title = json.Title;
-                dataUser.Avator = json.Avator;
+                dataUser.Avatar = json.Avatar;
 
                 // Update database
 
