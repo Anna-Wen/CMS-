@@ -1,0 +1,154 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>学生基本信息</title>
+    <link href="/css/common/HomePage.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png">首页
+            <img src="/images/help.png">帮助
+            <img src="/images/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="#">基本信息</a>
+                <a class="guidefont" href="~/Views/Student/CourseInfo.cshtml">课程信息</a>
+                <a class="guidefont" href="#">选择课程</a>
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="title">基本信息</div>
+            <div class="line"></div>
+            <div class="imgarea"><img class="img" id="pic" src="/images/user.png" /></div>
+            <div class="info">
+                <table class="table">
+                    <tr class="itemName">
+                        <td>用户名：<span id="userName"></span></td>
+                        <td>学号：<span id="studentId"></span><input type="text" id="inputStudentId" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>姓名：<span id="studentName"></span><input type="text" id="inputStudentName" style="display:none" /></td>
+                        <td>性别：<span id="studentGender"></span><input type="text" id="inputStudentGender" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>学校：<span id="studentSchool"></span><input type="text" id="inputStudentSchool" style="display:none" /></td>
+                        <td>学历：<span id="studentEducation"></span><input type="text" id="inputStudentEducation" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>E-mail：<span id="studentEmail"></span><input type="text" id="inputStudentEmail" style="display:none" /></td>
+                        <td>联系方式：<span id="studentPhone"></span><input type="text" id="inputStudentPhone" style="display:none" /></td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="button">
+                    <button onclick="update_submit()" id="up_sub">修改</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+        	$("#userName").text("JasperMaik");
+        	$("#studentId").text("JasperMaik");
+        	 //  $.ajax({
+          //        type: "GET"
+        		//  url: "me",
+        		//  contentType:"application/json;charset=utf-8",
+        		//  data: 1,  //studet_id
+        		//  dataType: "json",
+        		//  success: function(data,status)
+        		//  {
+        		//	  $("#pic").attr("src",data.Avator);
+        		//	  $("#userName").text(data.Id);
+        		//	  $("#studentId").text(data.Number);
+        		//	  $("#studentName").text(data.Name);
+        		//	  $("#studentGender").text(data.Gender);
+        		//	  $("#studentSchool").text(data.School);
+        		//	  $("#studentEducation").text(data.Title);
+        		//	  $("#studentEmail").text(data.Email);
+        		//	  $("#studentPhone").text(data.Phone);
+        		//  }
+        		//});
+        	});
+    </script>
+    <script type="text/javascript">
+        function update_submit(){
+        	if($("#up_sub").text()=="修改"){
+        		var studentInfo={Number: $("#studentId").text(),
+                        Name:$("#studentName").text(),
+                        Gender:$("#studentGender").text(),
+                        School:$("#studentSchool").text(),
+                        Title:$("#studentEducation").text(),
+                        Email:$("#studentEmail").text(),
+                        Phone:$("#studentPhone").text()};
+        		$("[id^='student']").hide();
+        		$("[id^='input']").show();
+        		$("#up_sub").text("提交");
+
+        		$("#inputStudentId").val(studentInfo.Number);
+        		$("#inputStudentName").val(studentInfo.Name);
+        		$("#inputStudentGender").val(studentInfo.Gender);
+        		$("#inputStudentSchool").val(studentInfo.School);
+        		$("#inputStudentEducation").val(studentInfo.Education);
+        		$("#inputStudentEmail").val(studentInfo.Email);
+        		$("#inputStudentPhone").val(studentInfo.Phone);
+        		}
+        	else{
+        		var studentInfo={Number: $("#inputStudentId").val(),
+                        Name:$("#inputStudentName").val(),
+                        Gender:$("#inputStudentGender").val(),
+                        School:$("#inputStudentSchool").val(),
+                        Title:$("#inputStudentEducation").val(),
+                        Email:$("#inputStudentEmail").val(),
+                        Phone:$("#inputStudentPhone").val()};
+        		$("[id^='input']").hide();
+        		$("[id^='student']").show();
+        		$("#up_sub").text("修改");
+
+        		$("#studentId").text(studentInfo.Number);
+        		$("#studentName").text(studentInfo.Name);
+        		$("#studentGender").text(studentInfo.Gender);
+        		$("#studentSchool").text(studentInfo.School);
+        		$("#studentEducation").text(studentInfo.Education);
+        		$("#studentEmail").text(studentInfo.Email);
+        		$("#studentPhone").text(studentInfo.Phone);
+
+        		 $.ajax({
+                     url: "/me",
+                     type: "PUT",
+                     contentType: "application/json;charset=utf-8",
+                     dataType: "json",
+                     data: JSON.stringify(studentInfo),
+                     success: function (data,status) {
+
+                      }
+                     //error:
+                 });
+        	}
+        }
+
+    </script>
+</body>
+</html>
