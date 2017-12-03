@@ -12,6 +12,7 @@ namespace ClassManagementSystem.Controllers
     [Route("/Seminar")]
     public class SeminarController : Controller
     {
+        
         // GET: /Seminar/5
         [HttpGet("{id}", Name = "Get")]
         public IActionResult GetSeminar(int seminarId)
