@@ -16,7 +16,7 @@ namespace ClassManagementSystem.Controllers
         List<Topic> topics = new List<Topic>();
         List<Group> groups = new List<Group>();
 
-        // GET: /seminar/5
+        // GET: /seminar/{seminarId}
         [HttpGet("{seminarId}", Name = "Get")]
         public IActionResult GetSeminar(int seminarId)
         {
@@ -28,11 +28,12 @@ namespace ClassManagementSystem.Controllers
             return Json(seminar);
         }
 
-        //// PUT: /seminar/{seminarId}
-        //[HttpPut("{seminarId}")]
-        //public IActionResult PutSeminar(int seminarId, [FromBody]string value)
-        //{
-        //}
+        // PUT: /seminar/{seminarId}
+        [HttpPut("{seminarId}")]
+        public IActionResult PutSeminar(int seminarId, [FromBody]dynamic json)
+        {
+            return Ok();
+        }
 
         // DELETE: /seminar/{seminarId}
         [HttpDelete("{seminarId}")]
@@ -46,6 +47,13 @@ namespace ClassManagementSystem.Controllers
                 seminars.Remove(target);
                 return NoContent();
             }
+        }
+
+        // GET: /seminar/{seminarId}/detail
+        [HttpGet("{seminarId}/detail")]
+        public IActionResult GetSeminarDetails(int seminarId)
+        {
+            return Ok();
         }
 
         // GET: /seminar/{seminarId}/topic
@@ -63,14 +71,15 @@ namespace ClassManagementSystem.Controllers
 
         // POST: /seminar/{seminarId}/topic
         [HttpPost("{seminarId}/topic")]
-        public IActionResult PostNewTopicUnderSeminar(int seminarId, [FromBody]Topic newTopic)
+        public IActionResult PostNewTopicUnderSeminar(int seminarId, [FromBody]dynamic json)
         {
-            // Fake Data
-            newTopic.Id = 23;
+            //// Fake Data
+            //newTopic.Id = 23;
 
-            topics.Add(newTopic);
+            //topics.Add(newTopic);
 
-            return Created("/seminar/{seminarId}", newTopic);
+            //return Created("/seminar/{seminarId}", newTopic);
+            return Ok();
         }
 
         // GET: /seminar/{seminarId}/group
