@@ -13,40 +13,6 @@
     <script scr="~/scripts/jquery-2.2.2.min.js"></script>
 </head>
 <body>
-    <script>
-        function postTopicInfo() {
-            $.ajax({
-                type: "POST",
-                url: "/seminar/{seminarId}/topic",
-                data: { seminarId: "1"; Id:"" },
-                success: function (data) {
-                    alert(data);
-                    $(".sName").append(data.Data.Name);
-                    $(".sDescription").append(data.Data.Description);
-                    $(".sGroupingMethod").append(data.Data.GroupingMethod);
-                    $(".sStartTime").append(data.Data.StartTime);
-                    $(".sEndTime").append(data.Data.EndTime);
-                },
-                error: function (err) {
-                    alert(err)
-                }
-            });
-            function resetInfo() {
-                $ajax({
-                    type: "DELETE",
-                    url: "/seminar",
-                    data: { seminarId: "1" },
-                    success: function (data) {
-                        alert("delete success！" + data.Data)
-                    },
-                    error: function (err) {
-                        alert(err)
-                    }
-                })
-            }
-        }
-    </script>
-
     <div class="top">
         <div class="font">
             课堂管理系统
@@ -72,28 +38,28 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">编号*:</label>
-                        <input type="text" id="number" class="middleInput">
+                        <input type="text" id="Id" class="middleInput">
                     </div>
                     <div class="item">
                         <label class="itemName">题目*:</label>
-                        <input type="text" id="topic" class="middleInput">
+                        <input type="text" id="Name" class="middleInput">
                     </div>
                     <div class="item">
                         <label class="itemName">说明*:</label>
                         <!--<textarea id="courseinfo" cols="80" rows="5"></textarea>-->
-                        <input type="text" id="courseinfo" class="bigInput">
+                        <input type="text" id="Description" class="bigInput">
                     </div>
                     <div class="item">
                         <label class="itemName">组数限制*:</label>
-                        <input type="text" id="groupNumber" class="smallInput">
+                        <input type="text" id="GroupLimit" class="smallInput">
                     </div>
                     <div class="item">
                         <label class="itemName">组内人数上限*:</label>
-                        <input type="text" id="peopleNumber" class="smallInput">
+                        <input type="text" id="GroupLeft" class="smallInput">
                     </div>
                     <div class="item">
-                        <button class="submit">提交</button>
-                        <button class="reset">重置</button>
+                        <button class="submit" id="post">提交</button>
+                        <button class="reset" id="reset">重置</button>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -101,5 +67,29 @@
         </div>
         <div class="clear"></div>
     </div>
+    <script>
+            $("#post").click(function postTopicInfo() {
+                var ata = { serial: document.getElementById("Id"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
+                $.ajax({
+                    type: "POST",
+                    url: "/seminar/1/topic",
+                    data: JSON(ata),
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (err) {
+                        alert(err)
+                    }
+                });
+            });
+            $("#reset").click(function resetInfo() {
+                $("#Id").empty;
+                $("#Name").empty;
+                $("#Description").empty;
+                $("#GroupLimit").empty;
+                $("#GroupLeft").empty;
+            });
+
+    </script>
 </body>
 </html>

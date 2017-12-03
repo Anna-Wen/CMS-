@@ -8,6 +8,6 @@ namespace ClassManagementSystem.Models
     public class ClassGroup
     {
         public User Leader { get; set; }
-        public User[] Members { get; set; }
+        public List<User> Members { get; set; }
     }
 }
