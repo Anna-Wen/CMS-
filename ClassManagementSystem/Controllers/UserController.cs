@@ -12,7 +12,7 @@ namespace ClassManagementSystem.Controllers
     [Route("")]
     public class UserController : Controller
     {
-        User curUser = new User();
+        List<User> users = new List<User>();
 
         // GET: /me
         [HttpGet("/me")]
@@ -28,10 +28,18 @@ namespace ClassManagementSystem.Controllers
             
         }
 
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody]string value)
+        // POST: /signin
+        [HttpPost("/signin")]
+        public void Post([FromBody] User value)
         {
+
+        }
+
+        // POST: /register
+        [HttpPost("/register")]
+        public void Post([FromBody] User value)
+        {
+            
         }
 
     }
