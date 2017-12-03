@@ -12,5 +12,15 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult BasicInfo()
+        {
+            return View();
+        }
+
+        public IActionResult CourseInfo()
+        {
+            return View();
+        }
     }
 }
