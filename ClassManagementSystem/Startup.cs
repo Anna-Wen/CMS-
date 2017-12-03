@@ -43,7 +43,7 @@ namespace ClassManagementSystem
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Teacher}/{action=NewSeminar}/{id?}");
+                    template: "{controller=Teacher}/{action=CheckTopicBeforeClass}/{id?}");
             });
         }
     }

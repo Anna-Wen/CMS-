@@ -66,7 +66,8 @@
                         <label class="itemName"></label>
                     </div>
 
-                    <div  id="groupId">
+                    <div id="groupId">
+
                     </div>
 
                     <div class="item">
@@ -90,14 +91,15 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '/topic/' + a + "/group",
+                    url: '/Topic/' + a + "/group",
                     contentType: "application/json;charset=utf-8",
                     success: function (data, status) {
 
-                        for (var i = 0; i < data.members.length; i++)
-                            $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data.members[i].id + "</label></div>");
+                        for (var i = 0; i < data.length; i++)
+                            $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data[i].name + "</label></div>");
                     }
                 })
+                //document.write("addGroupid");//--------------
 
             }//显示小组ID结束
 
@@ -110,9 +112,9 @@
                 success: function (data, status) {
 
                     //显示讨论课信息
-                    $('#topicName').text(data.id);
+                    $('#topicName').text(data.name);
                     $('#topicDescription').text(data.description);
-                    $('#topicGroupLimit').text(data.groupMethod);
+                    $('#topicGroupLimit').text(data.groupLimit);
                     $('#topicGroupMemberLimit').text(data.groupMemberLimit);
                     $('#GroupLeft').text(data.groupLeft);
 
