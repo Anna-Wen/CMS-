@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ClassManagementSystem.Models;
 
 namespace ClassManagementSystem.Controllers
 {
@@ -16,7 +17,9 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{topicId}")]
         public IActionResult GetTopic(int topicId)
         {
-            return Ok();
+            Topic topic = new Topic { Id = 257, Serial = "A", Name = "领域模型与模块划分", Description = "Domain Model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 };
+
+            return Json(topic);
         }
 
         // PUT: /Topic/{topicId}
