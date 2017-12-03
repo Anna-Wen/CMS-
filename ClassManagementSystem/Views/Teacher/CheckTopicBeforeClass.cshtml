@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+}
+<!--组内人数上限少这个参数？剩余小组数目-->
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新讨论课查看话题（上课前）</title>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+    <script scr="//code.jquery.com/jquery-1.10.2.js"></script>
+    
+    <script>
+
+         $(document).ready(function () {
+             var str = window.location.href.split("=")[1];//当前讨论课号
+             var urlSkip = "/Teacher/EditTopic?index=" + str;//修改话题的页面还没写
+
+             //显示选择该话题的小组ID
+             var addgroupInfo = function (a) {
+
+                 $.ajax({
+                     type: 'GET',
+                     url: '/topic/' + a + "/group",
+                     contentType: "application/json;charset=utf-8",
+                     success: function (data, status) {
+
+                         for (var i = 0; i < data.members.length; i++)
+                             $('#groupId').append("<div class='item' style='margin-left: 23.5%'><label class='itemName'>" + data.members[i].id + "</label></div>");
+                     }
+                 })
+
+             }
+
+            
+             //初始化
+             $.ajax({
+                 type: 'GET',
+                 url: '/Topic/' + str,
+                 contentType: "application/json;charset=utf-8",
+                 success: function (data, status) {
+
+                     //显示讨论课信息
+                     $('#name').text(data.id);
+                     $('#description').text(data.description);
+                     $('#groupLimit').text(data.groupMethod);
+                     $('#groupLeft').text(data.groupLeft);
+                     
+                     //显示小组信息
+                     addgroupInfo(str);
+                 }
+             });
+
+             $("#edit").click(function () { 
+                 window.location.href = url;
+             })
+            
+        })
+
+
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">OOAD（Object Oriented Analysis Design，面向对象的分析和设计，面向对象分析与设计）是现代软件企业广为采用的一项有效技术。OOAD方法要求在设计中要映射现实世界中指定问题域中的对象和实体，例如：顾客、汽车和销售人员等。这就需要设计要尽可能地接近现实世界，即以最自然的方式表述实体。所以面向对象技术的优点即为能够构建与现实世界相对应的问题模型，并保持他们的结构、关系和行为为模式。</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">查看话题</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">题    目*:</label>
+                        <label class="itemName" id="name"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">说    明*:</label>
+                        <label class="itemName" id="description"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组 数 限 制*:</label>
+                        <label class="itemName" id="groupLimit"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组内人数上线*:</label>
+                        <label class="itemName" id="groupLeft"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">已 选 小 组:</label>
+                        <label class="itemName"></label>
+                    </div>
+
+                    <div  id="groupId">
+                    </div>
+
+                    <div class="item">
+                        <button class="submit" id="edit">修改</button>
+                        <button class="reset" id="delete">删除话题</button>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

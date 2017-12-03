@@ -1,0 +1,142 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!--删除讨论课，add按钮，修改讨论课的跳转还没有写-->
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新讨论课</title>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+    <script scr="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function() {
+            //var str = window.location.href.split("=")[1];
+            document.write("xxxx");
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + str,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    document.write("xxxx");
+                    $('#sName').text(data.name);
+                    $('#sDescription').text(data.description);
+                    $('#sGroupingMethod').text(data.groupingMethod);
+                    $('#sStartTime').text(data.startTime);
+                    $('#sEndTime').text(data.endTime);
+                }
+            });
+
+
+            //$("#delete").click(function () {
+            //    //var str = window.location.href.split("=")[1];
+            //    $ajax({
+            //        type: "DELETE",
+            //        url: "/seminar/1",
+            //        success: function (data) {
+            //            alert("delete success！" + data);
+            //        },
+            //        error: function (err) {
+            //            alert(err);
+            //        }
+            //    })
+            //});
+            //$("#score").click(function () {
+            //    document.write("1");
+            //    var index = "1";
+            //    var url = "/Teacher/TeacherScoreReportPage?index=" + index;
+            //    window.location.href = url;
+            //});
+            //$("#edit").click(function () {
+            //    document.write($("#Id").val());
+            //    var index = "1";
+            //    var url = "/Teacher/TeacherEditSeminarPage?index=" + index;
+            //    window.location.href = url;
+            //});
+            //$("#add").click(function () {
+
+            //    var index = "1";
+            //    var url = "/Teacher/CreateTopic?index=" + index;
+            //    window.location.href = url;
+            //});
+        })
+    </script>
+
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">OOAD（Object Oriented Analysis Design，面向对象的分析和设计，面向对象分析与设计）是现代软件企业广为采用的一项有效技术。OOAD方法要求在设计中要映射现实世界中指定问题域中的对象和实体，例如：顾客、汽车和销售人员等。这就需要设计要尽可能地接近现实世界，即以最自然的方式表述实体。所以面向对象技术的优点即为能够构建与现实世界相对应的问题模型，并保持他们的结构、关系和行为为模式。</div>
+        </div>
+        <div class="content">
+            <div class="classInfo">
+                <div class="title">讨论课1</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">讨论课名称:</label>
+                        <label class="itemName" id="sName"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">讨论课说明:</label>
+                        <label class="itemName" id="sDescription"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">分 组 方 式:</label>
+                        <label class="itemName" id="sGroupingMethod"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">开 始 时 间:</label>
+                        <label class="itemName" id="sStartTime"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">结 束 时 间:</label>
+                        <label class="itemName" id="sEndTime"></label>
+                    </div>
+
+                    <div class="item">
+                        <button class="leftButton" id="score">评分</button>
+                        <button class="middleButton" id="edit">修改</button>
+                        <button class="rightButton" id="delete">删除讨论课 </button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="seminarInfo">
+                <div class="title">Topic</div>
+                <div class="line"></div>
+                <br><br />
+                <div class="topicBlockBody" style="margin-left: 5%">
+                    <div class="topicBlock"><div class="topicBlockFont">Topic A</div></div>
+                    <div class="topicBlock"><div class="topicBlockFont">Topic B</div></div>
+                    <div class="topicBlock" id="add"> <img src="../../Img/add.png" width="110" height="110"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
+

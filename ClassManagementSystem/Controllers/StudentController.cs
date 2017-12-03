@@ -8,7 +8,7 @@ namespace ClassManagementSystem.Controllers
 {
     public class StudentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult DiscussionClassPage_Fixed()
         {
             return View();
         }
