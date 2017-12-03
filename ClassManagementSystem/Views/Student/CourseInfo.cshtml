@@ -38,21 +38,39 @@
 
             <div class="main_box_right_content">
                 <h3 class="classtitle">
-                    J2EE
+
                     <button>退选课程</button>
 
                 </h3>
                 <hr />
-                <div class="classinfo">
-                    <span class="info">班级数：1</span><br />
-                    <span class="info">学生人数：60人</span><br />
-                    <span class="info">开始时间：1/9/2017</span><br />
-                    <span class="info">结束时间：1/1/2018</span><br />
-                </div>
+                <div class="classinfo" id="blueBlock"></div>
             </div>
 
         </div>
         <div class="clear"></div>
     </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //<label style="margin-left:10%">班级 ： </label> <span class="info" id="class"></span>
+            //    <label style="margin-left:10%">课程地点 ： </label> <span class="info" id="classSite"></span> <br />
+            //    <label style="margin-left:10%">教师 ： </label> <span class="info" id="teacher"></span>
+             $.ajax({
+                 type: "GET",
+                 url: "/class",
+                 contentType: "application/json;charset=utf-8",
+                 dataType: "json",
+                 success: function (data, status)
+                 {
+                     for (var i = 0; i < data.length; i++)
+                     {
+                         $("#blueBlock").append("<label style='margin- left:10 % '>班级 ： '+data[i].name+'</label>");
+                         $("#blueBlock").append("<label style='margin- left:20 % '>课程地点 ： '+data[i].site+'</label><br />");
+                         $("#blueBlock").append("<label style='margin- left:10 % '>教师 ： '+data[i].courseTeacher.name+'</label>");
+                     }
+                 }
+           });
+       });
+    </script>
 </body>
 </html>
