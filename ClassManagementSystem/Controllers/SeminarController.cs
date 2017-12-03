@@ -14,7 +14,7 @@ namespace ClassManagementSystem.Controllers
     {
         
         // GET: /Seminar/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{seminarId}", Name = "Get")]
         public IActionResult GetSeminar(int seminarId)
         {
             Seminar seminar = new Seminar { Id = seminarId, Name = "概要设计", Description = "本节讨论课的主要内容针对第一二章", GroupingMethod = "fixed", StartTime = "11/10/2017", EndTime = "17/11/2017" };
