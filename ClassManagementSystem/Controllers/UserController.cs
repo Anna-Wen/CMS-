@@ -12,31 +12,53 @@ namespace ClassManagementSystem.Controllers
     [Route("")]
     public class UserController : Controller
     {
-        List<User> users = new List<User>();
-
+        
         // GET: /me
-        [HttpGet("/me")]
+        [HttpGet("me")]
         public IActionResult GetCurrentUser()
         {
-            return Json(users);
+            //Fake Data
+            School xmu = new School { Id = 12, Name = "厦门大学", Province = "福建", City = "厦门" };
+            User student = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avator = "/images/user.png" };
+
+            return Json(student);
         }
 
         // PUT: /me
-        [HttpPut("/me")]
-        public void Put(int id, [FromBody] User editedUser)
+        [HttpPut("me")]
+        public IActionResult Put(int id, [FromBody] dynamic json)
         {
-            
+            // Update this edited user info
+
+            // Fetch info from database
+            School xmu = new School { Id = 12, Name = "厦门大学", Province = "福建", City = "厦门" };
+            User dataUser = new User { Id = 123, Type = "student", Number = "24320152201234", Name = "张三", Phone = "18999999999", Email = "xxxxxx@163.com", Gender = "male", School = xmu, Title = "本科", UnionId = "", Avator = "/images/user.png" };
+
+            if (dataUser == null)
+                return BadRequest();
+            else
+            {
+                dataUser.Name = json.Name;
+                dataUser.Number = json.Number;
+                dataUser.Gender = json.Gender;
+                dataUser.Title = json.Title;
+                dataUser.Avator = json.Avator;
+
+                // Update database
+
+                return NoContent();
+            }
         }
 
         // POST: /signin
-        [HttpPost("/signin")]
+        [HttpPost("signin")]
         public void Signin([FromBody] User value)
         {
 
         }
 
         // POST: /register
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public void Register([FromBody] User value)
         {
             
