@@ -18,7 +18,7 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("/me")]
         public IActionResult GetCurrentUser()
         {
-            return Json(curUser);
+            return Json(users);
         }
 
         // PUT: /me
@@ -30,14 +30,14 @@ namespace ClassManagementSystem.Controllers
 
         // POST: /signin
         [HttpPost("/signin")]
-        public void Post([FromBody] User value)
+        public void Signin([FromBody] User value)
         {
 
         }
 
         // POST: /register
         [HttpPost("/register")]
-        public void Post([FromBody] User value)
+        public void Register([FromBody] User value)
         {
             
         }
