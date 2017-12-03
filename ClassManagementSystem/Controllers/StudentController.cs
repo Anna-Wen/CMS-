@@ -8,7 +8,7 @@ namespace ClassManagementSystem.Controllers
 {
     public class StudentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult BasicInfo()
         {
             return View();
         }
