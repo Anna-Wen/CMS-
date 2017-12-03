@@ -52,16 +52,58 @@ namespace ClassManagementSystem.Controllers
 
         // POST: /signin
         [HttpPost("signin")]
-        public void Signin([FromBody] User value)
+        public IActionResult Signin([FromBody] dynamic json)
         {
+            User curUser = new Models.User();
+            curUser.Phone = json.Phone;
+            curUser.Password = json.Passsword;
 
+            // Username & Password Autherization
+            // 如果手机号/密码错误
+            if (curUser == null)
+                return Unauthorized();
+
+            // Get user info from database
+            curUser.Id = 3486;
+
+            // Create Token
+            // Get key from configuration
+            // Generate JWT
+            string jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaWQiOiJPQTAwMDEiLCJpYXQiOjE0ODI2NTcyODQyMjF9.TeJpy936w610Vrrm+c3+RXouCA9k1AX0Bk8qURkYkdo=";
+            // Set JWT into cookie
+            // Set cookie
+
+            return Ok(curUser);
+            // 怎么传JWT？？？
         }
 
         // POST: /register
         [HttpPost("register")]
-        public void Register([FromBody] User value)
+        public IActionResult Register([FromBody] dynamic json)
         {
-            
+            User curUser = new Models.User();
+            curUser.Phone = json.Phone;
+            curUser.Password = json.Password;
+
+            // Username & Password Autherization
+            // 如果手机号已注册
+            if (curUser == null)
+                return Unauthorized();
+
+            // Generate user info in database
+            curUser.Id = 3486;
+            curUser.Type = "unbinded";
+            curUser.Name = "";
+
+            // Create Token
+            // Get key from configuration
+            // Generate JWT
+            string jwt = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaWQiOiJPQTAwMDEiLCJpYXQiOjE0ODI2NTcyODQyMjF9.TeJpy936w610Vrrm+c3+RXouCA9k1AX0Bk8qURkYkdo=";
+            // Set JWT into cookie
+            // Set cookie
+
+            return Ok(curUser);
+            // 怎么传JWT？？？
         }
 
     }
