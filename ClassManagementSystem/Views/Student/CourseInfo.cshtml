@@ -34,18 +34,7 @@
         <div class="content">
             <div class="title">课程信息</div>
             <hr class="line" />
-
-
-            <div class="main_box_right_content">
-                <h3 class="classtitle">
-
-                    <button>退选课程</button>
-
-                </h3>
-                <hr />
-                <div class="classinfo" id="blueBlock"></div>
-            </div>
-
+            <div class="blueBlock"></div>
         </div>
         <div class="clear"></div>
     </div>
@@ -64,9 +53,15 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
+                            
+                             <div id="blueBlock"></div>
+                         </div>
+                             $("#blueBlock").append("<div class='main_box_right_content'><h3 class='classtitle'>'+data[i].name+'<button>退选课程</button> </h3><hr/>");
+                         $("#blueBlock").append("<div class='classinfo'>");
                          $("#blueBlock").append("<label style='margin- left:10 % '>班级 ： '+data[i].name+'</label>");
                          $("#blueBlock").append("<label style='margin- left:20 % '>课程地点 ： '+data[i].site+'</label><br />");
                          $("#blueBlock").append("<label style='margin- left:10 % '>教师 ： '+data[i].courseTeacher.name+'</label>");
+                         $("#blueBlock").append("</div>");
                      }
                  }
            });
