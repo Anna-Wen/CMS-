@@ -18,6 +18,6 @@ namespace ClassManagementSystem.Models
         public string Title { get; set; }
         public string Password { get; set; }
         public string UnionId { get; set; }
-        public string Avator { get; set; }
+        public string Avatar { get; set; }
     }
 }

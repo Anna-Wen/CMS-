@@ -27,7 +27,7 @@
             <div class="line"></div>
             <div class="courseIntroduction">
                 <a class="guidefont" href="#">基本信息</a>
-                <a class="guidefont" href="~/Views/Student/CourseInfo.cshtml">课程信息</a>
+                <a class="guidefont" href="~/Student/CourseInfo">课程信息</a>
                 <a class="guidefont" href="#">选择课程</a>
             </div>
         </div>
@@ -70,27 +70,29 @@
     <!-- <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function(){
-        	$("#userName").text("JasperMaik");
-        	$("#studentId").text("JasperMaik");
-        	 //  $.ajax({
-          //        type: "GET"
-        		//  url: "me",
-        		//  contentType:"application/json;charset=utf-8",
-        		//  data: 1,  //studet_id
-        		//  dataType: "json",
-        		//  success: function(data,status)
-        		//  {
-        		//	  $("#pic").attr("src",data.Avator);
-        		//	  $("#userName").text(data.Id);
-        		//	  $("#studentId").text(data.Number);
-        		//	  $("#studentName").text(data.Name);
-        		//	  $("#studentGender").text(data.Gender);
-        		//	  $("#studentSchool").text(data.School);
-        		//	  $("#studentEducation").text(data.Title);
-        		//	  $("#studentEmail").text(data.Email);
-        		//	  $("#studentPhone").text(data.Phone);
-        		//  }
-        		//});
+        	//$("#userName").text("JasperMaik");
+        	//$("#studentId").text("JasperMaik");
+        	   $.ajax({
+                  type: "GET",
+        		  url: "/me",
+        		  contentType:"application/json;charset=utf-8",
+        		  dataType: "json",
+        		  success: function(data,status)
+                  {
+        			  $("#pic").attr("src",data.avatar);
+        			  $("#userName").text(data.id);
+        			  $("#studentId").text(data.number);
+                      $("#studentName").text(data.name);
+                      if (data.gender == "male")
+                          $("#studentGender").text("男");
+                      else
+                          $("#studentGender").text("女");
+                      $("#studentSchool").text(data.school.name);
+        			  $("#studentEducation").text(data.title);
+        			  $("#studentEmail").text(data.email);
+        			  $("#studentPhone").text(data.phone);
+        		  }
+        		});
         	});
     </script>
     <script type="text/javascript">
@@ -111,29 +113,26 @@
         		$("#inputStudentName").val(studentInfo.Name);
         		$("#inputStudentGender").val(studentInfo.Gender);
         		$("#inputStudentSchool").val(studentInfo.School);
-        		$("#inputStudentEducation").val(studentInfo.Education);
+                $("#inputStudentEducation").val(studentInfo.Title);
         		$("#inputStudentEmail").val(studentInfo.Email);
         		$("#inputStudentPhone").val(studentInfo.Phone);
         		}
         	else{
-        		var studentInfo={Number: $("#inputStudentId").val(),
+                var studentInfo = {
+                        Number: $("#inputStudentId").val(),
                         Name:$("#inputStudentName").val(),
                         Gender:$("#inputStudentGender").val(),
                         School:$("#inputStudentSchool").val(),
                         Title:$("#inputStudentEducation").val(),
                         Email:$("#inputStudentEmail").val(),
-                        Phone:$("#inputStudentPhone").val()};
-        		$("[id^='input']").hide();
-        		$("[id^='student']").show();
-        		$("#up_sub").text("修改");
+                        Phone: $("#inputStudentPhone").val()
+                };
 
-        		$("#studentId").text(studentInfo.Number);
-        		$("#studentName").text(studentInfo.Name);
-        		$("#studentGender").text(studentInfo.Gender);
-        		$("#studentSchool").text(studentInfo.School);
-        		$("#studentEducation").text(studentInfo.Education);
-        		$("#studentEmail").text(studentInfo.Email);
-        		$("#studentPhone").text(studentInfo.Phone);
+
+                if (studentInfo.Gender == "男")
+                    studentInfo.Gender = "male";
+                else
+                    studentInfo.Gender = "female";
 
         		 $.ajax({
                      url: "/me",
@@ -141,8 +140,21 @@
                      contentType: "application/json;charset=utf-8",
                      dataType: "json",
                      data: JSON.stringify(studentInfo),
-                     success: function (data,status) {
+                     success: function (data, status) {
+                         $("[id^='input']").hide();
+                         $("[id^='student']").show();
+                         $("#up_sub").text("修改");
 
+                         $("#studentId").text(studentInfo.Number);
+                         $("#studentName").text(studentInfo.Name);
+                         if (studentInfo.Gender == "male")
+                             $("#studentGender").text("男");
+                         else
+                             $("#studentGender").text("女");
+                         $("#studentSchool").text(studentInfo.School);
+                         $("#studentEducation").text(studentInfo.Title);
+                         $("#studentEmail").text(studentInfo.Email);
+                         $("#studentPhone").text(studentInfo.Phone);
                       }
                      //error:
                  });
