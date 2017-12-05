@@ -54,9 +54,11 @@ namespace ClassManagementSystem.Controllers
         [HttpPost("signin")]
         public IActionResult Signin([FromBody] dynamic json)
         {
-            User curUser = new Models.User();
-            curUser.Phone = json.Phone;
-            curUser.Password = json.Passsword;
+            User curUser = new User
+            {
+                Phone = json.Phone,
+                Password = json.Passsword
+            };
 
             // Username & Password Autherization
             // 如果手机号/密码错误
@@ -65,6 +67,10 @@ namespace ClassManagementSystem.Controllers
 
             // Get user info from database
             curUser.Id = 3486;
+            if (curUser.Phone == "18999999999")
+                curUser.Type = "teacher";
+            else
+                curUser.Type = "student";
 
             // Create Token
             // Get key from configuration
@@ -81,9 +87,11 @@ namespace ClassManagementSystem.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] dynamic json)
         {
-            User curUser = new Models.User();
-            curUser.Phone = json.Phone;
-            curUser.Password = json.Password;
+            User curUser = new User
+            {
+                Phone = json.Phone,
+                Password = json.Password
+            };
 
             // Username & Password Autherization
             // 如果手机号已注册
