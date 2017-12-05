@@ -28,16 +28,6 @@
     </div>
     <div class="body">
         <div class="navigation">
-<<<<<<< HEAD
-            <div class="courseName">OOAD</div>
-            <div class="line"></div>
-            <div class="courseIntroduction">ooad is xxx</div>
-        </div>
-        <div class="content">
-            <div class="block">
-                <div class="title">XXXX</div>
-                <div class="returnButton">返回上一页</div>
-=======
             <div class="courseName" id="courseName"></div>
             <div class="line"></div>
             <div class="courseIntroduction" id="courseIntroduction"></div>
@@ -46,7 +36,6 @@
             <div class="block">
                 <div class="title" id="Title"></div>
                 <div class="returnButton" id="returnbtn">返回上一页</div>
->>>>>>> master
                 <div class="line"></div>
                 <div class="itemBody">
                     <div class="item">
@@ -67,19 +56,11 @@
                     <div class="item">
                         <label class="itemName">评分规则:</label>
                         <label class="itemName">讨论课分数占比</label>
-<<<<<<< HEAD
-                        <label class="itemName" id="classReport"></label>
-                        <input type="text" id="inputReport" style="display:none" />
-                        <label class="itemName"> 报告分数占比</label>
-                        <label class="itemName" id="classPresentation"></label>
-                        <input type="text" id="inputPresentation" style="display:none" />
-=======
                         <label class="itemName" id="classPresentation"></label>
                         <input type="text" id="inputPresentation" style="display:none" />
                         <label class="itemName"> 报告分数占比</label>
                         <label class="itemName" id="classReport"></label>
                         <input type="text" id="inputReport" style="display:none" />
->>>>>>> master
                     </div>
                     <div class="item" style="margin-left: 25%">
                         <label class="smallItemName">5分占比</label>
@@ -117,12 +98,8 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-<<<<<<< HEAD
-            var classId = window.location.href.split("=")[1];//当前班级号
-=======
             var courseId = window.location.href.split("=")[1];//当前课程id
             var classId = window.location.href.split("=")[2];//当前班级号
->>>>>>> master
 
             //初始化
             $.ajax({
@@ -132,18 +109,12 @@
                 success: function (data, status) {
 
                     //显示班级信息
-<<<<<<< HEAD
-                    $('#className').text(data.name);
-                    $('#classTime').text(data.time);
-                    $('#classSite').text(data.site);
-                    $('#classReport').text(data.proportions.report);//是这样写吗？？？取数组某一个数
-=======
                     $('#Title').text(data.name);
                     $('#className').text(data.name);
                     $('#classTime').text(data.time);
                     $('#classSite').text(data.site);
                     $('#classReport').text(data.proportions.report);
->>>>>>> master
+
                     $('#classPresentation').text(data.proportions.presentation);
                     $('#classC').text(data.proportions.c);
                     $('#classB').text(data.proportions.b);
@@ -152,8 +123,6 @@
                 }
             });//初始化结束
 
-<<<<<<< HEAD
-=======
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -174,20 +143,15 @@
                 }
             });
 
->>>>>>> master
+
         });
     </script>
     <script type="text/javascript">
        
         function update_submit() {
-<<<<<<< HEAD
-           // document.write("update");//--------------------
-            var courseId = window.location.href.split("=")[1];//当前班级号
-=======
             //document.write("update");//--------------------
             var classId = window.location.href.split("=")[1];//当前班级号
 
->>>>>>> master
             if ($("#up_sub").text() == "修改") {
                 var classInfo = {
                     Name: $("#className").text(),
@@ -201,10 +165,7 @@
                         A: $("#classA").text()
                     }
                 };
-<<<<<<< HEAD
-                document.write();//-----------------
-=======
->>>>>>> master
+
                 $("[id^='class']").hide();
                 $("[id^='input']").show();
                 $("#up_sub").text("提交");
@@ -220,18 +181,6 @@
 
             }
             else {
-<<<<<<< HEAD
-                var classInfo = {
-                    Name: $("#inputName").text(),
-                    Time: $("#inputTime").text(),
-                    Site: $("#inputSite").text(),
-                    Proportions: {
-                        Report: $("#inputReport").text(),
-                        Presentation: $("#inputPresentation").text(),
-                        C: $("#inputC").text(),
-                        B: $("#inputB").text(),
-                        A: $("#inputA").text()
-=======
 
                 var classInfo = {
                     Name: $("#inputName").val(),
@@ -243,7 +192,7 @@
                         C: $("#inputC").val(),
                         B: $("#inputB").val(),
                         A: $("#inputA").val()
->>>>>>> master
+
                     }
                 };
 
@@ -255,44 +204,6 @@
                     dataType: "json",
                     data: JSON.stringify(classInfo),
                     success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
-<<<<<<< HEAD
-                        //$("[id^='input']").hide();
-                        //$("[id^='class']").show();
-                        //$("#up_sub").text("修改");
-
-                        //$("#className").text(classInfo.Name);
-                        //$("#classSite").text(classInfo.Site);
-                        //$("#classTime").text(classInfo.Time);
-                        //$("#classReport").text(classInfo.Proportions[0]);
-                        //$("#classPresentation").text(classInfo.Proportions[1]);
-                        //$("#classC").text(classInfo.Proportions[2]);
-                        //$("#classB").text(classInfo.Proportions[3]);
-                        //$("#classA").text(classInfo.Proportions[4]);
-                    }
-                    //error:
-                });
-                $("[id^='input']").hide();
-                $("[id^='class']").show();
-                $("#up_sub").text("修改");
-
-                $("#className").text(classInfo.Name);
-                $("#classSite").text(classInfo.Site);
-                $("#classTime").text(classInfo.Time);
-                $("#classReport").text(classInfo.Proportions.Report);
-                $("#classPresentation").text(classInfo.Proportions.Presentation);
-                $("#classC").text(classInfo.Proportions.C);
-                $("#classB").text(classInfo.Proportions.B);
-                $("#classA").text(classInfo.Proportions.A);
-            }//else end
-            //document.write("update");//--------------
-        }//修改/确认点击结束
-    </script>
-    <script type="text/javascript">
-        //document.write("delete");//--------------------
-        var classId = window.location.href.split("=")[1];//classId
-        var courseId = window.location.href.split("=")[1];//courseId
-        var urlSkip = "/Teacher/CourseInfo/" + courseId;//跳转到课程内页首页？？？-------------------
-=======
                         $("[id^='input']").hide();
                         $("[id^='class']").show();
                         $("#up_sub").text("修改");
@@ -331,7 +242,6 @@
         var classId = window.location.href.split("=")[1];//classId
         var courseId = window.location.href.split("=")[1];//courseId
         var urlSkip = "/Teacher/CourseHome/" + courseId;
->>>>>>> master
         function delete_class() {
             $.ajax({
                 url: "/class/" + classId,
@@ -339,16 +249,6 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
-<<<<<<< HEAD
-                    window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
-                }
-
-            });
-            //document.write("delete");//--------------
-
-        }
-    </script>
-=======
                     //window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
                     window.history.go(-1);
                 }
@@ -358,7 +258,6 @@
         }
     </script>
 
->>>>>>> master
     <script type="text/javascript">
          function download() {
              var classId = window.location.href.split("=")[1];//当前班级号
