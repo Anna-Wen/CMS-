@@ -44,7 +44,11 @@ namespace ClassManagementSystem.Controllers
             //return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = null;
+            if (json.Proportions !=  null)
+            {
+                proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            }
             Seminar editedSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             //Change information in database
@@ -117,7 +121,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = int.Parse(json.GroupLimit), GroupMemberLimit = int.Parse(json.GroupMemberLimit) };
+            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
 
             // Store topic information in server and generate a id for this new topic
             newTopic.Id = 257;

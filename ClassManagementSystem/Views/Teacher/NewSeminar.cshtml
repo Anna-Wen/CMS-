@@ -4,6 +4,8 @@
 }
 
 
+<!--删除讨论课，add按钮，修改讨论课的跳转还没有写-->
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -28,14 +30,14 @@
     <div class="body">
         
         <div class="navigation">
-            <div class="courseName" id="courseName"></div>
+            <div class="courseName">OOAD</div>
             <div class="line"></div>
-            <div class="courseIntroduction" id="courseIntroduction"></div>
+            <div class="courseIntroduction"></div>
         </div>
         <div class="content">
             <div class="classInfo">
-                <div class="title" id="Title"></div>
-                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="title">讨论课1</div>
+                <div class="returnButton">返回上一页</div>
                 <div class="line"></div>
                 <div class="itemBody">
                     <div class="item">
@@ -67,7 +69,7 @@
                     <div class="item">
                         <button class="leftButton" id="score">评分</button>
                         <button class="middleButton" id="up_sub" onclick="update_submit()">修改</button>
-                        <button class="rightButton" id="delete">删除讨论课</button>
+                        <button class="rightButton" id="delete">删除讨论课 </button>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -76,8 +78,10 @@
                 <div class="title">Topic</div>
                 <div class="line"></div>
                 <br><br />
-                <div class="topicBlockBody" style="margin-left: 5%" id="topicButton">
-                    
+                <div class="topicBlockBody" style="margin-left: 5%">
+                    <div class="topicBlock"><div class="topicBlockFont">Topic A</div></div>
+                    <div class="topicBlock"><div class="topicBlockFont">Topic B</div></div>
+                    <div class="topicBlock" id="add"> <img src="../../Img/add.png" width="110" height="110"></div>
                 </div>
             </div>
 
@@ -90,106 +94,55 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var courseId = window.location.href.split("=")[1];//当前课程id
-            var seminarId = window.location.href.split("=")[2];
-            var seminarNO = window.location.href.split("=")[3];
-
-            //返回上一页按钮
-            var returnbtn = document.getElementById('returnbtn');
-            returnbtn.onclick = function () {
-                window.history.go(-1);
-            }; 
-            $('#Title').text("讨论课"+seminarNO);
-
-            //初始化   左侧
-            $.ajax({
-                type: 'GET',
-                url: '/course/' + courseId,
-                contentType: "application/json;charset=utf-8",
-                success: function (data, status) {
-
-                    $('#courseName').text(data.name);
-                    $('#courseIntroduction').text(data.description);
-                }
-            });
-
-            
-            //document.write("xxxx");
+            var seminarId = window.location.href.split("=")[1];//获得当前seminarId
             $.ajax({
                 type: 'GET',
                 url: '/seminar/' + seminarId,
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
-
                     $('#seName').text(data.name);
                     $('#seDescription').text(data.description);
                     $('#seGroupingMethod').text(data.groupingMethod);
                     $('#seStartTime').text(data.startTime);
                     $('#seEndTime').text(data.endTime);
-
-                    var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
-                    //var myDate = new Date();;     //获取当前时间
-                    //var endDay = data.endTime.split("/")[1];
-                    //var endMon = data.endTime.split("/")[2];
-                    //var endYear = data.endTime.split("/")[3];
-                    //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
-                    //alert(afterSeminar);
-
-
-                    for (var i = 0; i < data.topics.length; i++) {
-
-                        var url = "/Teacher/CheckTopic?index=" + courseId + "=" + data.topics[i].id + "=" + afterSeminar;  //传递话题id
-                        $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
-                    }
-                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='../../Img / add.png' width='110' height='110'></div>");
                 }
             });
         })
     </script>
     <script type="text/javascript">
-        $('#delete').click(function () {
-            var seminarId = window.location.href.split("=")[1];
-            $ajax({
-                type: "DELETE",
-                url: "/seminar/" + seminarId,
-                data: "1",
-                success: function (data) {
-                    alert("delete success！");
-                    window.history.go(-1);
-                }
-                //error: function (err) {
-                //    alert(err);
-                //}
+            $("#delete").click(function () {
+                var seminarId = window.location.href.split("=")[1];
+                $ajax({
+                    type: "DELETE",
+                    url: "/seminar/" + seminarId,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data,status) {
+                        alert("delete success！" + data);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
             });
-        });
             $("#score").click(function () {
-                
-                var url = "/Teacher/TeacherScoreHome?index=" + courseId+"=" + seminarId;
+                var index = "1";
+                var url = "/Teacher/TeacherScoreReportPage?index=" + index;//这个页面还没写
                 window.location.href = url;
-        });
+            });
+            $("#add").click(function () {//跳转到创建讨论课的地方
+                var index = "1";
+                var url = "/Teacher/CreateTopic?index=" + index;
+                window.location.href = url;
+            });
 
-
-            //$("#edit").click(function () {
-            //    //document.write("edit");//-----------
-            //    var index = "1";
-            //    var url = "/Teacher/TeacherEditSeminarPage?index=" + index;
-            //    window.location.href = url;
-            //});
-            //$("#add").click(function () {
-            //    document.write("add");//---------------
-            //    var index = "1";
-            //    var url = "/Teacher/CreateTopic?index=" + index;
-            //    window.location.href = url;
-            //});
     </script>
-
     <script type="text/javascript">
             function update_submit() {
                 var seminarId = window.location.href.split("=")[1];//当前讨论课号
                 if ($("#up_sub").text() == "修改") {
                     var seminarInfo = {
                         Name: $("#seName").text(),
-                        Description: $("#seDescription").text(),
+                        Description: $("#seDescription").text(),  
                         GroupingMethod: $("#seGroupingMethod").text(),
                         StartTime: $("#seStartTime").text(),
                         EndTime: $("#seEndTime").text()
@@ -212,7 +165,7 @@
                         GroupingMethod: $("#inputGroupingMethod").val(),
                         StartTime: $("#inputStartTime").val(),
                         EndTime: $("#inputEndTime").val()
-
+                     
                     };
 
                     $.ajax({
@@ -245,10 +198,9 @@
                     $("#seStartTime").text(seminarInfo.StartTime);
                     $("#seEndTime").text(seminarInfo.EndTime);
                 }//else end
-
+                //document.write("update");//--------------
             }//修改/确认点击结束
     </script>
-
 </body>
 </html>
 

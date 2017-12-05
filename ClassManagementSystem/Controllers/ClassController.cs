@@ -61,7 +61,11 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = null;
+            if (json.Proportions != null)
+            {
+                proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            }
             Class editedClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
 
             //Change information in database
@@ -124,7 +128,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClass = new Student { Id = json.Id };
 
             // Judge and store class-student information in server
             
@@ -189,7 +193,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClassGroup = new Student { Id = json.Id };
 
             // Add student in classgroup database
 
@@ -210,7 +214,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClassGroup = new Student { Id = json.Id };
 
             // Remove student from this classgroup database
 

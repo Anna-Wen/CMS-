@@ -33,7 +33,9 @@
 
                         $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>" + data[i].name + "</div></div>");
                     }
-                    $('#classButton').append("<div class='block'><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+
+                    var url = "/Teacher/CreateClass?index=" + courseId ;  //
+                    $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
 
                 }
             });
