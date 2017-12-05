@@ -16,6 +16,6 @@ namespace ClassManagementSystem.Models
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Description { get; set; }
-        public int[] Proportions { get; set; }
+        public GradeProportion Proportions { get; set; }
     }
 }
