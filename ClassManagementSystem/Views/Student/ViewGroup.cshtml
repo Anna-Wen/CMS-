@@ -17,6 +17,8 @@
     <script>
         $(document).ready(function () { 
             var classId = 1;  //班级id从哪里来不懂
+            var courseId = 1;
+
 
             //返回上一页按钮
             var returnbtn = document.getElementById('returnbtn');
@@ -51,6 +53,8 @@
                 });
             };
 
+           
+
             //动态生成下方学生名单
             var a = function (u) {
                 
@@ -73,23 +77,23 @@
                             var Imid= "#add" + rowNO;
                             //下方学生名单的添加事件
                             $(Imid).on('click', function () {
-                                var mytable = document.getElementById('studenttable2');
-                                var a = mytable.rows[rowNO].cells[0].getElementsByTagName("tdnumber");
-                                alert(a);
+                                //var mytable = document.getElementById('studenttable2');
+                                //var a = mytable.rows[rowNO].cells[0].getElementsByTagName("tdnumber");
+                                alert('你已添加该队员！');
 
 
 
 
-                                //上方学生表格添加学生
-                                var tab = document.getElementById("studenttable1");
+                                ////上方学生表格添加学生
+                                //var tab = document.getElementById("studenttable1");
 
-                                var rows = tab.rows.length;//表格行数
-                                if (rows % 2 == 1)//下一行为双行
-                                    $('#studenttable1').append("<tr id='" + (rows + 1) + "'><td>队员</td><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
-                                else//下一行为单行
-                                    $('#studenttable1').append("<tr class='studenttabletralt' id='" + (rows + 1) + "'><td>队员</td><td'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
+                                //var rows = tab.rows.length;//表格行数
+                                //if (rows % 2 == 1)//下一行为双行
+                                //    $('#studenttable1').append("<tr id='" + (rows + 1) + "'><td>队员</td><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
+                                //else//下一行为单行
+                                //    $('#studenttable1').append("<tr class='studenttabletralt' id='" + (rows + 1) + "'><td>队员</td><td'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
 
-                                addGroupMembers(data[i]);
+                                //addGroupMembers(data[i]);
                             });
                         }
                      }
@@ -112,11 +116,15 @@
 
                 var rows = tab.rows.length;//表格行数
                 for (var i = 0; i < rows; i++) {
-                    var id = "#" + (i + 1);
-                    $(id).append("<td><img id='delete' src='.\home.png'></td>");
+                    var id1 = "#" + (i + 1);
+                    $(id1).append("<td><img id='delete" + (i + 1)+"' src='.\home.png'></td>");
 
+                    var id2 = "#delete" + (i + 1);
+                    $(id2).on('click', function () {
+                        alert('你已删除该队员！');
+                    });
                     //上方学生名单的删除图标
-                    $('#delete').on('click', function () { $(id).remove();});
+                    //$(id2).on('click', function () { $(id1).remove();});
                 }
 
                 $('#content').append("<div class='block' id='block2'><div class='title'>添加队员</div><div class='line'></div><div class='itemBody'><div class='item'><label class='itemName'>学号：</label><input type='text'id='NumberInput'><label class='itemName'>姓名：</label><input type='text' id='NameInput'><div class='returnButton' id='check'>查询</div></div></div></div>");
