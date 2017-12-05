@@ -29,6 +29,21 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+        public IActionResult CreateClass()
+        {
+            return View();
+        }
+
+        public IActionResult UpdateClassInfo()
+        {
+            return View();
+        }
+
+        public IActionResult CheckClassInfo()
+        {
+            return View();
+        }
+
         // PUT: /{topicId}
         [HttpPut("{topicId}")]
         public IActionResult Put(int topicId)
