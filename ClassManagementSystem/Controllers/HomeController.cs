@@ -10,7 +10,7 @@ namespace ClassManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult AccountLoginPage()
+        public IActionResult AccountLogin()
         {
             return View();
         }

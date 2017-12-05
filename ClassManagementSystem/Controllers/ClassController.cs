@@ -61,7 +61,11 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = null;
+            if (json.Proportions != null)
+            {
+                proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            }
             Class editedClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
 
             //Change information in database

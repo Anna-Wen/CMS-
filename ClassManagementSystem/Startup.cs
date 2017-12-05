@@ -43,6 +43,7 @@ namespace ClassManagementSystem
             {
                 routes.MapRoute(
                     name: "default",
+<<<<<<< HEAD
 
                     //template: "{controller=Student}/{action=StudentCourseHome}/{id?}");
                     //template: "{controller=Teacher}/{action=NewSeminar}/{id?}");
@@ -54,6 +55,9 @@ namespace ClassManagementSystem
                     //template: "{controller=Teacher}/{action=Bind}/{id?}");
                     //template: "{controller=Home}/{action=AccountLoginPage}/{id?}");
                     template: "{controller=Home}/{action=Register}/{id?}");
+=======
+                    template: "{controller=Home}/{action=AccountLogin}/{id?}");
+>>>>>>> master
             });
         }
     }

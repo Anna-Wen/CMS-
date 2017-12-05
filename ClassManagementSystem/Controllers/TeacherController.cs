@@ -28,7 +28,7 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
-        public IActionResult TeacherScoreReportPage()
+        public IActionResult TeacherScoreReport()
         {
             return View();
         }
@@ -47,7 +47,7 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult TeacherCourseHome()
+        public IActionResult TeacherCourseInformation()
         {
             return View();
         }
@@ -74,6 +74,10 @@ namespace ClassManagementSystem.Controllers
 
        
         public IActionResult CheckSeminar()
+        {
+            return View();
+        }
+        public IActionResult CheckTopic()
         {
             return View();
         }

@@ -23,14 +23,14 @@
     </div>
     <div class="body">
         <div class="navigation">
-            <div class="courseName">OOAD</div>
+            <div class="courseName" id="courseName"></div>
             <div class="line"></div>
-            <div class="courseIntroduction">ooad is xxx</div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
         </div>
         <div class="content">
             <div class="block">
                 <div class="title">创建班级</div>
-                <div class="returnButton">返回上一页</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
                 <div class="line"></div>
                 <div class="itemBody">
                     <div class="item">
@@ -77,7 +77,28 @@
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript">
-           
+            $(document).ready(function () {
+                var courseId = window.location.href.split("=")[1];//当前课程id
+
+                //返回上一页按钮
+                var returnbtn = document.getElementById('returnbtn');
+                returnbtn.onclick = function () {
+                    window.history.go(-1);
+                };
+                //初始化   左侧
+                $.ajax({
+                    type: 'GET',
+                    url: '/course/' + courseId,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        $('#courseName').text(data.name);
+                        $('#courseIntroduction').text(data.description);
+                    }
+                });
+            });
+
+
             //提交新建课程信息
             function submitClassInfo() {
                 var courseId = 1;//window.location.href.split("=")[1];//当前courseId

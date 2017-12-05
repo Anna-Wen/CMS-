@@ -24,7 +24,11 @@
         <div class="navigation">
             <div class="title">导航</div>
             <div class="line"></div>
-            <div class="courseIntroduction"><a class="guidefont" href="/Student/BasicInfo">基本信息</a> <a class="guidefont" href="#">课程信息</a> <a class="guidefont" href="/Student/">选择课程</a></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="/Student/BasicInfo">基本信息</a> 
+                <a class="guidefont" href="#">课程信息</a> 
+                <a class="guidefont" href="/Student/ChooseCourse">选择课程</a>
+            </div>
         </div>
         <div class="content" id="mainContent">
             <div class="title">课程信息</div>
@@ -44,12 +48,13 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
-                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(data[i].courseId)' id=data[i].id>< h3 class='classtitle' >");
-                         $("#mainContent").append("<span id='course'>"+data[i].courseName+"</span>");
-                         $("#mainContent").append("<button onclick='quit(data[i].id)'>退选课程</button></h3 ><div class='divideline'></div><div class='classinfo'><table class='table'><tr>");
-                         $("#mainContent").append("<td class='tabletext'>班级：<span id='name'>'+data[i].time+'</span></td>< td class='tabletext' id= 'site' > 课程地点：'+data[i].site+'</td ></tr ><tr>");
-                         $("#mainContent").append("<td class='tabletext' id='teacher'>教师：'+data[i].courseTeacher.name+'</td>< td class='tabletext' ></td ></tr ></table ></div >");
-                         $("#mainContent").append("</div>");
+                         $("#mainContent").append("<br/>");
+                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(" + data[i].courseId + ")' id=" + data[i].id + "><h3 class='classtitle'>"
+                            +"<span id='course'>"+ data[i].courseName + "</span>"
+                            +"<button onclick='quit("+data[i].id+")'>退选课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr>"
+                            +"<td class='tabletext'>班级：<span id='name'>"+data[i].time+"</span></td><td class='tabletext' id= 'site'> 课程地点："+data[i].site+"</td></tr><tr>"
+                            +"<td class='tabletext' id='teacher'>教师："+data[i].courseTeacher.name+"</td><td class='tabletext' ></td></tr></table></div>"
+                            +"</div>");
                      }
                  }
            });
