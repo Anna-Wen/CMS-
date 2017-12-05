@@ -4,8 +4,6 @@
 }
 
 
-<!--删除讨论课，add按钮，修改讨论课的跳转还没有写-->
-
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -30,7 +28,7 @@
     <div class="body">
         
         <div class="navigation">
-            <div class="courseName" id="courseName">OOAD</div>
+            <div class="courseName" id="courseName"></div>
             <div class="line"></div>
             <div class="courseIntroduction" id="courseIntroduction"></div>
         </div>
@@ -42,28 +40,33 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">讨论课名称:</label>
-                        <label class="itemName" id="sName"></label>
+                        <label class="itemName" id="seName"></label>
+                        <input type="text" id="inputName" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">讨论课说明:</label>
-                        <label class="itemName" id="sDescription"></label>
+                        <label class="itemName" id="seDescription"></label>
+                        <input type="text" id="inputDescription" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">分 组 方 式:</label>
-                        <label class="itemName" id="sGroupingMethod"></label>
+                        <label class="itemName" id="seGroupingMethod"></label>
+                        <input type="text" id="inputGroupingMethod" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">开 始 时 间:</label>
-                        <label class="itemName" id="sStartTime"></label>
+                        <label class="itemName" id="seStartTime"></label>
+                        <input type="text" id="inputStartTime" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">结 束 时 间:</label>
-                        <label class="itemName" id="sEndTime"></label>
+                        <label class="itemName" id="seEndTime"></label>
+                        <input type="text" id="inputEndTime" style="display:none" />
                     </div>
 
                     <div class="item">
                         <button class="leftButton" id="score">评分</button>
-                        <button class="middleButton" id="edit">修改</button>
+                        <button class="middleButton" id="up_sub" onclick="update_submit()">修改</button>
                         <button class="rightButton" id="delete">删除讨论课</button>
                         <div class="clear"></div>
                     </div>
@@ -118,11 +121,11 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
 
-                    $('#sName').text(data.name);
-                    $('#sDescription').text(data.description);
-                    $('#sGroupingMethod').text(data.groupingMethod);
-                    $('#sStartTime').text(data.startTime);
-                    $('#sEndTime').text(data.endTime);
+                    $('#seName').text(data.name);
+                    $('#seDescription').text(data.description);
+                    $('#seGroupingMethod').text(data.groupingMethod);
+                    $('#seStartTime').text(data.startTime);
+                    $('#seEndTime').text(data.endTime);
 
                     var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
                     //var myDate = new Date();;     //获取当前时间
@@ -179,6 +182,73 @@
             //    window.location.href = url;
             //});
     </script>
+
+    <script type="text/javascript">
+            function update_submit() {
+                var seminarId = window.location.href.split("=")[1];//当前讨论课号
+                if ($("#up_sub").text() == "修改") {
+                    var seminarInfo = {
+                        Name: $("#seName").text(),
+                        Description: $("#seDescription").text(),
+                        GroupingMethod: $("#seGroupingMethod").text(),
+                        StartTime: $("#seStartTime").text(),
+                        EndTime: $("#seEndTime").text()
+                    };
+                    $("[id^='se']").hide();
+                    $("[id^='input']").show();
+                    $("#up_sub").text("提交");
+
+                    $("#inputName").val(seminarInfo.Name);
+                    $("#inputDescription").val(seminarInfo.Description);
+                    $("#inputGroupingMethod").val(seminarInfo.GroupingMethod);
+                    $("#inputStartTime").val(seminarInfo.StartTime);
+                    $("#inputEndTime").val(seminarInfo.EndTime);
+
+                }
+                else {
+                    var seminarInfo = {
+                        Name: $("#inputName").val(),
+                        Description: $("#inputDescription").val(),
+                        GroupingMethod: $("#inputGroupingMethod").val(),
+                        StartTime: $("#inputStartTime").val(),
+                        EndTime: $("#inputEndTime").val()
+
+                    };
+
+                    $.ajax({
+
+                        url: "/seminar/" + seminarId,
+                        type: "PUT",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(seminarInfo),
+                        success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+                            $("[id^='input']").hide();
+                            $("[id^='se']").show();
+                            $("#up_sub").text("修改");
+
+                            $("#seName").text(seminarInfo.Name);
+                            $("#seDescription").text(seminarInfo.Description);
+                            $("#seGroupingMethod").text(seminarInfo.GroupingMethod);
+                            $("#seStartTime").text(seminarInfo.StartTime);
+                            $("#seEndTime").text(seminarInfo.EndTime);
+                        }
+                        //error:
+                    });
+                    $("[id^='input']").hide();
+                    $("[id^='se']").show();
+                    $("#up_sub").text("修改");
+
+                    $("#seName").text(seminarInfo.Name);
+                    $("#seDescription").text(seminarInfo.Description);
+                    $("#seGroupingMethod").text(seminarInfo.GroupingMethod);
+                    $("#seStartTime").text(seminarInfo.StartTime);
+                    $("#seEndTime").text(seminarInfo.EndTime);
+                }//else end
+
+            }//修改/确认点击结束
+    </script>
+
 </body>
 </html>
 

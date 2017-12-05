@@ -42,7 +42,7 @@
 
         $("#post").click(function() {
             var ata = { Id: document.getElementById("serialId"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
-            document.write($("#Id").val());
+            
             
             $.ajax({
                 type: 'POST',
@@ -53,13 +53,13 @@
                 success: function (data) {
                     window.history.go(-1);
                 },
-                error: function (err) {
-                    alert(err)
-                }
+                //error: function (err) {
+                //    alert(err)
+                //}
             });
         });
         $("#reset").click(function () {
-            document.write($("#Id").val());
+            
             $("#Id").empty;
             $("#Name").empty;
             $("#Description").empty;
