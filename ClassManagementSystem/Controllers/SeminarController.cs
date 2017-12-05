@@ -38,9 +38,6 @@ namespace ClassManagementSystem.Controllers
         [HttpPut("{seminarId}")]
         public IActionResult PutSeminar(int seminarId, [FromBody]dynamic json)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             //Authentication
             //When user's permission denied
             //if(false)
@@ -56,7 +53,6 @@ namespace ClassManagementSystem.Controllers
 
             //Success
             return NoContent();
->>>>>>> Anna's
         }
 
         // DELETE: /seminar/{seminarId}

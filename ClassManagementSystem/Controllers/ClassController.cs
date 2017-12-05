@@ -16,9 +16,6 @@ namespace ClassManagementSystem.Controllers
         [HttpGet]
         public IActionResult GetClassListFromQuery([FromQuery]string courseName, [FromQuery]string courseTeacher)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             // Fetch selected class list from database
             List<CourseClass> classList = new List<CourseClass>
             {
@@ -36,7 +33,6 @@ namespace ClassManagementSystem.Controllers
             
             // Success
             return Json(classList);
->>>>>>> Anna's
         }
 
         // GET: /class/{classId}
@@ -50,9 +46,6 @@ namespace ClassManagementSystem.Controllers
         [HttpPut("{classId}")]
         public IActionResult PutClass(int classId, [FromBody]dynamic json)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             //Authentication
             //When user's permission denied
             //if(false)
@@ -68,7 +61,6 @@ namespace ClassManagementSystem.Controllers
 
             //Success
             return NoContent();
->>>>>>> Anna's
         }
 
         // DELETE: /class/{classId}
@@ -107,9 +99,6 @@ namespace ClassManagementSystem.Controllers
         [HttpPost("{classId}/student")]
         public IActionResult PostStudentUnderClass(int classId, [FromBody]dynamic json)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             //Authentication
             //When user's permission denied
             //if(false)
@@ -126,7 +115,6 @@ namespace ClassManagementSystem.Controllers
             // Return class id & student id
             string uri = "/class/" + classId + "/student/" + newStudentInClass.Id;
             return Created(uri, newStudentInClass);
->>>>>>> Anna's
         }
 
         // DELETE: /class/{classId}/student/{studentId}
@@ -165,9 +153,6 @@ namespace ClassManagementSystem.Controllers
         [HttpPut("{classId}/classgroup/add")]
         public IActionResult AddMemberIntoClassGroup(int classId, [FromBody]dynamic json)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             //Authentication
             //When user's permission denied (not in this group / not leader)
             //if(false)
@@ -183,16 +168,12 @@ namespace ClassManagementSystem.Controllers
 
             // Success
             return NoContent(); 
->>>>>>> Anna's
         }
 
         // PUT: /class/{classId}/classgroup/remove
         [HttpPut("{classId}/classgroup/remove")]
         public IActionResult RemoveMemberIntoClassGroup(int classId, [FromBody]dynamic json)
         {
-<<<<<<< HEAD
-            return Ok();
-=======
             //Authentication
             //When user's permission denied (not in this group / not leader)
             //if(false)
@@ -208,7 +189,6 @@ namespace ClassManagementSystem.Controllers
 
             // Success
             return NoContent();         
->>>>>>> Anna's
         }
 
     }

@@ -42,12 +42,8 @@ namespace ClassManagementSystem.Controllers
             newCourse.Id = 23;
 
             // Return course id
-<<<<<<< HEAD
-            return Created("/Course/" + newCourse.Id, newCourse);
-=======
             string uri = "/course/" + newCourse.Id;
             return Created(uri, newCourse);
->>>>>>> Anna's
         }
 
         // GET: /course/{courseId}
@@ -135,14 +131,9 @@ namespace ClassManagementSystem.Controllers
             // Store course information in server and generate a id for this new class
             newClass.Id = 45;
 
-<<<<<<< HEAD
-            // Return course id
-            return Created("/Class/" + newClass.Id, newClass);
-=======
             // Return class id
             string uri = "/class/" + newClass.Id;
             return Created(uri, newClass);
->>>>>>> Anna's
         }
 
         // GET: /course/{courseId}/seminar?embedGrade=false
@@ -186,14 +177,9 @@ namespace ClassManagementSystem.Controllers
             // Store course information in server and generate a id for this new seminar
             newSeminar.Id = 32;
 
-<<<<<<< HEAD
-            // Return course id
-            return Created("/Seminar/" + newSeminar.Id, newSeminar);
-=======
             // Return seminar id
             string uri = "/seminar/" + newSeminar.Id;
             return Created(uri, newSeminar);
->>>>>>> Anna's
         }
 
         // GET: /course/{courseId}/grade
