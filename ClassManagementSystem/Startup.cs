@@ -43,8 +43,9 @@ namespace ClassManagementSystem
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Teacher}/{action=CreateClass}/{id?}");
-            });
+                    template: "{controller=Teacher}/{action=CheckClassInfo}/{id?}");
+                    //template: "{controller=Teacher}/{action=CreateClass}/{id?}");
+        });
         }
     }
 }

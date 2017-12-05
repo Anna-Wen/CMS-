@@ -33,11 +33,7 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
-
-        public IActionResult UpdateClassInfo()
-        {
-            return View();
-        }
+        
 
         public IActionResult CheckClassInfo()
         {

@@ -1,0 +1,216 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>班级信息</title>
+    <link rel="stylesheet" href="../../css/teacher/content.css">
+
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">XXXX</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">班级名称:</label>
+                        <label class="itemName" id="className">周三1-2节</label>
+                        <input type="text" id="inputName" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课地点:</label>
+                        <label class="itemName" id="classSite">海韵212</label>
+                        <input type="text" id="inputSite" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课时间:</label>
+                        <label class="itemName" id="classTime">单周周一12节</label>
+                        <input type="text" id="inputTime" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">评分规则:</label>
+                        <label class="itemName">讨论课分数占比</label>
+                        <label class="itemName" id="classReport">60% </label>
+                        <input type="text" id="inputReport" style="display:none" />
+                        <label class="itemName"> 报告分数占比</label>
+                        <label class="itemName" id="classPresentation">40%</label>
+                        <input type="text" id="inputPresentation" style="display:none" />
+                    </div>
+                    <div class="item" style="margin-left: 25%">
+                        <label class="smallItemName">5分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classC">30%</label>
+                        <input type="text" id="inputC" style="display:none" />
+
+                        <label class="smallItemName">4分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classB">40%</label>
+                        <input type="text" id="inputB" style="display:none" />
+
+                        <label class="smallItemName">3分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classA">30%</label>
+                        <input type="text" id="inputA" style="display:none" />
+                    </div>
+
+                    <div class="item">
+                        <label class="itemName">导入学生名单:</label>
+                        <button class="selectFile">下载文件</button>
+                    </div>
+                    <div class="item">
+                        <button class="submit" id="up_sub" onclick="">修改</button>
+                        <button class="reset" id="delete">删除班级</button>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="clear"></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var classId = window.location.href.split("=")[1];//当前班级号
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    //显示班级信息
+                    $('#className').text(data.name);
+                    $('#classTime').text(data.time);
+                    $('#classSite').text(data.site);
+                    $('#classReport').text(data.proportions[0]);//是这样写吗？？？取数组某一个数
+                    $('#classPresentation').text(data.proportions[1]);
+                    $('#classC').text(data.proportions[2]);
+                    $('#classB').text(data.proportions[3]);
+                    $('#classA').text(data.proportions[4]);
+
+                }
+            });//初始化结束
+
+        });
+    </script>
+    <script type="text/javascript">
+       
+
+        function update_submit() {
+            var courseId = window.location.href.split("=")[1];//当前班级号
+            if ($("#up_sub").text() == "修改") {
+                var classInfo = {
+                    Name: $("#className").text(),
+                    Time: $("#classTime").text(),  //修改时 时间不用显示
+                    Site: $("#site").text(),
+                    //Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
+                    Proportions: [$("#report").text(), $("#presentation").text(), $("#c").text(), $("#b").text(), $("#a").text()]
+                };
+                $("[id^='class']").hide();
+                $("[id^='input']").show();
+                $("#up_sub").text("提交");
+
+                $("#inputName").val(classInfo.className);
+                $("#inputSite").val(classInfo.classSite);
+                $("#inputReport").val(classInfo.classReport);
+                $("#inputPresentation").val(classInfo.classPresentation);
+                $("#inputC").val(classInfo.classC);
+                $("#inputB").val(classInfo.classB);
+                $("#inputA").val(classInfo.classA);
+
+            }
+            else {
+                var classInfo = {
+                    Name: $("#inputName").text(),
+                    Time: $("#inputTime").text(),
+                    Site: $("#inputSite").text(),
+                    //Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
+                    Proportions: [$("#inputReport").text(), $("#inputPresentation").text(), $("#inputC").text(), $("#inputB").text(), $("#inputA").text()]
+                };
+
+                $.ajax({
+
+                    url: "/class/" + classId,
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(classInfo),
+                    success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+                        //$("[id^='input']").hide();
+                        //$("[id^='class']").show();
+                        //$("#up_sub").text("修改");
+
+                        //$("#className").text(classInfo.Name);
+                        //$("#classSite").text(classInfo.Site);
+                        //$("#classTime").text(classInfo.Time);
+                        //$("#classReport").text(classInfo.Proportions[0]);
+                        //$("#classPresentation").text(classInfo.Proportions[1]);
+                        //$("#classC").text(classInfo.Proportions[2]);
+                        //$("#classB").text(classInfo.Proportions[3]);
+                        //$("#classA").text(classInfo.Proportions[4]);
+                    }
+                    //error:
+                });
+                $("[id^='input']").hide();
+                $("[id^='class']").show();
+                $("#up_sub").text("修改");
+
+                $("#className").text(classInfo.Name);
+                $("#classSite").text(classInfo.Site);
+                $("#classTime").text(classInfo.Time);
+                $("#classReport").text(classInfo.Proportions[0]);
+                $("#classPresentation").text(classInfo.Proportions[1]);
+                $("#classC").text(classInfo.Proportions[2]);
+                $("#classB").text(classInfo.Proportions[3]);
+                $("#classA").text(classInfo.Proportions[4]);
+            }//else end
+
+        }//修改/确认点击结束
+    </script>
+    <script type="text/javascript">
+        var courseId = window.location.href.split("=")[1];//courseId当前讨论课所在SeminarId（如何传递两个ID，前面是TopicID)
+        var urlSkip = "/Teacher/CourseInfo/" + courseId;//跳转到课程内页首页？？？-------------------
+        function delete_topic() {
+            $.ajax({
+                url: "/topic/" + courseId,
+                typt: "DELETE",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
+                }
+
+            });
+
+        }
+    </script>
+</body>
+</html>

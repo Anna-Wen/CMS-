@@ -35,36 +35,15 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">班级名称:</label>
-                        <input type="text" name="className" id="name" class="bigInput">
+                        <input type="text" id="name" class="bigInput">
                     </div>
                     <div class="item">
                         <label class="itemName">上课地点:</label>
-                        <input type="text" name="classNickname" id="site" class="bigInput">
+                        <input type="text"  id="site" class="bigInput">
                     </div>
                     <div class="item">
                         <label class="itemName">上课时间:</label>
-                        <select class="bigSelect" id="time1">
-                            <option value="danzhou">单周</option>
-                            <option value="shuangzhou">双周</option>
-                            <option value="meizhou">每周</option>
-                        </select>
-                        <select class="smallSelect" id="time2">
-                            <option value="1">周一</option>
-                            <option value="2">周二</option>
-                            <option value="3">周三</option>
-                            <option value="4">周四</option>
-                            <option value="5">周五</option>
-                            <option value="6">周六</option>
-                            <option value="7">周日</option>
-                        </select>
-                        <select class="smallSelect" id="time3">
-                            <option value="12">1/2节</option>
-                            <option value="34">3/4节</option>
-                            <option value="56">5/6节</option>
-                            <option value="78">7/8节</option>
-                            <option value="910">9/10节</option>
-                        </select>
-                        <button class="addButton" id="addTime">添加</button>
+                        <input type="text" id="time" class="bigInput">
                     </div>
                     <div class="item">
                         <label class="itemName">评分规则:</label>
@@ -98,17 +77,15 @@
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script type="text/javascript">
-            $(document).ready(function () {
+           
+            //提交新建课程信息
+            function submitClassInfo() {
                 var courseId = 1;//window.location.href.split("=")[1];//当前courseId
                 //document.write(courseId);
                 var urlSkip = "/Teacher/CourseInfo" + courseId;//跳转到课程内页首页？？？-------------------
-            });
-            //提交新建课程信息
-            function submitClassInfo() {
-                document.write(courseId);
             var classInfo = {
                 Name: $("#name").text(),
-                Time: $("#time1").text() + " " + $("#time2").text() + " " + $("#time3").text(),
+                Time: $("#time").text(),
                 Site: $("#site").text(),
                 Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
                 //Proportions: [$("#report").text(), $("#presentation").text(), $("#c").text(), $("#b").text(), $("#a").text()]
@@ -130,6 +107,7 @@
             $("#name").val("");
             $("#site").val("");
             $("#report").val("");
+            $("#time").val("");
             $("#presentation").val("");
             $("#c").val("");
             $("#b").val("");
