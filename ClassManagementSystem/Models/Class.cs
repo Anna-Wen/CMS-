@@ -14,6 +14,6 @@ namespace ClassManagementSystem.Models
         public string Site { get; set; }
         public bool Calling { get; set; }
         public string Roster { get; set; }
-        public int[] Proportions { get; set; }
+        public GradeProportion Proportions { get; set; }
     }
 }
