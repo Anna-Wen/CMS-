@@ -73,7 +73,7 @@
         <div class="item2">
             <label class="itemName">评分:</label>
             <input type="text" placeholder="3-5" id="inputScore" />
-            <button class="itemName" onclick="scoreReport">确认打分</button>
+            <button class="itemName" onclick="scoreReport()">确认打分</button>
         </div>
     </div>
     @*<div class="body">
@@ -93,10 +93,10 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         $(document).ready(function () {
-            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
+            var groupId = getQueryString("groupId");  //获得上一个页面传来的小组ID
             $.ajax({
                 type: "GET",
-                url: "/group/{groupId}",
+                url: "/group/"+groupId,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
@@ -119,23 +119,20 @@
         }
 
         function scoreReport() {
-            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
+            var groupId = getQueryString("groupId");  //获得上一个页面传来的小组ID
             var score = $("#inputScore").val();
             if (score >= 3 && score <= 5)  //输入合法???
             {
                 var reportGrade = { reportGrade: score };
                 $.ajax({
-                    url: "/group/{groupId}/grade/report",
+                    url: "/group/" + groupId + "/grade/report",
                     type: "PUT",
                     contentType: "application/json;charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(reportGrade),
                     success: function (data, status) {
-                        if (status == 204) //成功???
-                        {
-                            alert("报告分数已提交！");
-                            window.history.back();
-                        }
+                        alert("报告分数已提交！");
+                        window.history.back();
                     }
                     //error:
                 });
