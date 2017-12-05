@@ -141,7 +141,7 @@ namespace ClassManagementSystem.Controllers
             List<Student> memberList = new List<Student> { s1, s2 };
             List<Topic> t1 = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 } };
             List<Topic> t2 = new List<Topic> { new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 } };
-            List<Topic> t3 = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 }
+            List<Topic> t3 = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 },
                                                     new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 } };
             SeminarGrade sg1 = new SeminarGrade { PresentationGrade = new List<int> {5}, ReportGrade = 5, Grade = 5 };
             SeminarGrade sg2 = new SeminarGrade { PresentationGrade = new List<int> {4}, ReportGrade = 4, Grade = 4 };

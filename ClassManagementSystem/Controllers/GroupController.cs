@@ -15,7 +15,7 @@ namespace ClassManagementSystem.Controllers
 
         // GET: /group/{groupId}?embedTopics={true|false}&embedGrade={true|false}
         [HttpGet("{groupId}")]
-        public IActionResult GetGroupByGroupId(int groupId, [FromQuery]bool embedTopics, [From]bool embedGrade)
+        public IActionResult GetGroupByGroupId(int groupId, [FromQuery]bool embedTopics, [FromQuery]bool embedGrade)
         {
             // Fetch selected data from database
             Student leader = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
@@ -23,10 +23,11 @@ namespace ClassManagementSystem.Controllers
             Student s2 = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
             List<Student> memberList = new List<Student> { s1, s2 };
             List<Topic> topics = new List<Topic> { new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 } };
+            SeminarGrade sg3 = new SeminarGrade { PresentationGrade = new List<int> { 5 } };
             Group group = new Group { Id = 30, Name = "1-B-1", Leader = leader, Members = memberList, Topics = topics, Report = "/report/30.pdf", Grade = sg3 };
-            if (embedTopics == false && embedTopics == null)
+            if (embedTopics == false)
                 group.Topics = null;
-            if (embedGrade == false && embedGrade == null)
+            if (embedGrade == false)
                 group.Grade = null;
 
             // If group not found
@@ -61,18 +62,19 @@ namespace ClassManagementSystem.Controllers
             //When user's permission denied
             //if(false)
             //  return Forbid();
-            
+
             // Get information from json
-            Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
+            //Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
 
             // Judge and store class-student information in server
-            
+
             // If already select another class under the same course
             //  return Conflict(); 
 
             // Return class id & student id
-            string uri = "/class/" + classId + "/student/" + newStudentInClass.Id;
-            return Created(uri, newStudentInClass);
+            //string uri = "/class/" + classId + "/student/" + newStudentInClass.Id;
+            //return Created(uri, newStudentInClass);
+            return Ok();
         }
 
         // DELETE: /group/{groupId}/topic/{topicId}
