@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生查看讨论课（固定）</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css"/>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    
+    <script>
+        
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+            var topicId = window.location.href.split("=")[2];//当前讨论课号
+            
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+            
+            //上传报告按钮
+            var uploadReport = document.getElementById('uploadReport');
+            uploadReport.onclick = function () {
+                window.open('page.html');
+            };
+
+            //查看成绩按钮
+            var checkGrade = document.getElementById('checkGrade');
+            checkGrade.onclick = function () {
+                window.location.href = "/Student/ViewGrade";
+            };
+
+            //随机分组 显示自己小组信息
+            var addgroupInfo = function (a) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/seminar/' + a + '/group/my',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        $('#groupmember').append("<div class='line'></div>");
+                        $('#groupmember').append("<label class='itemName'>选择话题：</label>");
+                        $('#groupmember').append("<label class='itemName'>" + data.topics[0].serial + "</label><br/>");
+                        $('#groupmember').append("<label class='itemName'>组号：</label>");
+                        $('#groupmember').append("<label class='itemName'>" + data.id + "</label><br/>");
+                        $('#groupmember').append("<label class='itemName'>组长：</label>");
+                        $('#groupmember').append("<label class='itemName'>" + data.leader.name + "</label><br/>");
+                        $('#groupmember').append("<label class='itemName'>组员：</label>");
+                        for (var i = 0; i < data.members.length; i++)
+                            $('#groupmember').append("<label class='itemName'>" + data.members[i].name + "</label><br/>");
+                    }
+                })
+            };
+
+            //获取当前讨论课所有的话题数 显示话题按钮
+            var addtopicButton = function (a) {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/seminar/' + a + '/topic',
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        for (var i = 0; i < data.length; i++) {
+
+                            var url = "/Student/ViewTopic?index=" + courseId+"="+ data[i].id;  //传递话题id
+                            $('#topicButton').append("<div class='smallblock' onClick=(window.location.href='" + url + "')><div class='blockFont'>话题" + data[i].serial + "</div></div>");
+                        }
+
+                    }
+                })
+            };
+
+            
+
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + topicId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    //显示讨论课信息
+                    $('#LargeTitle').append(topicId);
+                    $('#Group').text(data.groupingMethod);
+                    $('#starttime').text(data.startTime);
+                    $('#endtime').text(data.endTime);
+                    //显示话题
+                    addtopicButton(topicId);
+                    //显示小组信息
+                    if (data.groupingMethod != "fixed") {
+                        addgroupInfo(topicId);
+                    }
+                }
+            });
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title" id="LargeTitle">讨论课</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">本节讨论课的主要内容针对第一二章</label>
+                        <div class="line"></div>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">分组方式：</label>
+                        <label class="itemName" id="Group"></label><br />
+                        <label class="itemName">开始时间：</label>
+                        <label class="itemName" id="starttime"></label><br />
+                        <label class="itemName">结束时间：</label>
+                        <label class="itemName" id="endtime"></label>
+                    </div>
+                    <div class="item"></div>
+                    <div class="item" id="groupmember">
+                    </div>
+                 </div>
+            </div>
+            <div class="block">
+                <div class="title">话题</div>
+                <div class="line"></div>
+                <div class="blockBody" id="topicButton">
+                    
+                </div>
+                <div class="item">
+                    <button class="uploadbutton" id="uploadReport">上传报告</button>
+                </div>
+                <div class="item">
+                    <button class="viewscorebutton" id="checkGrade">查看分数</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

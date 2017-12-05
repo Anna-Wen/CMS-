@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>创建话题</title>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function(){
+        $("#post").click(function() {
+            var ata = { Id: document.getElementById("serialId"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
+            document.write($("#Id").val());
+            var str = window.location.href.split("=")[1];
+            $.ajax({
+                type: 'POST',
+                url: "/seminar/"+{str}+"/topic",
+                data: JSON.stringify(ata),
+                contentType: "application/json:charset=utf-8",
+                dataType:"json",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (err) {
+                    alert(err)
+                }
+            });
+        });
+        $("#reset").click(function () {
+            document.write($("#Id").val());
+            $("#Id").empty;
+            $("#Name").empty;
+            $("#Description").empty;
+            $("#GroupLimit").empty;
+            $("#GroupLeft").empty;
+        });
+       });
+    </script>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">OOAD（Object Oriented Analysis Design，面向对象的分析和设计，面向对象分析与设计）是现代软件企业广为采用的一项有效技术。OOAD方法要求在设计中要映射现实世界中指定问题域中的对象和实体，例如：顾客、汽车和销售人员等。这就需要设计要尽可能地接近现实世界，即以最自然的方式表述实体。所以面向对象技术的优点即为能够构建与现实世界相对应的问题模型，并保持他们的结构、关系和行为为模式。</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">创建话题</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">编号*:</label>
+                        <input type="text" id="serialId" class="middleInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">题目*:</label>
+                        <input type="text" id="Name" class="middleInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">说明*:</label>
+                        <!--<textarea id="courseinfo" cols="80" rows="5"></textarea>-->
+                        <input type="text" id="Description" class="bigInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组数限制*:</label>
+                        <input type="text" id="GroupLimit" class="smallInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组内人数上限*:</label>
+                        <input type="text" id="GroupLeft" class="smallInput">
+                    </div>
+                    <div class="item">
+                        <button  class="submit" id="post">提交</button>
+                        <button  class="reset" id="reset">重置</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
+

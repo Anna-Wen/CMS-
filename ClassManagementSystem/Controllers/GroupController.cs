@@ -83,21 +83,59 @@ namespace ClassManagementSystem.Controllers
         [HttpPost("{groupId}/topic/{topicId}")]
         public IActionResult DeleteTopic(int groupId, int topicId, [FromBody]dynamic json)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied (not leader)
+            //if(false)
+            //  return Forbid();
+
+            //Delete group topic relation from database
+            //if not found this relation
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
+        // 下面这个API没有用？
         // GET: /group/{groupId}/grade
         [HttpGet("{groupId}/grade")]
         public IActionResult GetGroupSeminarGrade(int groupId)
         {
-            return Ok();
+            // Fetch data from database via groupId
+            Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
+            Student s1 = new Student { Id = 248, Name = "李四", Number = "24320152202345" };
+            Student s2 = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
+            List<Student> memberList = new List<Student> { s1, s2 };
+            List<Topic> topics = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 } };
+            SeminarGrade sg = new SeminarGrade { PresentationGrade = new List<int> { 5 }, ReportGrade = 5, Grade = 5 };
+            Group group = new Group { Id = 28, Name = "1-A-1", Leader = leader, Members = memberList, Topics = topics, Grade = sg };
+
+            // If group not found
+            if (group == null)
+                return NotFound();
+
+            // Success
+            return Json(sg);
         }
 
         // PUT: /group/{groupId}/grade/report
         [HttpGet("{groupId}/grade/report")]
         public IActionResult PutGroupReportGrade(int groupId, [FromBody]dynamic json)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Get information from json
+            int reportGrade = json.reportGrade;
+
+            //Change information in database
+            //if group not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
     }

@@ -43,7 +43,11 @@ namespace ClassManagementSystem
             {
                 routes.MapRoute(
                     name: "default",
+<<<<<<< HEAD
                     template: "{controller=Home}/{action=AccountLoginPage}/{id?}");
+=======
+                    template: "{controller=Teacher}/{action=TeacherCourseHome}/{id?}");
+>>>>>>> master
             });
         }
     }

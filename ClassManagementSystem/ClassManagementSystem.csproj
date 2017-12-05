@@ -20,8 +20,11 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <None Include="wwwroot\report\233.pdf" />
   </ItemGroup>
 
+=======
+>>>>>>> master
 </Project>
