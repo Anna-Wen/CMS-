@@ -34,8 +34,12 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
         
-
         public IActionResult CheckClassInfo()
+        {
+            return View();
+        }
+
+        public IActionResult CreateCourse()
         {
             return View();
         }
