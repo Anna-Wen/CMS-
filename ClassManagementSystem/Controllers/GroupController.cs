@@ -59,22 +59,24 @@ namespace ClassManagementSystem.Controllers
         public IActionResult PostNewTopic(int groupId, [FromBody]dynamic json)
         {
             //Authentication
-            //When user's permission denied
+            //When user's permission denied (not leader)
             //if(false)
             //  return Forbid();
-
+            
             // Get information from json
-            //Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
+            Topic topicSelectedByGroup = new Topic { Id = int.Parse(json.Id) };
 
-            // Judge and store class-student information in server
+            // Judge and store group-topic information in server
 
-            // If already select another class under the same course
-            //  return Conflict(); 
+            //if (topicSelectedByGroup.GroupLeft == 0)
+            //    return BadRequest();
 
-            // Return class id & student id
-            //string uri = "/class/" + classId + "/student/" + newStudentInClass.Id;
-            //return Created(uri, newStudentInClass);
-            return Ok();
+            // If group not existed
+            //  return NotFound(); 
+
+            // Return group id & topic id
+            string uri = "/group/" + groupId + "/topic/" + topicSelectedByGroup.Id;
+            return Created(uri, topicSelectedByGroup);
         }
 
         // DELETE: /group/{groupId}/topic/{topicId}

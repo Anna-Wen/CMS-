@@ -19,8 +19,8 @@ namespace ClassManagementSystem.Controllers
             // Fetch selected class list from database
             List<CourseClass> classList = new List<CourseClass>
             {
-                new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } },
-                new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } }
+                new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseId = 1, CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } },
+                new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseId = 3, CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } }
             };
             if (courseName != null && courseName != "")
                 classList = classList.FindAll((p) => p.CourseName.StartsWith(courseName));
@@ -39,7 +39,16 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{classId}")]
         public IActionResult GetClass(int classId)
         {
-            return Ok();
+            // Fetch data from database
+            GradeProportion proportions = new GradeProportion { Report = 50, Presentation = 50, C = 20, B = 60, A = 20 };
+            Class selectedClass = new Class { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", Calling = -1, Roster = "/roster/周一1-2班.xlsx", Proportions = proportions };
+
+            //if class not found
+            if (selectedClass == null)
+                return NotFound();
+
+            // Success
+            return Json(selectedClass);
         }
 
         // PUT: /class/{classId}
@@ -67,7 +76,17 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{classId}")]
         public IActionResult DeleteClass(int classId)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete class from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // GET: /class/{classId}/student?numBeginWith={numBeginWith}&nameBeginWith={nameBeginWith}
@@ -121,7 +140,18 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{classId}/student/{studentId}")]
         public IActionResult DeleteStudentUnderClass(int classId, int studentId)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete student class relation from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
+
         }
 
         // GET: /class/{classId}/classgroup
@@ -131,7 +161,7 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-            //return Forbid();
+            //  return Forbid();
 
             // Fetch class group from database
             Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
@@ -190,6 +220,5 @@ namespace ClassManagementSystem.Controllers
             // Success
             return NoContent();         
         }
-
     }
 }
