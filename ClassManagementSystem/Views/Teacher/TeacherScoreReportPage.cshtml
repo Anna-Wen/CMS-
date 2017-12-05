@@ -82,7 +82,7 @@
         </div>
     </div>*@
     <div class="body"> @*???*@
-        <object class="file" data="~/Student/233.pdf" type="application/pdf"></object>
+        <object class="file" data="/report/233.pdf" type="application/pdf"></object>
     </div>
     @*<div class="body">
         <object class="file" data="./233.pdf" type="application/pdf"></object>
@@ -100,7 +100,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
-                    $("#seminarName").text("讨论课");
+                    $("#seminarName").text("讨论课报告");
                     $("#groupName").text(data.name);
                     $("#leader").text(data.leader.name);
                 }

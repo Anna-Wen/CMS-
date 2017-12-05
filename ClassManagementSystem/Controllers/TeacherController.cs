@@ -8,6 +8,16 @@ namespace ClassManagementSystem.Controllers
 {
     public class TeacherController : Controller
     {
+        public IActionResult AccountLoginPage()
+        {
+            return View();
+        }
+
+        public IActionResult RegisterPage()
+        {
+            return View();
+        }
+
         public IActionResult CreateTopic()
         {
             return View();

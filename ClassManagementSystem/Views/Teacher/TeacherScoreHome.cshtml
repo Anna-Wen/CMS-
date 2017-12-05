@@ -100,33 +100,20 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
-                         var groupId = data[i].id;
-                         //对每个小组，获取小组详情
-                         $.ajax({
-                             type: "GET",
-                             url: "/group/{groupId}",
-                             contentType: "application/json;charset=utf-8",
-                             dataType: "json",
-                             success: function (data, status)
-                             {
-                                 for (var t = 0; t < data.topics.length; t++)
-                                 {
-                                     $("#tableBody").append(" <tr >< td >'+data.topics[t].serial+'</td>");
-                                     $("#tableBody").append(" <td>'+data.name+'</td> < td > '+data.leader.name+'</td > <td>'+data.grade.presentationGrade[t]+'</td>");
-                                     if (!data.report)
-                                     {
-                                         $("#tableBody").append(" <td>未提交</td>");
-                                     }
-                                     else {
-                                         $("#tableBody").append(" <td>已提交</td>");
-                                     }
-                                     $("#tableBody").append(" <td>'+data.grade.reportGrade+'</td> <td>'+data.grade.grade+'</td>");
-                                     var ur = "/Teacher/TeacherScoreReportPage?groupId=" + data.id;
-                                     $("#tableBody").append(" <td> <a href='+ur+' style='text- decoration:none;'>< img src= '~/images/view.png' alt= '预览' ></a> <a href='+data.report+' text- decoration:none;'> <img src='~/images/download.png' alt='下载'></a> </td>");
-                                     $("#tableBody").append(" </tr>");
-                                 }
+                         for (var t = 0; t < data[i].topics.length; t++) {
+                             $("#tableBody").append(" <tr >< td >'+data[i].topics[t].serial+'</td>");
+                             $("#tableBody").append(" <td>'+data[i].name+'</td> < td > '+data[i].leader.name+'</td > <td>'+data[i].grade.presentationGrade[t]+'</td>");
+                             if (!data[i].report) {
+                                 $("#tableBody").append(" <td>未提交</td>");
                              }
-                         });
+                             else {
+                                 $("#tableBody").append(" <td>已提交</td>");
+                             }
+                             $("#tableBody").append(" <td>'+data[i].grade.reportGrade+'</td> <td>'+data[i].grade.grade+'</td>");
+                             var ur = "/Teacher/TeacherScoreReportPage?groupId=" + data[i].id;
+                             $("#tableBody").append(" <td> <a href='+ur+' style='text- decoration:none;'>< img src= '~/images/view.png' alt= '预览' ></a> <a href='+data[i].report+' text- decoration:none;'> <img src='~/images/download.png' alt='下载'></a> </td>");
+                             $("#tableBody").append(" </tr>");
+                         }
                      }
                  }
            });
