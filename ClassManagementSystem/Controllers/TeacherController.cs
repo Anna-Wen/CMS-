@@ -77,5 +77,9 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult CheckTopic()
+        {
+            return View();
+        }
     }
 }
