@@ -22,15 +22,30 @@
                 success: function (data, status) {
                   //生成班级列表
                     for (var i = 0; i < data.length; i++)
-                        $('#classtable').append("<h3 class='classtitle'>"+data[i].+"<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>"+data[i].+"</span></td><td class='tabletext'>课程地点："+data[i].+"</td></tr><tr><td class='tabletext'>班级人数："+data[i].+"</td><td class='tabletext'>时间："+data[i].+"</td></tr></table></div>");
+                        $('#classtable').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time+"</td></tr></table></div>");
 
                 }
 
             });
 
+            //点击查询 刷新
             $('#check').on('click', function () {
-                var checkteacher = $("#checkteacher").text();
-                var checkcourse = $("#checkcourse").text();
+                var checkteacher = $("#checkteacher").val();
+                var checkcourse = $("#checkcourse").val();
+
+                var url = "/class/student?courseName=" + checkcourse + "&courseTeacher=" + checkteacher;
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+
+                        $('#classtable').html("");
+                        for (var i = 0; i < data.length; i++)
+                            $('#classtable').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                     }
+                });
             });
         })
     </script>
