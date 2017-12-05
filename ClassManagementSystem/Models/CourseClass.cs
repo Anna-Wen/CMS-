@@ -12,6 +12,7 @@ namespace ClassManagementSystem.Models
         public int NumStudent { get; set; }
         public string Time { get; set; }
         public string Site { get; set; }
+        public int CourseId { get; set; }
         public string CourseName { get; set; }
         public Teacher CourseTeacher { get; set; }
     }

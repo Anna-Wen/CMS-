@@ -19,8 +19,8 @@ namespace ClassManagementSystem.Controllers
             // Fetch selected class list from database
             List<CourseClass> classList = new List<CourseClass>
             {
-                new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } },
-                new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } }
+                new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseId = 1, CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } },
+                new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseId = 3, CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } }
             };
             if (courseName != null && courseName != "")
                 classList = classList.FindAll((p) => p.CourseName.StartsWith(courseName));
