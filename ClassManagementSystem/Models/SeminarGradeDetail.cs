@@ -7,6 +7,7 @@ namespace ClassManagementSystem.Models
 {
     public class SeminarGradeDetail
     {
+        public string SeminarName { get; set; }
         public string GroupName { get; set; }
         public string LeaderName { get; set; }
         public int PresentationGrade { get; set; }
