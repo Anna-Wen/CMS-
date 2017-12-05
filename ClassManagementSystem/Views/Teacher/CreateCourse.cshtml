@@ -62,7 +62,7 @@
                     <div class="buttons">
 
                         <input class="button" type="submit" id="submit" onclick="submitCourseInfo()"/>
-                        <input class="button" type="reset" id="reset" onclide="empty()"/>
+                        <input class="button" type="reset" id="reset" onclick="empty()"/>
 
                     </div>
                 </div>
@@ -107,12 +107,12 @@
         }//提交新建课程信息end
 
         //重置课程信息
-        function empty() {
+            function empty() {
             $("#name").val("");
             $("#startTime").val("");
             $("#endTime").val("");
             $("#description").val("");
-            $("#presentation").val("");
+            $("#report").val("");
             $("#presentation").val("");
             $("#c").val("");
             $("#b").val("");

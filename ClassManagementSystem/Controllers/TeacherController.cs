@@ -44,6 +44,11 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+        public IActionResult Bind()
+        {
+            return View();
+        }
+
         // PUT: /{topicId}
         [HttpPut("{topicId}")]
         public IActionResult Put(int topicId)
