@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>学生主页（课程信息）</title>
     <link href="/css/Student/StudentCourseHomePage.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
     <div class="top">
@@ -68,6 +67,7 @@
                 dataType: "json",
                 success: function (data, status) {
                     //在页面上删除
+                    alert("确定删除吗？");
                     var block = "#" + classId;
                     $(block).hide();
                 }

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="viewport" content="width=device-width,
                                      initial-scale=1.0,
@@ -31,14 +32,21 @@
     <div class="LoginWayOne"> <a href="#" style="text-decoration:none;">账号密码登录</a></div>
     <div class="LoginWayTwo"> <a href="#" style="text-decoration:none;">微信登录</a></div>
     <div class="UserName"> 用户名</div>
-    <input type="text" class="UserNameField" placeholder="请输入您的用户名" id="userName">@*</input>*@
+    <input type="text" class="UserNameField" placeholder="请输入您的用户名" id="userName">
     <div class="Password"> 密码</div>
-    <input type="password" class="PasswordField" placeholder="请输入您的密码" id="password">@*</input>*@
+    <input type="password" class="PasswordField" placeholder="请输入您的密码" id="password">
     <button class="Login" onclick="login()">登录</button>
-    <div class="Enroll"><a href="/Shared/RegisterPage">注册</a></div>  @*???*@
+    <div class="Enroll"><a href="/Shared/RegisterPage">注册</a></div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
         function login()
         {
+            if (!$("#userName").val() || !$("#password").val()) {
+                alert("用户名或密码不能为空！请重新输入");
+                $("#userName").val("");
+                $("#password").val("");
+                return;
+            }
             var userInfo = { userName: $("#userName").val(), password: $("#password").val() };
             $.ajax({
                   type: "POST",
@@ -54,13 +62,15 @@
                           $("#password").empty;
                       } else {
                           if (data.type == "student")
-                              window.location.href = "/Student/BasicInfo"; 
-                              //$(window).attr("location", "/Student/BasicInfo");
-                          else if (data.type == "teacher")
-                              window.location.href = "/Teacher/BasicInfo"; 
+                              window.location.href = "/Student/BasicInfo";
+                          //$(window).attr("location", "/Student/BasicInfo");
+                          else if (data.type == "teacher") {
+                              alert(data.type);
+                              window.location.href = "/Teacher/BasicInfo";
                               //$(window).attr("location", "/Teacher/BasicInfo");
+                          }
                       }
-        		  }
+                  }
         		});
         }
     </script>
