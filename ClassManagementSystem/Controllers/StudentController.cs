@@ -17,5 +17,25 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult CourseHome()
+        {
+            return View();
+        }
+        public IActionResult DiscussionClass()
+        {
+            return View();
+        }
+        public IActionResult ViewTopic()
+        {
+            return View();
+        }
+        public IActionResult ViewGroup()
+        {
+            return View();
+        }
+        public IActionResult ChooseCourse()
+        {
+            return View();
+        }
     }
 }

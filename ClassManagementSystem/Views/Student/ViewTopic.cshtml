@@ -1,0 +1,95 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>查看话题（固定分组）</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var topicId = window.location.href.split("=")[1];//当前话题号
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/topic/' + topicId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    
+                    //显示话题信息
+                    //$('LargerTitle').text(data.serial);   话题序号
+                    $('#title').text(data.name);
+                    $('#desc').text(data.description);
+                    $('#limitg').text(data.groupLimit);
+                    //$('#limitm').text(data.groupMemberLimit);              组内人数限制
+                
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title" id="LargerTitle">话题</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">题目:</label>
+                        <label class="itemName" id="title"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">说明:</label>
+                        <label class="itemName" id="desc"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组数限制:</label>
+                        <label class="itemName" id="limitg"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">组内人数上限:</label>
+                        <label class="itemName" id="limitm"></label>
+                    </div>
+                    <div class="item">
+                        <div class="modifyButton"> 选择话题 </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

@@ -203,7 +203,7 @@
    }
    
      /*表格*/
-#studenttable{
+.studenttable{
   font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
   position:relative;
 	top:30%;
@@ -214,7 +214,7 @@
   border:1px solid #98bf21;
   padding:3px 7px 2px 7px; 
   }
-#studenttable th 
+.studenttableth 
   {
   font-size:1.1em;
   text-align:center;
@@ -224,11 +224,17 @@
   color:#000000;
   }
 
-#studenttable tr.alt td 
+.studenttabletralt
   {
   color:#000000;
   background-color:#EAF2D3;
   }
+
+.studenttabletd 
+{
+    color: #000000;
+    background-color: #EAF2D3;
+}
   
   .studentlist
  {

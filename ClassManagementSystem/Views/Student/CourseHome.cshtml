@@ -1,0 +1,88 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生课程首页</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/Student/StudentCourseHomePage.css")"  type="text/css"/>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程号
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+            //查看固定分组按钮
+            var checkGroup = document.getElementById('checkGroup');
+            checkGroup.onclick = function () {
+                window.location.href = "/Student/ViewGroup";
+            };
+
+        //初始化
+        $.ajax({
+            type: 'GET',
+            url: '/course/' + courseId+'/seminar',
+            contentType: "application/json;charset=utf-8",
+            success: function (data, status) {
+                var discussionNumber = 1;
+                //显示讨论课按钮
+                for (var i = 0; i < data.length; i++ , discussionNumber++) {
+                    var disid = "dis" + discussionNumber;
+                    var url = "/Student/DiscussionClassPage_Fixed?index=" + courseId + "=" + discussionNumber; //传递课程id（为了查看成绩）和讨论课id
+                    $('#discussion').append("<div class='block' id=" + disid + " onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + discussionNumber + "</div></div>");
+                }
+            }
+        });
+        });
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="classInfo">
+                <div class="title">讨论课</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="blockBody" id="discussion">
+                   
+                </div>
+            </div>
+            <div class="seminarInfo">
+                <div class="title">课程分组</div>
+                <div class="line"></div>
+                <div class="blockBody">
+                    <div class="block" id="checkGroup"><div class="blockFont">固定分组</div></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+</body>
+</html>

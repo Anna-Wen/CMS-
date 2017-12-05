@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>选择课程</title>
+    <link href="../../css/student/StudentChooseCoursePage.css" rel="stylesheet" type="text/css" />
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId + '/classgroup',  //改！！！
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                  //生成班级列表
+                    for (var i = 0; i < data.length; i++)
+                        $('#classtable').append("<h3 class='classtitle'>"+data[i].+"<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>"+data[i].+"</span></td><td class='tabletext'>课程地点："+data[i].+"</td></tr><tr><td class='tabletext'>班级人数："+data[i].+"</td><td class='tabletext'>时间："+data[i].+"</td></tr></table></div>");
+
+                }
+
+            });
+
+            $('#check').on('click', function () {
+                var checkteacher = $("#checkteacher").text();
+                var checkcourse = $("#checkcourse").text();
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="#">基本信息</a>
+                <a class="guidefont" href="#">课程信息</a>
+                <a class="guidefont" href="#">新建课程</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="title">选择课程</div>
+            <hr class="line" />
+
+            <div class="checkcourse">
+                <form class="itemName">
+                    任课教师：<input type="text" name="teacher" id="checkteacher"><br />
+                    课程名称：<input type="text" name="course" id="checkcourse"><input type="submit" value="查询" id="check">
+
+                </form>
+            </div>
+            <div class="main_box_right_content" id="classtable">
+
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
