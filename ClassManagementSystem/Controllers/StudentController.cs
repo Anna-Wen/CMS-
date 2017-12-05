@@ -17,11 +17,11 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
-        public IActionResult StudentCourseHome()
+        public IActionResult DiscussionClass()
         {
             return View();
         }
-        public IActionResult DiscussionClass()
+        public IActionResult CourseHome()
         {
             return View();
         }

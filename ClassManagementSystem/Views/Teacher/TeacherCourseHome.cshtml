@@ -26,19 +26,38 @@
             //初始化
             $.ajax({
                 type: 'GET',
-                url: '/course/' + courseId+'/class',
+                url: '/course/' + courseId + '/class',
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
 
                     for (var i = 0; i < data.length; i++) {
 
-                        var url = "/Teahcher/ViewTopic?index=" + courseId + "=" + data[i].id;  //传递话题id
-                        $('#topicButton').append("<div class='smallblock' onClick=(window.location.href='" + url + "')><div class='blockFont'>话题" + data[i].serial + "</div></div>");
-                    }
+                        var url = "/Teacher/CheckClassInfo?index=" + courseId+"="+data[i].id;  //传递班级id 
 
+                        $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>" + data[i].name + "</div></div>");
                     }
+                    $('#classButton').append("<div class='block'><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+
                 }
             });
+
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId + '/seminar',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var url = "/Teacher/CheckSeminar?index=" + courseId + "="+data[i].id+"="+(i+1);  //传递讨论课id 
+
+                        $('#seminarButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + (i+1) + "</div></div>");
+                    }
+                    $('#seminarButton').append("<div class='block'><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+
+                }
+            });
+          
             //初始化   左侧
             $.ajax({
                 type: 'GET',
@@ -76,28 +95,15 @@
                 <div class="title">课程班级</div>
                 <div class="returnButton" id="returnbtn">返回上一页</div>
                 <div class="line"></div>
-                <div class="blockBody">
-                    <div class="block"><div class="blockFont">周三1-2节</div></div>
-                    <div class="block"><div class="blockFont">周三3-4节</div></div>
-                    <div class="block"><div class="blockFont">周三5-6节</div></div>
-                    <div class="block">
-                        <img class="addImg" src="../../Img/smalladd.png" alt="添加">
-                    </div>
-
+                <div class="blockBody" id="classButton">
+                    
                 </div>
             </div>
             <div class="seminarInfo">
                 <div class="title">讨论课</div>
                 <div class="line"></div>
-                <div class="blockBody">
-                    <div class="block"><div class="blockFont">讨论课1</div></div>
-                    <div class="block"><div class="blockFont">讨论课2</div></div>
-                    <div class="block"><div class="blockFont">讨论课3</div></div>
-                    <div class="block"><div class="blockFont">讨论课4</div></div>
-                    <div class="block"><div class="blockFont">讨论课5</div></div>
-                    <div class="block">
-                        <img class="addImg" src="../../Img/smalladd.png" alt="添加">
-                    </div>
+                <div class="blockBody" id="seminarButton">
+                    
                 </div>
             </div>
         </div>

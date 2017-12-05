@@ -12,5 +12,18 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult TeacherCourseHome()
+        {
+            return View();
+        }
+        
+            public IActionResult CheckClassInfo()
+        {
+            return View(); 
+        }
+        public IActionResult CheckSeminar()
+        {
+            return View();
+        }
     }
 }

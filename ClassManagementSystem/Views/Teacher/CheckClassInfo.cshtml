@@ -1,0 +1,274 @@
+﻿@{
+    Layout = null;
+}
+<!--get的-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>班级信息</title>
+    <link rel="stylesheet" href="../../css/teacher/content.css">
+
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title" id="Title"></div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">班级名称:</label>
+                        <label class="itemName" id="className"></label>
+                        <input type="text" id="inputName" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课地点:</label>
+                        <label class="itemName" id="classSite"></label>
+                        <input type="text" id="inputSite" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课时间:</label>
+                        <label class="itemName" id="classTime"></label>
+                        <input type="text" id="inputTime" style="display:none" />
+                    </div>
+                    <div class="item">
+                        <label class="itemName">评分规则:</label>
+                        <label class="itemName">讨论课分数占比</label>
+                        <label class="itemName" id="classPresentation"></label>
+                        <input type="text" id="inputPresentation" style="display:none" />
+                        <label class="itemName"> 报告分数占比</label>
+                        <label class="itemName" id="classReport"></label>
+                        <input type="text" id="inputReport" style="display:none" />
+                    </div>
+                    <div class="item" style="margin-left: 25%">
+                        <label class="smallItemName">5分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classC"></label>
+                        <input type="text" id="inputC" style="display:none" />
+
+                        <label class="smallItemName">4分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classB"></label>
+                        <input type="text" id="inputB" style="display:none" />
+
+                        <label class="smallItemName">3分占比</label>
+                        <label class="itemName" name="seminarGrade" id="classA"></label>
+                        <input type="text" id="inputA" style="display:none" />
+                    </div>
+
+                    <div class="item">
+                        <label class="itemName">导入学生名单:</label>
+                        <button class="selectFile" onclick="download()">下载文件</button>
+                    </div>
+                    <div class="item">
+                        <button class="submit" id="up_sub" onclick="update_submit()">修改</button>
+                        <button class="reset" id="delete" onclick="delete_class()">删除班级</button>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="item">
+                        <div class="clear"></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+            var classId = window.location.href.split("=")[2];//当前班级号
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    //显示班级信息
+                    $('#Title').text(data.name);
+                    $('#className').text(data.name);
+                    $('#classTime').text(data.time);
+                    $('#classSite').text(data.site);
+                    $('#classReport').text(data.proportions.report);
+                    $('#classPresentation').text(data.proportions.presentation);
+                    $('#classC').text(data.proportions.c);
+                    $('#classB').text(data.proportions.b);
+                    $('#classA').text(data.proportions.a);
+
+                }
+            });//初始化结束
+
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+       
+        function update_submit() {
+            //document.write("update");//--------------------
+            var classId = window.location.href.split("=")[1];//当前班级号
+
+            if ($("#up_sub").text() == "修改") {
+                var classInfo = {
+                    Name: $("#className").text(),
+                    Time: $("#classTime").text(),  //修改时 时间不用显示
+                    Site: $("#classSite").text(),
+                    Proportions: {
+                        Report: $("#classReport").text(), 
+                        Presentation: $("#classPresentation").text(), 
+                        C: $("#classC").text(), 
+                        B: $("#classB").text(), 
+                        A: $("#classA").text()
+                    }
+                };
+                $("[id^='class']").hide();
+                $("[id^='input']").show();
+                $("#up_sub").text("提交");
+
+                $("#inputName").val(classInfo.Name);
+                $("#inputSite").val(classInfo.Site);
+                $("#inputTime").val(classInfo.Time);
+                $("#inputReport").val(classInfo.Proportions.Report);
+                $("#inputPresentation").val(classInfo.Proportions.Presentation);
+                $("#inputC").val(classInfo.Proportions.C);
+                $("#inputB").val(classInfo.Proportions.B);
+                $("#inputA").val(classInfo.Proportions.A);
+
+            }
+            else {
+
+                var classInfo = {
+                    Name: $("#inputName").val(),
+                    Time: $("#inputTime").val(),
+                    Site: $("#inputSite").val(),
+                    Proportions: {
+                        Report: $("#inputReport").val(),
+                        Presentation: $("#inputPresentation").val(),
+                        C: $("#inputC").val(),
+                        B: $("#inputB").val(),
+                        A: $("#inputA").val()
+                    }
+                };
+
+                $.ajax({
+
+                    url: "/class/" + classId,
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(classInfo),
+                    success: function (data, status) {//如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+                        $("[id^='input']").hide();
+                        $("[id^='class']").show();
+                        $("#up_sub").text("修改");
+
+                        $("#className").text(classInfo.Name);
+                        $("#classSite").text(classInfo.Site);
+                        $("#classTime").text(classInfo.Time);
+                        $("#classReport").text(classInfo.Proportions[0]);
+                        $("#classPresentation").text(classInfo.Proportions[1]);
+                        $("#classC").text(classInfo.Proportions[2]);
+                        $("#classB").text(classInfo.Proportions[3]);
+                        $("#classA").text(classInfo.Proportions[4]);
+                    }
+                    //error:
+                });
+                //$("[id^='input']").hide();
+                //$("[id^='class']").show();
+                //$("#up_sub").text("修改");
+
+                //$("#className").text(classInfo.Name);
+                //$("#classSite").text(classInfo.Site);
+                //$("#classTime").text(classInfo.Time);
+                //$("#classReport").text(classInfo.Proportions.Report);
+                //$("#classPresentation").text(classInfo.Proportions.Presentation);
+                //$("#classC").text(classInfo.Proportions.C);
+                //$("#classB").text(classInfo.Proportions.B);
+                //$("#classA").text(classInfo.Proportions.A);
+            }//else end
+
+        }//修改/确认点击结束
+    </script>
+
+
+    <script type="text/javascript">
+       
+        var classId = window.location.href.split("=")[1];//classId
+        var courseId = window.location.href.split("=")[1];//courseId
+        var urlSkip = "/Teacher/CourseHome/" + courseId;
+        function delete_class() {
+            $.ajax({
+                url: "/class/" + classId,
+                typt: "DELETE",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    //window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
+                    window.history.go(-1);
+                }
+
+            });
+
+        }
+    </script>
+
+    <script type="text/javascript">
+         function download() {
+             var classId = window.location.href.split("=")[1];//当前班级号
+             
+             $.ajax({
+                 type: 'GET',
+                 url: '/class/' + classId,
+                 contentType: "application/json;charset=utf-8",
+                 success: function (data, status) {
+                     var urlSkip = data.roster;
+                     window.location.href = urlSkip;//跳转到该文件的地址？？？？
+                 }
+             });//初始化结束
+
+         }
+    </script>
+</body>
+</html>

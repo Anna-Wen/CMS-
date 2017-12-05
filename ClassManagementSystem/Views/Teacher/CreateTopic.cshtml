@@ -9,10 +9,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>创建话题</title>
-    <link href="../../css/teacher/content.css" rel="stylesheet" type="text/css" />
-    <script scr="~/scripts/jquery-2.2.2.min.js"></script>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+    <script>
+        $(document).ready(function(){
+        $("#post").click(function() {
+            var ata = { Id: document.getElementById("serialId"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
+            document.write($("#Id").val());
+            var str = window.location.href.split("=")[1];
+            $.ajax({
+                type: 'POST',
+                url: "/seminar/"+{str}+"/topic",
+                data: JSON.stringify(ata),
+                contentType: "application/json:charset=utf-8",
+                dataType:"json",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (err) {
+                    alert(err)
+                }
+            });
+        });
+        $("#reset").click(function () {
+            document.write($("#Id").val());
+            $("#Id").empty;
+            $("#Name").empty;
+            $("#Description").empty;
+            $("#GroupLimit").empty;
+            $("#GroupLeft").empty;
+        });
+       });
+    </script>
+
     <div class="top">
         <div class="font">
             课堂管理系统
@@ -38,7 +69,7 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">编号*:</label>
-                        <input type="text" id="Id" class="middleInput">
+                        <input type="text" id="serialId" class="middleInput">
                     </div>
                     <div class="item">
                         <label class="itemName">题目*:</label>
@@ -58,8 +89,8 @@
                         <input type="text" id="GroupLeft" class="smallInput">
                     </div>
                     <div class="item">
-                        <button class="submit" id="post">提交</button>
-                        <button class="reset" id="reset">重置</button>
+                        <button  class="submit" id="post">提交</button>
+                        <button  class="reset" id="reset">重置</button>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -67,29 +98,6 @@
         </div>
         <div class="clear"></div>
     </div>
-    <script>
-            $("#post").click(function postTopicInfo() {
-                var ata = { serial: document.getElementById("Id"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
-                $.ajax({
-                    type: "POST",
-                    url: "/seminar/1/topic",
-                    data: JSON(ata),
-                    success: function (data) {
-                        alert(data);
-                    },
-                    error: function (err) {
-                        alert(err)
-                    }
-                });
-            });
-            $("#reset").click(function resetInfo() {
-                $("#Id").empty;
-                $("#Name").empty;
-                $("#Description").empty;
-                $("#GroupLimit").empty;
-                $("#GroupLeft").empty;
-            });
-
-    </script>
 </body>
 </html>
+
