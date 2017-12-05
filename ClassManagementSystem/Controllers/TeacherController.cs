@@ -12,7 +12,6 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
-<<<<<<< HEAD
 
         public IActionResult TeacherScoreHome()
         {
@@ -25,7 +24,10 @@ namespace ClassManagementSystem.Controllers
         }
 
         public IActionResult BasicInfo()
-=======
+        {
+            return View();
+        }
+
         public IActionResult TeacherCourseHome()
         {
             return View();
@@ -36,7 +38,6 @@ namespace ClassManagementSystem.Controllers
             return View(); 
         }
         public IActionResult CheckSeminar()
->>>>>>> master
         {
             return View();
         }
