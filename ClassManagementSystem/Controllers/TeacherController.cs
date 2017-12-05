@@ -37,7 +37,13 @@ namespace ClassManagementSystem.Controllers
         {
             return View(); 
         }
+
         public IActionResult CheckSeminar()
+        {
+            return View();
+        }
+
+        public IActionResult TeacherCourseHomePage()
         {
             return View();
         }

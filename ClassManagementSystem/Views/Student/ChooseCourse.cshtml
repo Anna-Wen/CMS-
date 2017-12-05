@@ -1,7 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -9,7 +6,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>选择课程</title>
-    <link href="../../css/student/StudentChooseCoursePage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/Student/StudentChooseCoursePage.css" rel="stylesheet" type="text/css" />
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
@@ -21,11 +18,11 @@
                 contentType: "application/json;charset=utf-8",
                 success: function (data, status) {
                   //生成班级列表
-                    for (var i = 0; i < data.length; i++)
-                        $('#classtable').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time+"</td></tr></table></div>");
-
+                    for (var i = 0; i < data.length; i++) {
+                        $('#mainContent').append("<div class='main_box_right_content' id='table"+data[i].id+"'></div></br>");
+                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].courseName + "<button id='"+data[i].id+"' onclick='choose()'>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                    }
                 }
-
             });
 
             //点击查询 刷新
@@ -40,7 +37,6 @@
                     url: url,
                     contentType: "application/json;charset=utf-8",
                     success: function (data, status) {
-
                         $('#classtable').html("");
                         for (var i = 0; i < data.length; i++)
                             $('#classtable').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
@@ -49,6 +45,24 @@
             });
         })
     </script>
+    <script>
+        //选择课程
+        function choose() {
+            alert("233");
+            var studentInfo = { id: 233 };
+            var obj = event.srcElement;
+            alert(obj.id);
+            $.ajax({
+                type: 'POST',
+                url: '/class/obj.id/student',
+                data: JSON.stringify(studentInfo),
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    $('#table' + obj.id).hide;
+                }
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="top">
@@ -56,9 +70,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="../../Img/home.png">首页
-            <img src="../../Img/help.png">帮助
-            <img src="../../Img/exit.png">退出
+            <img src="/images/home.png">首页
+            <img src="/images/help.png">帮助
+            <img src="/images/exit.png">退出
         </div>
         <div class="clear"></div>
     </div>
@@ -67,12 +81,12 @@
             <div class="title">导航</div>
             <div class="line"></div>
             <div class="courseIntroduction">
-                <a class="guidefont" href="#">基本信息</a>
-                <a class="guidefont" href="#">课程信息</a>
-                <a class="guidefont" href="#">新建课程</a>
+                <a class="guidefont" href="/Student/BasicInfo">基本信息</a>
+                <a class="guidefont" href="/Student/StudentCourseHome">课程信息</a>
+                <a class="guidefont" href="#">选择课程</a>
             </div>
         </div>
-        <div class="content">
+        <div class="content" id="mainContent">
             <div class="title">选择课程</div>
             <hr class="line" />
 
@@ -80,19 +94,9 @@
                 <form class="itemName">
                     任课教师：<input type="text" name="teacher" id="checkteacher"><br />
                     课程名称：<input type="text" name="course" id="checkcourse"><input type="submit" value="查询" id="check">
-
                 </form>
             </div>
-            <div class="main_box_right_content" id="classtable">
-
-
-
-
-            </div>
-
         </div>
-
-
         <div class="clear"></div>
     </div>
 </body>
