@@ -138,33 +138,34 @@
                         var url = "/Teacher/CheckTopic?index=" + courseId + "=" + data.topics[i].id + "=" + afterSeminar;  //传递话题id
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
-                    $('#topicButton').append("<div class='topicBlock' id='add'> <img src='../../Img / add.png' width='110' height='110'></div>");
+                    $('#topicButton').append("<div class='topicBlock' id='add' onClick=(window.location.href='/Teacher/CreateTopic?index=" + courseId + "=" + seminarId +"')><img src='../../Img / add.png' width='110' height='110'></div>");
                 }
             });
         })
     </script>
     <script type="text/javascript">
-            $('#delete').click(function () {
-                var seminarId = window.location.href.split("=")[1];
-                $ajax({
-                    type: "DELETE",
-                    url: "/seminar/" + seminarId,
-                    data: "1",
-                    success: function (data) {
-                        alert("delete success！");
-                        window.history.go(-1);
-                    }
-                    //error: function (err) {
-                    //    alert(err);
-                    //}
-                });
-            })
-            //$("#score").click(function () {
-            //    //document.write("score");//---------
-            //    var index = "1";
-            //    var url = "/Teacher/TeacherScoreReportPage?index=" + index;//这个页面还没写
-            //    window.location.href = url;
-            //});
+        $('#delete').click(function () {
+            var seminarId = window.location.href.split("=")[1];
+            $ajax({
+                type: "DELETE",
+                url: "/seminar/" + seminarId,
+                data: "1",
+                success: function (data) {
+                    alert("delete success！");
+                    window.history.go(-1);
+                }
+                //error: function (err) {
+                //    alert(err);
+                //}
+            });
+        });
+            $("#score").click(function () {
+                
+                var url = "/Teacher/TeacherScoreHome?index=" + courseId+"=" + seminarId;
+                window.location.href = url;
+        });
+
+
             //$("#edit").click(function () {
             //    //document.write("edit");//-----------
             //    var index = "1";
