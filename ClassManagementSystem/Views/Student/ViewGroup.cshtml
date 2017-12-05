@@ -1,0 +1,228 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生查看小组</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () { 
+            var classId = 1;  //班级id从哪里来不懂
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+            //添加的学生传递给后台
+            var addGroupMembers = function (data) {
+                alert(1);
+                $.ajax({
+                    type: 'PUT',
+                    url: '/class/'+classId+'/classgroup/add',
+                    contentType: "application/json;charset=utf-8",
+                    data:data,
+                    success: function (data, status) { 
+
+                    }
+                });
+            };
+
+            //删除的队员传递给后台
+            var removeGroupMembers = function (data) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/class/' + classId + '/classgroup/remove',
+                    contentType: "application/json;charset=utf-8",
+                    data: data,
+                    success: function (data, status) {
+
+                    }
+                });
+            };
+
+            //动态生成下方学生名单
+            var a = function (u) {
+                
+                $.ajax({
+                    type: 'GET',
+                    url: u,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+                        
+                        $("#studenttable2").remove();
+                        $('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
+                        var rowNO= 1;
+                        for (var i = 0; i < data.length; i++,rowNO++) {
+                            if (i % 2 == 1)//单行双行颜色不一样
+                                $('#studenttable2').append("<tr class='studenttabletralt'><td name='tdnumber'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO+"' src='.\home.png'></td></tr>");
+                            else
+                                $('#studenttable2').append("<tr><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO +"' src='.\home.png'></td></tr>");
+
+
+                            var Imid= "#add" + rowNO;
+                            //下方学生名单的添加事件
+                            $(Imid).on('click', function () {
+                                var mytable = document.getElementById('studenttable2');
+                                var a = mytable.rows[rowNO].cells[0].getElementsByTagName("tdnumber");
+                                alert(a);
+
+
+
+
+                                //上方学生表格添加学生
+                                var tab = document.getElementById("studenttable1");
+
+                                var rows = tab.rows.length;//表格行数
+                                if (rows % 2 == 1)//下一行为双行
+                                    $('#studenttable1').append("<tr id='" + (rows + 1) + "'><td>队员</td><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
+                                else//下一行为单行
+                                    $('#studenttable1').append("<tr class='studenttabletralt' id='" + (rows + 1) + "'><td>队员</td><td'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='delete' src='.\home.png'></td></tr>");
+
+                                addGroupMembers(data[i]);
+                            });
+                        }
+                     }
+
+                });
+            };
+           
+            
+
+            //修改按钮按钮
+            var modify = document.getElementById('modify');
+            modify.onclick = function () {
+
+                document.getElementById("modify").style.display = "none";
+
+                $('#tableTitle').append("<th class='studenttableth'>操作</th>");
+
+                //上方学生表格添加删除操作图标
+                var tab = document.getElementById("studenttable1");
+
+                var rows = tab.rows.length;//表格行数
+                for (var i = 0; i < rows; i++) {
+                    var id = "#" + (i + 1);
+                    $(id).append("<td><img id='delete' src='.\home.png'></td>");
+
+                    //上方学生名单的删除图标
+                    $('#delete').on('click', function () { $(id).remove();});
+                }
+
+                $('#content').append("<div class='block' id='block2'><div class='title'>添加队员</div><div class='line'></div><div class='itemBody'><div class='item'><label class='itemName'>学号：</label><input type='text'id='NumberInput'><label class='itemName'>姓名：</label><input type='text' id='NameInput'><div class='returnButton' id='check'>查询</div></div></div></div>");
+
+                a("/class/" + classId + "/student");
+
+                   //点击查询按钮
+                $('#check').on('click', function () {
+                    var numberInput = $("#NumberInput").val();
+                    var nameInput = $("#NameInput").val();
+                    
+                    var url = "/class/" + classId + "/student?numBeginWith=" + numberInput + "&nameBeginWith=" + nameInput;
+                    a(url);
+                });
+               
+            };
+
+            
+
+
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class/' + classId + '/classgroup',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    var rowNumber = 1;
+                    //有队长时输出队长
+                    if (data.leader) {
+                        $('#studenttable1').append("<tr class='studenttabletralt' id='" + rowNumber + "'><td>队长</td><td>" + data.leader.number + "</td><td>" + data.leader.name + "</td></tr>");
+                        rowNumber = 2;
+                    }
+                    
+                    //队员
+                    for (var i = 0; i < data.members.length; i++ , rowNumber++) {
+                        if (rowNumber%2==1)//单行双行颜色不一样 单行有class
+                            $('#studenttable1').append("<tr class='studenttabletralt' id='" + rowNumber + "'><td>队员</td><td>" + data.members[i].number + "</td><td>" + data.members[i].name + "</td></tr>");
+                            else
+                            $('#studenttable1').append("<tr id='" + rowNumber + "'><td>队员</td><td>" + data.members[i].number + "</td><td>" + data.members[i].name + "</td></tr>");
+                        }
+               
+                }
+                
+            });
+
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+        })
+               
+    </script>
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content" id="content">
+            <div class="block">
+                <div class="title">固定分组</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <table class="studenttable" id="studenttable1">
+                            <tr id="tableTitle">
+                                <th class="studenttableth ">角色</th>
+                                <th class="studenttableth ">学号</th>
+                                <th class="studenttableth ">姓名</th>
+                            </tr>
+
+
+                        </table>
+                    </div>
+                    <div class="itemBody">
+                        <div class="item">
+                            <div class="modifyButton" id="modify"> 修改 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

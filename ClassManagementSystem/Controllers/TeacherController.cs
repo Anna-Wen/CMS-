@@ -14,26 +14,43 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult NewSeminar()
+=======
+        public IActionResult TeacherScoreHome()
+>>>>>>> master
         {
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult CheckTopicBeforeClass()
+=======
+        public IActionResult TeacherScoreReportPage()
+>>>>>>> master
         {
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult CheckTopicAfterClass()
+=======
+        public IActionResult BasicInfo()
+>>>>>>> master
         {
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult CreateClass()
+=======
+        public IActionResult TeacherCourseHome()
+>>>>>>> master
         {
             return View();
         }
         
+<<<<<<< HEAD
         public IActionResult CheckClassInfo()
         {
             return View();
@@ -61,5 +78,15 @@ namespace ClassManagementSystem.Controllers
             return Json(new Topic { Id = 257, Name = "领域模型与模块", Description="Domain model与模块划分", GroupLimit=5, GroupLeft=3 });
         }
 
+=======
+            public IActionResult CheckClassInfo()
+        {
+            return View(); 
+        }
+        public IActionResult CheckSeminar()
+        {
+            return View();
+        }
+>>>>>>> master
     }
 }

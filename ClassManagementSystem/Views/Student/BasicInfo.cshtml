@@ -6,7 +6,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>学生基本信息</title>
-    <link href="/css/common/HomePage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/Common/HomePage.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -27,7 +27,7 @@
             <div class="line"></div>
             <div class="courseIntroduction">
                 <a class="guidefont" href="#">基本信息</a>
-                <a class="guidefont" href="~/Student/CourseInfo">课程信息</a>
+                <a class="guidefont" href="~/Student/StudentCourseHome">课程信息</a>
                 <a class="guidefont" href="#">选择课程</a>
             </div>
         </div>
@@ -74,7 +74,7 @@
         	//$("#studentId").text("JasperMaik");
         	   $.ajax({
                   type: "GET",
-        		  url: "/me",
+        		  url: "/me/student",
         		  contentType:"application/json;charset=utf-8",
         		  dataType: "json",
         		  success: function(data,status)

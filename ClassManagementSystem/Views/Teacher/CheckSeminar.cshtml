@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!--删除讨论课，add按钮，修改讨论课的跳转还没有写-->
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新讨论课</title>
+    <link href="../../css/Teacher/content.css" rel="stylesheet" type="text/css" />
+   
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        
+        <div class="navigation">
+            <div class="courseName" id="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="classInfo">
+                <div class="title" id="Title"></div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">讨论课名称:</label>
+                        <label class="itemName" id="sName"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">讨论课说明:</label>
+                        <label class="itemName" id="sDescription"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">分 组 方 式:</label>
+                        <label class="itemName" id="sGroupingMethod"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">开 始 时 间:</label>
+                        <label class="itemName" id="sStartTime"></label>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">结 束 时 间:</label>
+                        <label class="itemName" id="sEndTime"></label>
+                    </div>
+
+                    <div class="item">
+                        <button class="leftButton" id="score">评分</button>
+                        <button class="middleButton" id="edit">修改</button>
+                        <button class="rightButton" id="delete">删除讨论课</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="seminarInfo">
+                <div class="title">Topic</div>
+                <div class="line"></div>
+                <br><br />
+                <div class="topicBlockBody" style="margin-left: 5%" id="topicButton">
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+            var seminarId = window.location.href.split("=")[2];
+            var seminarNO = window.location.href.split("=")[3];
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            }; 
+            $('#Title').text("讨论课"+seminarNO);
+
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+
+            
+            //document.write("xxxx");
+            $.ajax({
+                type: 'GET',
+                url: '/seminar/' + seminarId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#sName').text(data.name);
+                    $('#sDescription').text(data.description);
+                    $('#sGroupingMethod').text(data.groupingMethod);
+                    $('#sStartTime').text(data.startTime);
+                    $('#sEndTime').text(data.endTime);
+
+                    for (var i = 0; i < data.topics.length; i++) {
+
+                        var url = "/Teacher/CheckTopic?index=" + data.topics[i].id;  //传递话题id
+                        $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
+                    }
+                    $('#topicButton').append("<div class='topicBlock' id='add'> <img src='../../Img / add.png' width='110' height='110'></div>");
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+            $('#delete').click(function () {
+                var seminarId = window.location.href.split("=")[1];
+                $ajax({
+                    type: "DELETE",
+                    url: "/seminar/" + seminarId,
+                    data: "1",
+                    success: function (data) {
+                        alert("delete success！");
+                        window.history.go(-1);
+                    }
+                    //error: function (err) {
+                    //    alert(err);
+                    //}
+                });
+            })
+            //$("#score").click(function () {
+            //    //document.write("score");//---------
+            //    var index = "1";
+            //    var url = "/Teacher/TeacherScoreReportPage?index=" + index;//这个页面还没写
+            //    window.location.href = url;
+            //});
+            //$("#edit").click(function () {
+            //    //document.write("edit");//-----------
+            //    var index = "1";
+            //    var url = "/Teacher/TeacherEditSeminarPage?index=" + index;
+            //    window.location.href = url;
+            //});
+            //$("#add").click(function () {
+            //    document.write("add");//---------------
+            //    var index = "1";
+            //    var url = "/Teacher/CreateTopic?index=" + index;
+            //    window.location.href = url;
+            //});
+    </script>
+</body>
+</html>
+

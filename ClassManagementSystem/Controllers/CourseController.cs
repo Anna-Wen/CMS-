@@ -9,16 +9,18 @@ using ClassManagementSystem.Models;
 namespace ClassManagementSystem.Controllers
 {
     [Produces("application/json")]
-    [Route("/course")]
+    [Route("/Course")]
     public class CourseController : Controller
     {
         // GET: /course
         [HttpGet]
         public IActionResult GetCourses()
         {
-            List<Course> courses = new List<Course>();
-            courses.Add(new Course { Id = 1, Name = "OOAD", NumClass = 3, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" });
-            courses.Add(new Course { Id = 2, Name = "J2EE", NumClass = 1, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" });
+            List<Course> courses = new List<Course>
+            {
+                new Course { Id = 1, Name = "OOAD", NumClass = 3, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" },
+                new Course { Id = 2, Name = "J2EE", NumClass = 1, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" }
+            };
 
             return Json(courses);
         }
@@ -30,17 +32,18 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-                //return Forbid();
+            //  return Forbid();
 
             //Get information from json
-            GradeProportion proportions =  new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             Course newCourse = new Course { Name = json.Name, Description = json.Description, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             // Store course information in server and generate a id for this new course
             newCourse.Id = 23;
 
             // Return course id
-            return Created("/Course/" + newCourse.Id, newCourse);
+            string uri = "/course/" + newCourse.Id;
+            return Created(uri, newCourse);
         }
 
         // GET: /course/{courseId}
@@ -64,10 +67,10 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-                //return Forbid();
+            //return Forbid();
 
             //Get information from json
-            GradeProportion proportions =  new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             Course editedCourse = new Course { Name = json.Name, Description = json.Description, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             //Change information in database
@@ -98,9 +101,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetClassList(int courseId)
         {
             // Fetch data from database
-            List<Class> classes = new List<Class>();
-            classes.Add(new Class { Id = 45, Name = "周三1-2节" });
-            classes.Add(new Class { Id = 48, Name = "周三3-4节" });
+            List<Class> classes = new List<Class>
+            {
+                new Class { Id = 45, Name = "周三1-2节" },
+                new Class { Id = 48, Name = "周三3-4节" }
+            };
 
             // If not found
             if (classes == null)
@@ -121,13 +126,14 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
-            Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
+            Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Roster = json.Roster, Proportions = proportions };
 
-            // Store course information in server and generate a id for this new class
+            // Store class information in server and generate a id for this new class
             newClass.Id = 45;
 
-            // Return course id
-            return Created("/Class/" + newClass.Id, newClass);
+            // Return class id
+            string uri = "/class/" + newClass.Id;
+            return Created(uri, newClass);
         }
 
         // GET: /course/{courseId}/seminar?embedGrade=false
@@ -168,11 +174,12 @@ namespace ClassManagementSystem.Controllers
             GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             Seminar newSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
-            // Store course information in server and generate a id for this new seminar
+            // Store seminar information in server and generate a id for this new seminar
             newSeminar.Id = 32;
 
-            // Return course id
-            return Created("/Seminar/" + newSeminar.Id, newSeminar);
+            // Return seminar id
+            string uri = "/seminar/" + newSeminar.Id;
+            return Created(uri, newSeminar);
         }
 
         // GET: /course/{courseId}/grade
@@ -180,9 +187,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetStudentGradeUnderAllSeminar(int courseId)
         {
             // Fetch data from database
-            List<SeminarGradeDetail> seminarGrades = new List<SeminarGradeDetail>();
-            seminarGrades.Add(new SeminarGradeDetail { SeminarName = "需求分析", GroupName = "3A2", LeaderName = "张三", PresentationGrade = 4, ReportGrade = 4, Grade = 4 });
-            seminarGrades.Add(new SeminarGradeDetail { SeminarName = "界面原型设计", GroupName = "3A3", LeaderName = "张三", PresentationGrade = 5, ReportGrade = 5, Grade = 5 });
+            List<SeminarGradeDetail> seminarGrades = new List<SeminarGradeDetail>
+            {
+                new SeminarGradeDetail { SeminarName = "需求分析", GroupName = "3A2", LeaderName = "张三", PresentationGrade = 4, ReportGrade = 4, Grade = 4 },
+                new SeminarGradeDetail { SeminarName = "界面原型设计", GroupName = "3A3", LeaderName = "张三", PresentationGrade = 5, ReportGrade = 5, Grade = 5 }
+            };
 
             // If not found
             if (seminarGrades == null)

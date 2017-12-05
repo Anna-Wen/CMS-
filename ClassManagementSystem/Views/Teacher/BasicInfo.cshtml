@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>教师基本信息</title>
+    <link href="/css/Common/HomePage.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png">首页
+            <img src="/images/help.png">帮助
+            <img src="/images/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="#">基本信息</a>
+                <a class="guidefont" href="~/Teacher/???">课程信息</a>
+                <a class="guidefont" href="~/Teacher/???">新建课程</a>
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="title">基本信息</div>
+            <div class="line"></div>
+            <div class="imgarea"><img class="img" id="pic" src="/images/user.png" /></div>
+            <div class="info">
+                <table class="table">
+                    <tr class="itemName">
+                        <td>用户名：<span id="userName"></span></td>
+                        <td>教工号：<span id="teacherId"></span><input type="text" id="inputTeacherId" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>姓名：<span id="teacherName"></span><input type="text" id="inputTeacherName" style="display:none" /></td>
+                        <td>性别：<span id="teacherGender"></span><input type="text" id="inputTeacherGender" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>学校：<span id="teacherSchool"></span><input type="text" id="inputTeacherSchool" style="display:none" /></td>
+                        <td>职称：<span id="teacherTitle"></span><input type="text" id="inputTeacherTitle" style="display:none" /></td>
+                    </tr>
+                    <tr class="itemName">
+                        <td>E-mail：<span id="teacherEmail"></span><input type="text" id="inputTeacherEmail" style="display:none" /></td>
+                        <td>联系方式：<span id="teacherPhone"></span><input type="text" id="inputTeacherPhone" style="display:none" /></td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div class="button">
+                    <button onclick="update_submit()" id="up_sub">修改</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        	//$("#userName").text("JasperMaik");
+        	//$("#teacherId").text("JasperMaik");
+        	   $.ajax({
+                  type: "GET",
+        		  url: "/me/teacher",
+        		  contentType:"application/json;charset=utf-8",
+        		  dataType: "json",
+        		  success: function(data,status)
+                  {
+        			  $("#pic").attr("src",data.avatar);
+        			  $("teacherName").text(data.id);
+                      $("#teacherId").text(data.number);
+                      $("#teacherName").text(data.name);
+                      if (data.gender == "male")
+                          $("#teacherGender").text("男");
+                      else
+                          $("#teacherGender").text("女");
+                      $("#teacherSchool").text(data.school.name);
+                      $("#teacherTitle").text(data.title);
+                      $("#teacherEmail").text(data.email);
+                      $("#teacherPhone").text(data.phone);
+        		  }
+        		});
+        	});
+    </script>
+    <script type="text/javascript">
+        function update_submit(){
+        	if($("#up_sub").text()=="修改"){
+                var teacherInfo={Number: $("#teacherId").text(),
+                        Name:$("#teacherName").text(),
+                        Gender: $("#teacherGender").text(),
+                        School: $("#teacherSchool").text(),
+                        Title: $("#teacherTitle").text(),
+                        Email: $("#teacherEmail").text(),
+                        Phone: $("#teacherPhone").text()};
+                $("[id^='teacher']").hide();
+        		$("[id^='input']").show();
+        		$("#up_sub").text("提交");
+
+        		$("#inputTeacherId").val(teacherInfo.Number);
+                $("#inputTeacherName").val(teacherInfo.Name);
+                $("#inputTeacherGender").val(teacherInfo.Gender);
+                $("#inputTeacherSchool").val(teacherInfo.School);
+                $("#inputTeacherTitle").val(teacherInfo.Title);
+                $("#inputTeacherEmail").val(teacherInfo.Email);
+                $("#inputTeacherPhone").val(teacherInfo.Phone);
+        		}
+        	else{
+                var teacherInfo = {
+                        Number: $("#inputTeacherId").val(),
+                        Name: $("#inputTeacherName").val(),
+                        Gender: $("#inputTeacherGender").val(),
+                        School: $("#inputTeacherSchool").val(),
+                        Title: $("#inputTeacherTitle").val(),
+                        Email: $("#inputTeacherEmail").val(),
+                        Phone: $("#inputTeacherPhone").val()
+                };
+
+
+                if (teacherInfo.Gender == "男")
+                    teacherInfo.Gender = "male";
+                else
+                    teacherInfo.Gender = "female";
+
+        		 $.ajax({
+                     url: "/me",
+                     type: "PUT",
+                     contentType: "application/json;charset=utf-8",
+                     dataType: "json",
+                     data: JSON.stringify(teacherInfo),
+                     success: function (data, status) {
+                         $("[id^='input']").hide();
+                         $("[id^='teacher']").show();
+                         $("#up_sub").text("修改");
+
+                         $("#teacherId").text(teacherInfo.Number);
+                         $("#teacherName").text(teacherInfo.Name);
+                         if (teacherInfo.Gender == "male")
+                             $("#teacherGender").text("男");
+                         else
+                             $("#teacherGender").text("女");
+                         $("#teacherSchool").text(teacherInfo.School);
+                         $("#teacherTitle").text(teacherInfo.Title);
+                         $("#teacherEmail").text(teacherInfo.Email);
+                         $("#teacherPhone").text(teacherInfo.Phone);
+                      }
+                     //error:
+                 });
+        	}
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师课程内页</title>
+    <link href="../../css/teacher/TeacherCourseInformation.css" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var courseId = 1;
+            //var courseId = window.location.href.split("=")[1];//当前课程id!!!!!!!!!
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId + '/class',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var url = "/Teacher/CheckClassInfo?index=" + courseId+"="+data[i].id;  //传递班级id 
+
+                        $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>" + data[i].name + "</div></div>");
+                    }
+                    $('#classButton').append("<div class='block'><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+
+                }
+            });
+
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId + '/seminar',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var url = "/Teacher/CheckSeminar?index=" + courseId + "="+data[i].id+"="+(i+1);  //传递讨论课id 
+
+                        $('#seminarButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + (i+1) + "</div></div>");
+                    }
+                    $('#seminarButton').append("<div class='block'><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+
+                }
+            });
+          
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="classInfo">
+                <div class="title">课程班级</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="blockBody" id="classButton">
+                    
+                </div>
+            </div>
+            <div class="seminarInfo">
+                <div class="title">讨论课</div>
+                <div class="line"></div>
+                <div class="blockBody" id="seminarButton">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

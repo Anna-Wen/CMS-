@@ -10,22 +10,13 @@ namespace ClassManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult AccountLoginPage()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult RegisterPage()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 

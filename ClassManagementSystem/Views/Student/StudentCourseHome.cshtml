@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>学生主页（课程信息）</title>
+    <link href="/css/Student/StudentCourseHomePage.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="/images/home.png">首页
+            <img src="/images/help.png">帮助
+            <img src="/images/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction"><a class="guidefont" href="/Student/BasicInfo">基本信息</a> <a class="guidefont" href="#">课程信息</a> <a class="guidefont" href="/Student/">选择课程</a></div>
+        </div>
+        <div class="content" id="mainContent">
+            <div class="title">课程信息</div>
+            <hr class="line" />
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $.ajax({
+                 type: "GET",
+                 url: "/class",
+                 contentType: "application/json;charset=utf-8",
+                 dataType: "json",
+                 success: function (data, status)
+                 {
+                     for (var i = 0; i < data.length; i++)
+                     {
+                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(data[i].courseId)' id=data[i].id>< h3 class='classtitle' >");
+                         $("#mainContent").append("<span id='course'>'+data[i].courseName+'</span>");
+                         $("#mainContent").append("<button onclick='quit(data[i].id)'>退选课程</button></h3 ><div class='divideline'></div><div class='classinfo'><table class='table'><tr>");
+                         $("#mainContent").append("<td class='tabletext'>班级：<span id='name'>'+data[i].time+'</span></td>< td class='tabletext' id= 'site' > 课程地点：'+data[i].site+'</td ></tr ><tr>");
+                         $("#mainContent").append("<td class='tabletext' id='teacher'>教师：'+data[i].courseTeacher.name+'</td>< td class='tabletext' ></td ></tr ></table ></div >");
+                         $("#mainContent").append("</div>");
+                     }
+                 }
+           });
+       });
+    </script>
+    <script>
+        //点击退选课程按钮
+        function quit(classId)
+        {
+            //var obj = event.srcElement;
+            $.ajax({
+                type: "DELETE",
+                url: "/class/classId/student/1",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    //在页面上删除
+                    alert("确定删除吗？");
+                    var block = "#" + classId;
+                    $(block).hide();
+                }
+            });
+        }
+
+        function detailedInfo(courseId)
+        {
+            window.location.href = "/Student/CourseHome?courseId=" + courseId; 
+        }
+    </script>
+</body>
+</html>
