@@ -9,11 +9,11 @@ using ClassManagementSystem.Models;
 namespace ClassManagementSystem.Controllers
 {
     [Produces("application/json")]
-    [Route("/Topic")]
+    [Route("/topic")]
     public class TopicController : Controller
     {
 
-        // GET: /Topic/{topicId}
+        // GET: /topic/{topicId}
         [HttpGet("{topicId}")]
         public IActionResult GetTopic(int topicId)
         {
@@ -29,7 +29,7 @@ namespace ClassManagementSystem.Controllers
             return Json(topic);
         }
 
-        // PUT: /Topic/{topicId}
+        // PUT: /topic/{topicId}
         [HttpPut("{topicId}")]
         public IActionResult PutTopic(int topicId, [FromBody]dynamic json)
         {
@@ -56,7 +56,7 @@ namespace ClassManagementSystem.Controllers
             }
         }
 
-        // DELETE: /Topic/{topicId}
+        // DELETE: /topic/{topicId}
         [HttpDelete("{topicId}")]
         public IActionResult DeleteTopic(int topicId)
         {
@@ -66,7 +66,7 @@ namespace ClassManagementSystem.Controllers
             return deleteResult;
         }
 
-        // GET: /Topic/{topicId}/group
+        // GET: /topic/{topicId}/group
         [HttpGet("{topicId}/group")]
         public IActionResult GetGroupsUnderTopic(int topicId)
         {

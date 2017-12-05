@@ -7,7 +7,7 @@ namespace ClassManagementSystem.Models
 {
     public class SeminarGrade
     {
-        public int[] PresentationGrade { get; set; }
+        public List<int> PresentationGrade { get; set; }
         public int ReportGrade { get; set; }
         public int Grade { get; set; }
     }

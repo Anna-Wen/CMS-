@@ -9,7 +9,7 @@ using ClassManagementSystem.Models;
 namespace ClassManagementSystem.Controllers
 {
     [Produces("application/json")]
-    [Route("/Seminar")]
+    [Route("/seminar")]
     public class SeminarController : Controller
     {
         List<Seminar> seminars = new List<Seminar>();
