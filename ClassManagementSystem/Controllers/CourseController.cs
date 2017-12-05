@@ -30,17 +30,17 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-                //return Forbid();
+            //  return Forbid();
 
             //Get information from json
-            GradeProportion proportions =  new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Course newCourse = new Course { Name = json.Name, Description = json.Description, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             // Store course information in server and generate a id for this new course
             newCourse.Id = 23;
 
             // Return course id
-            string uri = "/Course/" + newCourse.Id;
+            string uri = "/course/" + newCourse.Id;
             return Created(uri, newCourse);
         }
 
@@ -65,10 +65,10 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-                //return Forbid();
+            //return Forbid();
 
             //Get information from json
-            GradeProportion proportions =  new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Course editedCourse = new Course { Name = json.Name, Description = json.Description, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             //Change information in database
@@ -121,14 +121,14 @@ namespace ClassManagementSystem.Controllers
             //return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
-            Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
+            GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
+            Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Roster = json.Roster, Proportions = proportions };
 
             // Store class information in server and generate a id for this new class
             newClass.Id = 45;
 
             // Return class id
-            string uri = "/Class/" + newClass.Id;
+            string uri = "/class/" + newClass.Id;
             return Created(uri, newClass);
         }
 
@@ -167,14 +167,14 @@ namespace ClassManagementSystem.Controllers
             //return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Seminar newSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
             // Store seminar information in server and generate a id for this new seminar
             newSeminar.Id = 32;
 
             // Return seminar id
-            string uri = "/Seminar/" + newSeminar.Id;
+            string uri = "/seminar/" + newSeminar.Id;
             return Created(uri, newSeminar);
         }
 

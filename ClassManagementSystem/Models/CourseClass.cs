@@ -13,7 +13,6 @@ namespace ClassManagementSystem.Models
         public string Time { get; set; }
         public string Site { get; set; }
         public string CourseName { get; set; }
-        public User CourseTeacher { get; set; }
-        //public Teacher CourseTeacher { get; set; }
+        public Teacher CourseTeacher { get; set; }
     }
 }

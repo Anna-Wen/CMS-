@@ -7,7 +7,7 @@ namespace ClassManagementSystem.Models
 {
     public class ClassGroup
     {
-        public User Leader { get; set; }
+        public Student Leader { get; set; }
         public List<Student> Members { get; set; }
     }
 }

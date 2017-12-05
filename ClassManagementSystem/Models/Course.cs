@@ -8,8 +8,7 @@ namespace ClassManagementSystem.Models
     public class Course
     {
         public int Id { get; set; }
-        public User Teacher { get; set; }
-        //public Teacher Teacher { get; set; }
+        public Teacher Teacher { get; set; }
         public string Name { get; set; }
         public int NumClass { get; set; }
         public int NumStudent { get; set; }

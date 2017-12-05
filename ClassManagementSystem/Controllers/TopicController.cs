@@ -34,7 +34,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult PutTopic(int topicId, [FromBody]dynamic json)
         {
             //错误的Id格式返回400怎么写？？？
-            //用户权限不足返回403怎么写？？？
+
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
 
             // Update this edited topic info
 
@@ -54,6 +58,16 @@ namespace ClassManagementSystem.Controllers
 
                 return NoContent();
             }
+
+            //Get information from json
+            Topic editedTopic = new Topic { Id = 257, Serial = "A", Name = "领域模型与模块划分", Description = "Domain Model 与模块划分", GroupLimit = 6, GroupMemberLimit = 6, GroupLeft = 2 };
+
+            //Change information in database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // DELETE: /topic/{topicId}

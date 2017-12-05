@@ -18,12 +18,12 @@ namespace ClassManagementSystem.Controllers
         {
             // Fetch selected class list from database
             List<CourseClass> classList = new List<CourseClass>();
-            classList.Add(new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = "邱明" });
-            classList.Add(new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = "杨律青" });
+            classList.Add(new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } });
+            classList.Add(new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } });
             if (courseName != null && courseName != "")
                 classList = classList.FindAll((p) => p.CourseName.StartsWith(courseName));
             if (courseTeacher != null && courseTeacher != "")
-                classList = classList.FindAll((p) => p.CourseTeacher.StartsWith(courseTeacher));
+                classList = classList.FindAll((p) => p.CourseTeacher.Name.StartsWith(courseTeacher));
 
             // If class not found
             //if (classList == null)
@@ -59,7 +59,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Class editedClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
 
             //Change information in database
