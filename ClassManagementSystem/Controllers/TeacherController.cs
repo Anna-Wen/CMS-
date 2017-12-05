@@ -18,7 +18,15 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult TeacherScoreReportPage()
+=======
+        public IActionResult CheckTopicBeforeClass()
+        {
+            return View();
+        }
+        public IActionResult TeacherScoreReport()
+>>>>>>> master
         {
             return View();
         }
@@ -28,7 +36,16 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult TeacherCourseHome()
+=======
+        public IActionResult CreateClass()
+        {
+            return View();
+        }
+
+        public IActionResult TeacherCourseInformation()
+>>>>>>> master
         {
             return View();
         }

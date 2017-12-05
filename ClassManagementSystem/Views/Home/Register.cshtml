@@ -98,7 +98,7 @@
         //提交绑定信息
         function putInfo() {
             //document.write("putInfo");//=====================
-            var urlSkip = "/Teacher/HomePage";//跳转到个人首页？？？-------------------
+
             var g;//性别变量
             if (document.getElementById("male").checked)//可以通过这样来判断选择的那个性别？
                 g = "male";
@@ -110,6 +110,11 @@
                 r = "student";
             else
                 r = "teacher";
+            var urlSkip;
+            if (r == "teacher")
+                urlSkip = "/Teacher/BasicInfo";//跳转到个人首页？？？-------------------
+            else
+                urlSkip = "/Student/BasicInfo";
 
             var Info = {
                 Name: $("#name").text(),
@@ -135,7 +140,7 @@
         //提交所有信息
         function submitInfo() {
             //document.write("submit");//=====================
-            var urlSkip = "/Teacher/HomePage";//跳转到个人首页？？？-------------------
+
             var PersonInfo = {
                 Password: $("#password").text(),
                 Phone: $("#phone").text()

@@ -22,7 +22,7 @@ namespace ClassManagementSystem.Controllers
             // Fetch data from database
             List<Topic> topics = new List<Topic>
             {
-                new Topic { Id = 257, Name = "领域模型与模块" }
+                new Topic { Id = 257, Serial = "A", Name = "领域模型与模块" }
             };
             Seminar seminar = new Seminar { Id = 32, Name = "概要设计", Description = "本节讨论课的主要内容针对第一二章", GroupingMethod = "fixed", StartTime = "10/10/2017", EndTime = "24/10/2017", Topics = topics };
 
