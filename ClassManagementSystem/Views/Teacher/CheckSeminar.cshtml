@@ -150,13 +150,12 @@
         $('#delete').click(function () {
             var courseId = window.location.href.split("=")[1];//当前课程id
             var seminarId = window.location.href.split("=")[2];
-            $ajax({
+            $.ajax({
                 type: "DELETE",
                 url: "/seminar/" + seminarId,
-                data: "1",
                 success: function (data) {
-                    alert("delete success！");
-                    window.history.go(-1);
+                    alert("删除讨论课操作成功！");
+                    window.history.back();
                 }
                 //error: function (err) {
                 //    alert(err);
