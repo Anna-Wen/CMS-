@@ -78,7 +78,7 @@
         		  success: function(data,status)
                   {
         			  $("#pic").attr("src",data.avatar);
-        			  $("teacherName").text(data.id);
+                      $("#userName").text(data.id);
                       $("#teacherId").text(data.number);
                       $("#teacherName").text(data.name);
                       if (data.gender == "male")
