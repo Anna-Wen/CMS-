@@ -73,8 +73,10 @@
                                 <td>5</td>
                                 <td>5</td>
                                 <td>
-                                    <img src="~/images/view.png" alt="预览">预览 @*alt无法显示???*@
-                                    <img src="~/images/download.png" alt="下载">下载
+                                    <a href="/Teacher/TeacherScoreReportPage" style="text-decoration:none;">
+                                        <img src="~/images/view.png" alt="预览">
+                                    </a>
+                                    <img src="~/images/download.png" alt="下载">  @*???*@
                                 </td>
                             </tr>
 
@@ -102,7 +104,7 @@
                          //对每个小组，获取小组详情
                          $.ajax({
                              type: "GET",
-                             url: "/group/groupId",  //直接写进去???{groupId} 传参
+                             url: "/group/{groupId}",  //直接写进去???{groupId} 传参
                              contentType: "application/json;charset=utf-8",
                              dataType: "json",
                              success: function (data, status)
@@ -111,12 +113,13 @@
                                  $("#tableBody").append(" <td>'+data.groupName+'</td> < td > '+data.leaderName+'</td > <td>'+data.presentationGrade+'</td>");
                                  if (!data.report)  //NULL???
                                  {
-                                     $("#tableBody").append(" <td>'data.未提交'</td>");  //???
-
+                                     $("#tableBody").append(" <td>未提交</td>");  //???
                                  }
-                                 $("#tableBody").append(" <td>'data.已提交'</td>"); //???
+                                 else {
+                                     $("#tableBody").append(" <td>已提交</td>");
+                                 }
                                  $("#tableBody").append(" <td>'data.reportGrade'</td> <td>'data.grade'</td>");
-                                 $("#tableBody").append(" <td> < img src= '~/images/view.png' alt= '预览' >预览 <img src='~/images/download.png' alt='下载'>下载 </td>");
+                                 $("#tableBody").append(" <td> <a href=' / Teacher / TeacherScoreReportPage' style='text- decoration:none;'>< img src= '~/images/view.png' alt= '预览' ></a> <a href=' / Teacher / ' style='text- decoration:none;'> <img src='~/images/download.png' alt='下载'></a> </td>");
                                  $("#tableBody").append(" </tr>");
                              }
                          });
@@ -124,6 +127,10 @@
                  }
            });
        });
+    </script>
+    <script>
+        //返回上一页操作
+
     </script>
 </body>
 </html>

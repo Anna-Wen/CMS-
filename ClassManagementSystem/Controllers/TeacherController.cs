@@ -17,5 +17,10 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult TeacherScoreReportPage()
+        {
+            return View();
+        }
     }
 }

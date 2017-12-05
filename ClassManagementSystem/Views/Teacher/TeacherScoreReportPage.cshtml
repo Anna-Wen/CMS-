@@ -66,20 +66,68 @@
 
     <div class="top">
         <div class="item1">
-            <label class="itemName">讨论课3</label>
-            <label class="itemName">1-A-1组</label>
-            <label class="itemName">组长：……</label>
+            <label class="itemName" id="seminarName">讨论课3</label>
+            <label class="itemName" id="groupName">1-A-1组</label>
+            <label class="itemName" id="leader">组长：……</label>
         </div>
         <div class="item2">
             <label class="itemName">评分:</label>
-            <input type="text" placeholder="3-5" />
+            <input type="text" placeholder="3-5" id="inputScore" />
             <button class="itemName">确认打分</button>
         </div>
     </div>
-    <div class="body">
+    @*<div class="body">
         <div class="file">
-            <object class="pdfFile">学生的报告</object>
+            <object class="pdfFile" data="/Student/233.pdf" type="application/pdf">学生的报告</object>
         </div>
+    </div>*@
+    <div class="body"> @*???*@
+        <object class="file" data="~/Student/233.pdf" type="application/pdf"></object>
     </div>
+    @*<div class="body">
+        <object class="file" data="./233.pdf" type="application/pdf"></object>
+    </div>
+    <!-- Tell PDFObject which PDF to embed, and where to embed it -->
+    <!-- <script src="/js/pdfobject.js"></script>
+    <script>PDFObject.embed("/pdf/sample-3pp.pdf", "#example1");</script> -->*@
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        <div class="top">
+            <div class="item1">
+                <label class="itemName" id="seminarName">讨论课3</label>
+                <label class="itemName" id="groupName">1-A-1组</label>
+                <label class="itemName" id="leader">组长：……</label>
+            </div>
+            <div class="item2">
+                <label class="itemName">评分:</label>
+                <input type="text" placeholder="3-5" id="inputScore" />
+                <button class="itemName">确认打分</button>
+            </div>
+        </div>
+        $(document).ready(function () {
+            var groupId =;  //获得上一个页面传来的小组ID
+            $.ajax({
+                type: "GET",
+                url: "/group/{groupId}",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+
+                    $("#pic").attr("src", data.avatar);
+                    $("#userName").text(data.id);
+                    $("#studentId").text(data.number);
+                    $("#studentName").text(data.name);
+                    if (data.gender == "male")
+                        $("#studentGender").text("男");
+                    else
+                        $("#studentGender").text("女");
+                    $("#studentSchool").text(data.school.name);
+                    $("#studentEducation").text(data.title);
+                    $("#studentEmail").text(data.email);
+                    $("#studentPhone").text(data.phone);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
