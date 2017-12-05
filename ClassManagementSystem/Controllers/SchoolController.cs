@@ -37,10 +37,10 @@ namespace ClassManagementSystem.Controllers
         
         // POST: /school
         [HttpPost]
-        public IActionResult PostNewSchool([FromBody]string value)
+        public IActionResult PostNewSchool([FromBody]dynamic json)
         {
             // Get information from json
-            School newSchool = new School { Name = Json.Name, Province = Json.Province, City = Json.City };
+            School newSchool = new School { Name = json.Name, Province = json.Province, City = json.City };
 
             // Judge and store school information in server
             newSchool.Id = 38;
