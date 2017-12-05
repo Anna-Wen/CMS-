@@ -7,62 +7,6 @@
     <meta charset="UTF-8">
     <title>选择课程</title>
     <link href="/css/Student/StudentChooseCoursePage.css" rel="stylesheet" type="text/css" />
-
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        $(document).ready(function () {
-            //初始化
-            $.ajax({
-                type: 'GET',
-                url: '/class',  
-                contentType: "application/json;charset=utf-8",
-                success: function (data, status) {
-                  //生成班级列表
-                    for (var i = 0; i < data.length; i++) {
-                        $('#mainContent').append("<div class='main_box_right_content' id='table"+data[i].id+"'></div></br>");
-                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].courseName + "<button id='"+data[i].id+"' onclick='choose()'>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
-                    }
-                }
-            });
-
-            //点击查询 刷新
-            $('#check').on('click', function () {
-                var checkteacher = $("#checkteacher").val();
-                var checkcourse = $("#checkcourse").val();
-
-                var url = "/class/student?courseName=" + checkcourse + "&courseTeacher=" + checkteacher;
-
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data, status) {
-                        $('#classtable').html("");
-                        for (var i = 0; i < data.length; i++)
-                            $('#classtable').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
-                     }
-                });
-            });
-        })
-    </script>
-    <script>
-        //选择课程
-        function choose() {
-            alert("233");
-            var studentInfo = { id: 233 };
-            var obj = event.srcElement;
-            alert(obj.id);
-            $.ajax({
-                type: 'POST',
-                url: '/class/obj.id/student',
-                data: JSON.stringify(studentInfo),
-                contentType: "application/json;charset=utf-8",
-                success: function (data, status) {
-                    $('#table' + obj.id).hide;
-                }
-            });
-        }
-    </script>
 </head>
 <body>
     <div class="top">
@@ -99,5 +43,68 @@
         </div>
         <div class="clear"></div>
     </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            //初始化
+            $.ajax({
+                type: 'GET',
+                url: '/class',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    //生成班级列表
+                    for (var i = 0; i < data.length; i++) {
+                        $('#mainContent').append("<div class='main_box_right_content' id='table" + data[i].id + "'></div></br>");
+                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].courseName + "<button id='" + data[i].id + "' onclick='choose(this.id)'>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                    }
+                }
+            });
+
+            //点击查询 刷新
+            $('#check').on('click', function () {
+                var checkteacher = $("#checkteacher").val();
+                var checkcourse = $("#checkcourse").val();
+                alert(checkcourse);
+                if (!($("#checkteacher").val() == "" && $("#checkcourse").val() == ""))
+                {
+                    if ($("#checkteacher").val() == "")
+                        var url = "/class/student?courseTeacher=" + checkteacher;
+                    else if ($("#checkcourse").val() == "")
+                        var url = "/class/student?courseName=" + checkcourse;
+                    else
+                        var url = "/class/student?courseName=" + checkcourse + "&courseTeacher=" + checkteacher;
+                } else
+                    var url = "/class";
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data, status) {
+                        $('mainContent').innerHTML=""//html("");
+                        for (var i = 0; i < data.length; i++)
+                            $('#mainContent').append("<h3 class='classtitle'>" + data[i].courseName + "<button>选择课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级：<span>" + data[i].name + "</span></td><td class='tabletext'>课程地点：" + data[i].site + "</td></tr><tr><td class='tabletext'>班级人数：" + data[i].numStudent + "</td><td class='tabletext'>时间：" + data[i].time + "</td></tr></table></div>");
+                    }
+                });
+            });
+        })
+    </script>
+    <script>
+        //选择课程
+        function choose(id) {
+            var studentInfo = { Id: 233 };
+            alert(id);
+            $.ajax({
+                type: 'POST',
+                url: '/class/' + id + '/student',
+                data: JSON.stringify(studentInfo),
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    alert("233");
+                    //alert($('#table' + obj.id).id);
+                    $('#' + id).hide;
+                }
+            });
+        }
+    </script>
 </body>
 </html>
