@@ -13,18 +13,22 @@ namespace ClassManagementSystem.Controllers
     public class SeminarController : Controller
     {
         List<Seminar> seminars = new List<Seminar>();
-        List<Topic> topics = new List<Topic>();
         List<Group> groups = new List<Group>();
 
         // GET: /seminar/{seminarId}
         [HttpGet("{seminarId}", Name = "Get")]
         public IActionResult GetSeminar(int seminarId)
         {
-            // Fake Data
-            Seminar seminar = new Seminar { Id = 1, Name = "概要设计", Description = "本节讨论课的主要内容针对第一二章", GroupingMethod = "fixed", StartTime = "11/10/2017", EndTime = "17/11/2017" };
-            if (seminars.FirstOrDefault((p) => p.Id == 1) == null)
-                seminars.Add(seminar);
+            // Fetch data from database
+            List<Topic> topics = new List<Topic>();
+            topics.Add(new List { Id = 257, Name = "领域模型与模块" });
+            Seminar seminar = new Seminar { Id = 32, Name = "概要设计", Description = "本节讨论课的主要内容针对第一二章", GroupingMethod = "fixed", StartTime = "10/10/2017", EndTime = "24/10/2017", Topics = topics };
 
+            // If seminar not found
+            if (seminar == null)
+                return NotFound();
+
+            // Success
             return Json(seminar);
         }
 
@@ -70,19 +74,32 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{seminarId}/detail")]
         public IActionResult GetSeminarDetails(int seminarId)
         {
-            return Ok();
+            // Fetch data from database
+            SeminarDetail seminarDetail = new SeminarDetail { Id = 1, Name = "概要设计", StartTime = "10/10/2017", EndTime = "24/10/2017", Site = "海韵教学楼201", TeacherName = "邱明", TeacherEmail: "mingqiu@xmu.edu.cn" };
+
+            // If seminar not found
+            if (seminarDetail == null)
+                return NotFound();
+
+            // Success
+            return Json(seminarDetail);
         }
 
         // GET: /seminar/{seminarId}/topic
         [HttpGet("{seminarId}/topic")]
         public IActionResult GetSeminarTopics(int seminarId)
         {
-            // Fake Data
-            if (topics.FirstOrDefault((p) => p.Id == 257) == null)
-                topics.Add(new Topic { Id = 257, Name = "Domain model 与模块划分", Description = "XXXXXXXX", GroupLimit = 3 });
-            if (topics.FirstOrDefault((p) => p.Id == 258) == null)
-                topics.Add(new Topic { Id = 258, Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5 });
+            // Fetch data from database
+            List<Topic> topics = new List<Topic>();
+            topics.Add(new Topic { Id = 257, Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5});
+            topics.Add(new Topic { Id = 258, Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5 });
 
+
+            // If seminar not found
+            if (seminarDetail == null)
+                return NotFound();
+
+            // Success
             return Json(topics);
         }
 
