@@ -114,6 +114,7 @@
                     $('#classTime').text(data.time);
                     $('#classSite').text(data.site);
                     $('#classReport').text(data.proportions.report);
+
                     $('#classPresentation').text(data.proportions.presentation);
                     $('#classC').text(data.proportions.c);
                     $('#classB').text(data.proportions.b);
@@ -142,6 +143,7 @@
                 }
             });
 
+
         });
     </script>
     <script type="text/javascript">
@@ -163,6 +165,7 @@
                         A: $("#classA").text()
                     }
                 };
+
                 $("[id^='class']").hide();
                 $("[id^='input']").show();
                 $("#up_sub").text("提交");
@@ -189,6 +192,7 @@
                         C: $("#inputC").val(),
                         B: $("#inputB").val(),
                         A: $("#inputA").val()
+
                     }
                 };
 

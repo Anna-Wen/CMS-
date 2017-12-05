@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="viewport" content="width=device-width,
+                                     initial-scale=1.0,
+                                     maximum-scale=1.0,
+                                     user-scalable=no">
+    <title>ClassManage</title>
+    <link href="../../css/teacher/TeacherCreateSchool.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="titleBackground"></div>
+    <div class="title">课程管理系统</div>
+    <div class="icon">
+        <img src="../../images/home.png">首页
+        <img src="../../images/help.png">帮助
+        <img src="../../images/exit.png">退出
+    </div>
+    <div class="province">所在省份:<select class="provinceSelect" id="province"></select></div>
+    <div class="city">所在城市:<select class="citySelect" id="city" onclick="getCity()"></select></div>
+    <div class="school">学校名称:<input type="text" name="school" id="name"/></div>
+    <div class="submit" id="submit" onclick="submitInfo()">提交</div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        //初始化页面学校选项
+        $(document).ready(function () {
+            //document.write("begin");//=====================
+            $.ajax({
+                url: "/school/province",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                success: function(data,status){//首先加载省份信息
+                    for (var i = 0; i < data.length; i++)
+                   {
+                        $('#province').append("<option value='province"+ i + "'>" + data[i]+"</option>");//动态添加省份信息
+
+                   }
+                }
+            });
+
+        });//初始化end
+
+        //获取城市
+        function getCity() {
+            //document.write("city");//=====================
+            var province = $("#province").text();
+            $.ajax({
+                url: "/school/city?province=" + province,
+                type: "GET",
+                contentType: "application/json:charset=utf-8",
+                success: function (data, status) {//加载城市信息
+                    for (var i = 0; i < data.length; i++) {
+                        $('#city').append("<option value='city" + i + "'>" + data[i] + "</option>");//动态添加城市信息
+
+                    }
+
+                }
+            });
+        }//获取城市end
+
+
+        //提交学校
+        function submitInfo() {
+            //document.write("submit");//=====================
+            var urlSkip = "/Teacher/Bind";//跳转到注册页面？？？-------------------
+            var SchoolInfo = {
+                Name: $("#name").text(),
+                Province: $("#province").text(),
+                City: $("#city").text()
+            };
+            $.ajax({
+                url: "/school",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(SchoolInfo),
+                success: function (data, status) {
+                    //window.location.href = urlSkip;//跳转注册页面   post写了就可以跳转了
+                }
+            });
+            window.location.href = urlSkip;//跳转注册页面//
+        }//提交新建课程信息end
+
+
+    </script>
+</body>
+
+</html>
