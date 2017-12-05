@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+<!--get的-->
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -39,49 +40,49 @@
                 <div class="itemBody">
                     <div class="item">
                         <label class="itemName">班级名称:</label>
-                        <label class="itemName" id="className">周三1-2节</label>
+                        <label class="itemName" id="className"></label>
                         <input type="text" id="inputName" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">上课地点:</label>
-                        <label class="itemName" id="classSite">海韵212</label>
+                        <label class="itemName" id="classSite"></label>
                         <input type="text" id="inputSite" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">上课时间:</label>
-                        <label class="itemName" id="classTime">单周周一12节</label>
+                        <label class="itemName" id="classTime"></label>
                         <input type="text" id="inputTime" style="display:none" />
                     </div>
                     <div class="item">
                         <label class="itemName">评分规则:</label>
                         <label class="itemName">讨论课分数占比</label>
-                        <label class="itemName" id="classReport">60% </label>
+                        <label class="itemName" id="classReport"></label>
                         <input type="text" id="inputReport" style="display:none" />
                         <label class="itemName"> 报告分数占比</label>
-                        <label class="itemName" id="classPresentation">40%</label>
+                        <label class="itemName" id="classPresentation"></label>
                         <input type="text" id="inputPresentation" style="display:none" />
                     </div>
                     <div class="item" style="margin-left: 25%">
                         <label class="smallItemName">5分占比</label>
-                        <label class="itemName" name="seminarGrade" id="classC">30%</label>
+                        <label class="itemName" name="seminarGrade" id="classC"></label>
                         <input type="text" id="inputC" style="display:none" />
 
                         <label class="smallItemName">4分占比</label>
-                        <label class="itemName" name="seminarGrade" id="classB">40%</label>
+                        <label class="itemName" name="seminarGrade" id="classB"></label>
                         <input type="text" id="inputB" style="display:none" />
 
                         <label class="smallItemName">3分占比</label>
-                        <label class="itemName" name="seminarGrade" id="classA">30%</label>
+                        <label class="itemName" name="seminarGrade" id="classA"></label>
                         <input type="text" id="inputA" style="display:none" />
                     </div>
 
                     <div class="item">
                         <label class="itemName">导入学生名单:</label>
-                        <button class="selectFile">下载文件</button>
+                        <button class="selectFile" onclick="download()">下载文件</button>
                     </div>
                     <div class="item">
-                        <button class="submit" id="up_sub" onclick="">修改</button>
-                        <button class="reset" id="delete">删除班级</button>
+                        <button class="submit" id="up_sub" onclick="update_submit">修改</button>
+                        <button class="reset" id="delete" onclick="delete_class">删除班级</button>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
@@ -123,28 +124,34 @@
     </script>
     <script type="text/javascript">
        
-
         function update_submit() {
+            document.write("update");//--------------------
             var courseId = window.location.href.split("=")[1];//当前班级号
             if ($("#up_sub").text() == "修改") {
                 var classInfo = {
                     Name: $("#className").text(),
                     Time: $("#classTime").text(),  //修改时 时间不用显示
-                    Site: $("#site").text(),
-                    //Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
-                    Proportions: [$("#report").text(), $("#presentation").text(), $("#c").text(), $("#b").text(), $("#a").text()]
+                    Site: $("#classSite").text(),
+                    Proportions: {
+                        Report: $("#classReport").text(), 
+                        Presentation: $("#classPresentation").text(), 
+                        C: $("#classC").text(), 
+                        B: $("#classB").text(), 
+                        A: $("#classA").text()
+                    }
                 };
                 $("[id^='class']").hide();
                 $("[id^='input']").show();
                 $("#up_sub").text("提交");
 
-                $("#inputName").val(classInfo.className);
-                $("#inputSite").val(classInfo.classSite);
-                $("#inputReport").val(classInfo.classReport);
-                $("#inputPresentation").val(classInfo.classPresentation);
-                $("#inputC").val(classInfo.classC);
-                $("#inputB").val(classInfo.classB);
-                $("#inputA").val(classInfo.classA);
+                $("#inputName").val(classInfo.Name);
+                $("#inputSite").val(classInfo.Site);
+                $("#inputTime").val(classInfo.Time);
+                $("#inputReport").val(classInfo.Proportions.Report);
+                $("#inputPresentation").val(classInfo.Proportions.Presentation);
+                $("#inputC").val(classInfo.Proportions.C);
+                $("#inputB").val(classInfo.Proportions.B);
+                $("#inputA").val(classInfo.Proportions.A);
 
             }
             else {
@@ -152,8 +159,13 @@
                     Name: $("#inputName").text(),
                     Time: $("#inputTime").text(),
                     Site: $("#inputSite").text(),
-                    //Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
-                    Proportions: [$("#inputReport").text(), $("#inputPresentation").text(), $("#inputC").text(), $("#inputB").text(), $("#inputA").text()]
+                    Proportions: {
+                        Report: $("#inputReport").text(),
+                        Presentation: $("#inputPresentation").text(),
+                        C: $("#inputC").text(),
+                        B: $("#inputB").text(),
+                        A: $("#inputA").text()
+                    }
                 };
 
                 $.ajax({
@@ -186,21 +198,23 @@
                 $("#className").text(classInfo.Name);
                 $("#classSite").text(classInfo.Site);
                 $("#classTime").text(classInfo.Time);
-                $("#classReport").text(classInfo.Proportions[0]);
-                $("#classPresentation").text(classInfo.Proportions[1]);
-                $("#classC").text(classInfo.Proportions[2]);
-                $("#classB").text(classInfo.Proportions[3]);
-                $("#classA").text(classInfo.Proportions[4]);
+                $("#classReport").text(classInfo.Proportions.Report);
+                $("#classPresentation").text(classInfo.Proportions.Presentation);
+                $("#classC").text(classInfo.Proportions.C);
+                $("#classB").text(classInfo.Proportions.B);
+                $("#classA").text(classInfo.Proportions.A);
             }//else end
-
+            document.write("update");//--------------
         }//修改/确认点击结束
     </script>
     <script type="text/javascript">
-        var courseId = window.location.href.split("=")[1];//courseId当前讨论课所在SeminarId（如何传递两个ID，前面是TopicID)
+        document.write("delete");//--------------------
+        var classId = window.location.href.split("=")[1];//classId
+        var courseId = window.location.href.split("=")[1];//courseId
         var urlSkip = "/Teacher/CourseInfo/" + courseId;//跳转到课程内页首页？？？-------------------
-        function delete_topic() {
+        function delete_class() {
             $.ajax({
-                url: "/topic/" + courseId,
+                url: "/class/" + classId,
                 typt: "DELETE",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
@@ -209,8 +223,25 @@
                 }
 
             });
+            document.write("delete");//--------------
 
         }
+    </script>
+    <script type="text/javascript">
+         function download() {
+             var classId = window.location.href.split("=")[1];//当前班级号
+             
+             $.ajax({
+                 type: 'GET',
+                 url: '/class/' + classId,
+                 contentType: "application/json;charset=utf-8",
+                 success: function (data, status) {
+                     var urlSkip = data.roster;
+                     window.location.href = urlSkip;//跳转到该文件的地址？？？？
+                 }
+             });//初始化结束
+
+         }
     </script>
 </body>
 </html>

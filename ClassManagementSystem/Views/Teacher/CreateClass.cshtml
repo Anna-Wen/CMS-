@@ -62,7 +62,7 @@
                     </div>
                     <div class="item">
                         <label class="itemName">导入学生名单:</label>
-                        <input type="file" />
+                        <input type="file" id="roster">
                     </div>
                     <div class="item">
                         <button class="submit" id="submit" onclick="submitClassInfo()">提交</button>
@@ -87,8 +87,14 @@
                 Name: $("#name").text(),
                 Time: $("#time").text(),
                 Site: $("#site").text(),
-                Proportions: [$("#report").text() + " " + $("#presentation").text() + " " + $("#rc").text() + " " + $("#b").text() + " " + $("#a").text()]  //传送的是int数组，controller那边再分？
-                //Proportions: [$("#report").text(), $("#presentation").text(), $("#c").text(), $("#b").text(), $("#a").text()]
+                Roster: $("#roster").text(),
+                Proportions: {
+                    Report: $("#report").text(),
+                    Presentation: $("#presentation").text(), 
+                    C: $("#c").text(), 
+                    B: $("#b").text(), 
+                    A: $("#a").text()
+                }
             };
             $.ajax({
                 url:"/course/" + courseId + "/class",
