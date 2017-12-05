@@ -62,9 +62,9 @@ namespace ClassManagementSystem.Controllers
             //When user's permission denied
             //if(false)
             //  return Forbid();
-
+            
             // Get information from json
-            //Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
 
             // Judge and store class-student information in server
 

@@ -59,14 +59,17 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{seminarId}")]
         public IActionResult DeleteSeminar(int seminarId)
         {
-            Seminar target = seminars.FirstOrDefault((p) => p.Id == seminarId);
-            if (target == null)
-                return NotFound();
-            else
-            {
-                seminars.Remove(target);
-                return NoContent();
-            }
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete seminar from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // GET: /seminar/{seminarId}/detail
