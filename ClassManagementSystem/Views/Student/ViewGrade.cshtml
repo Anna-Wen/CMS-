@@ -34,12 +34,23 @@
                     for (var i = 0; i < data.length; i++)   
                     {
                         if (i % 2)                                    //实际下面应是讨论课序号
-                            $('#studenttable').append("<tr class='alt'><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
+                            $('#studenttable').append("<tr class='studenttabletralt'><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
                                 + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
                         else
                             $('#studenttable').append("<tr><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
                                 + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
                     }
+                }
+            });
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
                 }
             });
         })
@@ -60,9 +71,9 @@
     </div>
     <div class="body">
         <div class="navigation">
-            <div class="courseName">OOAD</div>
+            <div class="courseName" id="courseName"></div>
             <div class="line"></div>
-            <div class="courseIntroduction">ooad is xxx</div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
         </div>
         <div class="content">
             <div class="block">
@@ -73,12 +84,12 @@
                     <div class="item">
                         <table class="studenttable" id="studenttable">
                             <tr>
-                                <th>讨论课</th>
-                                <th>组名</th>
-                                <th>组长</th>
-                                <th>课堂讨论课得分</th>
-                                <th>报告分数</th>
-                                <th>总分</th>
+                                <th class="studenttableth ">讨论课</th>
+                                <th class="studenttableth ">组名</th>
+                                <th class="studenttableth ">组长</th>
+                                <th class="studenttableth ">课堂讨论课得分</th>
+                                <th class="studenttableth ">报告分数</th>
+                                <th class="studenttableth ">总分</th>
                             </tr>
 
 

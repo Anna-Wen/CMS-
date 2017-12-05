@@ -66,7 +66,7 @@
 
                         for (var i = 0; i < data.length; i++) {
 
-                            var url = "/Student/ViewTopicPage?index=" + data[i].id;  //传递话题id
+                            var url = "/Student/ViewTopic?index=" + courseId+"="+ data[i].id;  //传递话题id
                             $('#topicButton').append("<div class='smallblock' onClick=(window.location.href='" + url + "')><div class='blockFont'>话题" + data[i].serial + "</div></div>");
                         }
 
@@ -97,6 +97,17 @@
                     }
                 }
             });
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
         })
 
     </script>
@@ -116,9 +127,9 @@
     </div>
     <div class="body">
         <div class="navigation">
-            <div class="courseName">OOAD</div>
+            <div class="courseName" id="courseName"></div>
             <div class="line"></div>
-            <div class="courseIntroduction">ooad is xxx</div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
         </div>
         <div class="content">
             <div class="block">
