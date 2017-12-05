@@ -64,7 +64,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Topic topicSelectedByGroup = new Topic { Id = int.Parse(json.Id) };
+            Topic topicSelectedByGroup = new Topic { Id = json.Id };
 
             // Judge and store group-topic information in server
 

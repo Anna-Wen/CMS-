@@ -1,0 +1,126 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>创建班级</title>
+    <link rel="stylesheet" href="../../css/Teacher/content.css">
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">创建班级</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">班级名称:</label>
+                        <input type="text" id="name" class="bigInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课地点:</label>
+                        <input type="text"  id="site" class="bigInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">上课时间:</label>
+                        <input type="text" id="time" class="bigInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">评分规则:</label>
+                        <label class="itemName">讨论课分数占比</label>
+                        <input type="text" name="seminarGrade" id="report" class="smallInput">
+                        <label class="itemName">报告分数占比</label>
+                        <input type="text" name="seminarGrade" id="presentation" class="smallInput">
+                    </div>
+                    <div class="item" style="margin-left: 18%">
+                        <label class="itemName">5分占比</label>
+                        <input type="text" name="seminarGrade" id="c" class="smallInput">
+                        <label class="itemName">4分占比</label>
+                        <input type="text" name="seminarGrade" id="b" class="smallInput">
+                        <label class="itemName">3分占比</label>
+                        <input type="text" name="seminarGrade" id="a" class="smallInput">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">导入学生名单:</label>
+                        <input type="file" id="roster">
+                    </div>
+                    <div class="item">
+                        <button class="submit" id="submit" onclick="submitClassInfo()">提交</button>
+                        <button class="reset" id="reset" onclick="empty()">重置</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript">
+           
+            //提交新建课程信息
+            function submitClassInfo() {
+                var courseId = 1;//window.location.href.split("=")[1];//当前courseId
+                //document.write(courseId);
+                var urlSkip = "/Teacher/CourseInfo" + courseId;//跳转到课程内页首页？？？-------------------
+            var classInfo = {
+                Name: $("#name").text(),
+                Time: $("#time").text(),
+                Site: $("#site").text(),
+                Roster: $("#roster").text(),
+                Proportions: {
+                    Report: $("#report").text(),
+                    Presentation: $("#presentation").text(), 
+                    C: $("#c").text(), 
+                    B: $("#b").text(), 
+                    A: $("#a").text()
+                }
+            };
+            $.ajax({
+                url:"/course/" + courseId + "/class",
+                type:"POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(classInfo),
+                success: function (data, status) {
+                    window.location.href = urlSkip;
+                }
+            });
+        }//提交新建课程信息end
+
+        //重置课程信息
+        function empty() {
+            $("#name").val("");
+            $("#site").val("");
+            $("#report").val("");
+            $("#time").val("");
+            $("#presentation").val("");
+            $("#c").val("");
+            $("#b").val("");
+            $("#a").val("");
+        }//重置课程信息end
+
+        </script>
+
+</body>
+</html>

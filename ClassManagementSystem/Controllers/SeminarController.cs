@@ -117,7 +117,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = int.Parse(json.GroupLimit), GroupMemberLimit = int.Parse(json.GroupMemberLimit) };
+            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
 
             // Store topic information in server and generate a id for this new topic
             newTopic.Id = 257;

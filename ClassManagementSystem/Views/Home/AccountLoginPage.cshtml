@@ -47,7 +47,7 @@
                 $("#password").val("");
                 return;
             }
-            var userInfo = { userName: $("#userName").val(), password: $("#password").val() };
+            var userInfo = { Phone: $("#userName").val(), Password: $("#password").val() };
             $.ajax({
                   type: "POST",
                   url: "/signin",
@@ -65,7 +65,6 @@
                               window.location.href = "/Student/BasicInfo";
                           //$(window).attr("location", "/Student/BasicInfo");
                           else if (data.type == "teacher") {
-                              alert(data.type);
                               window.location.href = "/Teacher/BasicInfo";
                               //$(window).attr("location", "/Teacher/BasicInfo");
                           }
