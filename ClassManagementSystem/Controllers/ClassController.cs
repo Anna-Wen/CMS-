@@ -124,7 +124,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClass = new Student { Id = json.Id };
 
             // Judge and store class-student information in server
             
@@ -189,7 +189,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClassGroup = new Student { Id = json.Id };
 
             // Add student in classgroup database
 
@@ -210,7 +210,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
+            Student newStudentInClassGroup = new Student { Id = json.Id };
 
             // Remove student from this classgroup database
 
