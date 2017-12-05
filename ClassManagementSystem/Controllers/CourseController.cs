@@ -40,8 +40,7 @@ namespace ClassManagementSystem.Controllers
             newCourse.Id = 23;
 
             // Return course id
-            string uri = "/Course/" + newCourse.Id;
-            return Created(uri, newCourse);
+            return Created("/Course/" + newCourse.Id, newCourse);
         }
 
         // GET: /course/{courseId}
@@ -124,12 +123,11 @@ namespace ClassManagementSystem.Controllers
             GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
 
-            // Store class information in server and generate a id for this new class
+            // Store course information in server and generate a id for this new class
             newClass.Id = 45;
 
-            // Return class id
-            string uri = "/Class/" + newClass.Id;
-            return Created(uri, newClass);
+            // Return course id
+            return Created("/Class/" + newClass.Id, newClass);
         }
 
         // GET: /course/{courseId}/seminar?embedGrade=false
@@ -170,12 +168,11 @@ namespace ClassManagementSystem.Controllers
             GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             Seminar newSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
-            // Store seminar information in server and generate a id for this new seminar
+            // Store course information in server and generate a id for this new seminar
             newSeminar.Id = 32;
 
-            // Return seminar id
-            string uri = "/Seminar/" + newSeminar.Id;
-            return Created(uri, newSeminar);
+            // Return course id
+            return Created("/Seminar/" + newSeminar.Id, newSeminar);
         }
 
         // GET: /course/{courseId}/grade
