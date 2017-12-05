@@ -124,9 +124,18 @@
                     $('#sStartTime').text(data.startTime);
                     $('#sEndTime').text(data.endTime);
 
+                    var afterSeminar = 0;                        //判断当前讨论课是否过期 未解决
+                    //var myDate = new Date();;     //获取当前时间
+                    //var endDay = data.endTime.split("/")[1];
+                    //var endMon = data.endTime.split("/")[2];
+                    //var endYear = data.endTime.split("/")[3];
+                    //if (myDate.getFullYear().toString() > endYear || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 > endMon) || (myDate.getFullYear().toString() == endYear && myDate.getMonth().toString() + 1 == endMon && myDate.getDate().toString() > endDay)) afterSeminar = 1;
+                    //alert(afterSeminar);
+
+
                     for (var i = 0; i < data.topics.length; i++) {
 
-                        var url = "/Teacher/CheckTopic?index=" + data.topics[i].id;  //传递话题id
+                        var url = "/Teacher/CheckTopic?index=" + courseId + "=" + data.topics[i].id + "=" + afterSeminar;  //传递话题id
                         $('#topicButton').append("<div class='topicBlock' onClick=(window.location.href='" + url + "')><div class='topicBlockFont'>话题" + data.topics[i].serial + "</div></div>");
                     }
                     $('#topicButton').append("<div class='topicBlock' id='add'> <img src='../../Img / add.png' width='110' height='110'></div>");
