@@ -128,7 +128,7 @@ namespace ClassManagementSystem.Controllers
             GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Roster = json.Roster, Proportions = proportions };
 
-            // Store course information in server and generate a id for this new class
+            // Store class information in server and generate a id for this new class
             newClass.Id = 45;
 
             // Return class id
@@ -174,7 +174,7 @@ namespace ClassManagementSystem.Controllers
             GradeProportion proportions = new GradeProportion { Report = int.Parse(json.Proportions.Report), Presentation = int.Parse(json.Proportions.Presentation), C = int.Parse(json.Proportions.C), B = int.Parse(json.Proportions.B), A = int.Parse(json.Proportions.A) };
             Seminar newSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
 
-            // Store course information in server and generate a id for this new seminar
+            // Store seminar information in server and generate a id for this new seminar
             newSeminar.Id = 32;
 
             // Return seminar id

@@ -39,7 +39,16 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{classId}")]
         public IActionResult GetClass(int classId)
         {
-            return Ok();
+            // Fetch data from database
+            GradeProportion proportions = new GradeProportion { Report = 50, Presentation = 50, C = 20, B = 60, A = 20 };
+            Class selectedClass = new Class { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", Calling = -1, Roster = "/roster/周一1-2班.xlsx", Proportions = proportions };
+
+            //if class not found
+            if (selectedClass == null)
+                return NotFound();
+
+            // Success
+            return Json(selectedClass);
         }
 
         // PUT: /class/{classId}
@@ -67,7 +76,17 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{classId}")]
         public IActionResult DeleteClass(int classId)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete class from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // GET: /class/{classId}/student?numBeginWith={numBeginWith}&nameBeginWith={nameBeginWith}
@@ -121,7 +140,18 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{classId}/student/{studentId}")]
         public IActionResult DeleteStudentUnderClass(int classId, int studentId)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete student class relation from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
+
         }
 
         // GET: /class/{classId}/classgroup
@@ -131,7 +161,7 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-            //return Forbid();
+            //  return Forbid();
 
             // Fetch class group from database
             Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
@@ -190,6 +220,5 @@ namespace ClassManagementSystem.Controllers
             // Success
             return NoContent();         
         }
-
     }
 }
