@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>新建课程</title>
+    <link href="../../css/teacher/TeacherCreateCoursePage.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../Img/home.png">首页
+            <img src="../../Img/help.png">帮助
+            <img src="../../Img/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="title">导航</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">
+                <a class="guidefont" href="#">基本信息</a>
+                <a class="guidefont" href="#">课程信息</a>
+                <a class="guidefont" href="#">新建课程</a>
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="title">新建课程</div>
+            <hr class="line" />
+
+            <br />
+            <div class="form">
+                <div class="itemName">
+                    课程名称*：<input type="text" name="coursename" id="name"/>
+
+                    <br />
+                    <br />
+                    开始时间*：<input type="date" name="begintime" id="startTime"/>  结束时间*：<input type="date" name="endtime" id="endTime"/><br /><br />
+
+                    课程介绍：<br />
+                    <textarea name="courseinfo" cols="80" rows="5" id="description"></textarea><br />
+
+
+                    评分规则*： <br />
+
+                    <div class="scorerule">
+                        <p> 讨论课分数占比:<input type="text" name="seminarscore" id="presentation">报告分数占比：<input type="text" name="reportscore" id="report"></p>
+
+                        <p>五分占比:<input type="text" name="five" id="c">四分占比：<input type="text" name="four" id="b">三分占比：<input type="text" name="three" id="a"></p>
+                    </div>
+
+
+                    <br />
+                    <div class="buttons">
+
+                        <input class="button" type="submit" id="submit" onclick="submitCourseInfo()"/>
+                        <input class="button" type="reset" id="reset" onclick="empty()"/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="clear"></div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+            //提交新建课程信息
+            function submitCourseInfo() {
+            var urlSkip = "/Teacher/CourseInfo";//跳转到课程首页？？？-------------------
+            var courseInfo = {
+                Name: $("#name").text(),
+                StartTime: $("#startTime").text(),
+                EndTime: $("#endTime").text(),
+                Description: $("#description").text(),
+                Proportions: {
+                    Report: $("#report").text(),
+                    Presentation: $("#presentation").text(),
+                    C: $("#c").text(),
+                    B: $("#b").text(),
+                    A: $("#a").text()
+                }
+            };
+            $.ajax({
+                url:"/course",
+                type:"POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(courseInfo),
+                success: function (data, status) {
+                    window.location.href = urlSkip;
+                }
+            });
+        }//提交新建课程信息end
+
+        //重置课程信息
+            function empty() {
+            $("#name").val("");
+            $("#startTime").val("");
+            $("#endTime").val("");
+            $("#description").val("");
+            $("#report").val("");
+            $("#presentation").val("");
+            $("#c").val("");
+            $("#b").val("");
+            $("#a").val("");
+        }//重置课程信息end
+
+    </script>
+</body>
+</html>
+

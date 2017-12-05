@@ -162,7 +162,9 @@
                     dataType: "json",
                     data: JSON.stringify(topicInfo),
                     success: function (data, status) {
+
                 $("[id^='input']").hide();    //如果controller写了topic put方法则可以交换这里上下的注释部分---------------
+
                 $("[id^='topic']").show();
                 $("#up_sub").text("修改");
 
@@ -170,6 +172,7 @@
                 $("#topicDescription").text(topicInfo.Description);
                 $("#topicGroupLimit").text(topicInfo.GroupLimit);
                 $("#topicGroupMemberLimit").text(topicInfo.GroupMemberLimit);
+
                     }
                     //error:
                 });
