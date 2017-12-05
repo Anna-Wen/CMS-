@@ -38,6 +38,7 @@ namespace ClassManagementSystem.Controllers
                 return BadRequest();
             else
             {
+                dataUser.Type = json.Type;
                 dataUser.Name = json.Name;
                 dataUser.Number = json.Number;
                 dataUser.Gender = json.Gender;

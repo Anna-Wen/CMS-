@@ -57,14 +57,40 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("province")]
         public IActionResult GetProvince()
         {
-            return Ok() ;
+            // Fetch province list from database
+            List<string> provinceList = new List<string> { "北京", "天津", "上海", "重庆", "河北", "山西", "辽宁", "吉林", "黑龙江", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北", "湖南", "广东", "海南", "四川", "贵州", "云南", "陕西", "甘肃", "青海", "台湾", "内蒙古自治区", "广西壮族自治区", "西藏自治区", "宁夏回族自治区", "新疆维吾尔自治区", "香港特别行政区", "澳门特别行政区" };
+
+            // Success
+            return Json(provinceList);
         }
 
         // GET: /school/city?province={province}
         [HttpGet("city")]
         public IActionResult GetCityViaProvince([FromQuery]string province)
         {
-            return Ok();
+            // Fetch city list from database
+            List<string> cityList = new List<string>();
+            if (province == "北京")
+                cityList.Add("北京");
+            if (province == "广东")
+            {
+                cityList.Add("广州");
+                cityList.Add("深圳");
+                cityList.Add("珠海");
+            }
+            if (province == "福建")
+            {
+                cityList.Add("福州");
+                cityList.Add("厦门");
+                cityList.Add("漳州");
+            }
+
+            // If province not found
+            if (cityList == null)
+                return NotFound();
+
+            // Success
+            return Json(cityList);
         }
 
     }
