@@ -32,21 +32,38 @@ namespace ClassManagementSystem.Controllers
         [HttpPut("{seminarId}")]
         public IActionResult PutSeminar(int seminarId, [FromBody]dynamic json)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //return Forbid();
+
+            //Get information from json
+            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            Seminar editedSeminar = new Seminar { Name = json.Name, Description = json.Description, GroupingMethod = json.GroupingMethod, StartTime = json.StartTime, EndTime = json.EndTime, Proportions = proportions };
+
+            //Change information in database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // DELETE: /seminar/{seminarId}
         [HttpDelete("{seminarId}")]
         public IActionResult DeleteSeminar(int seminarId)
         {
-            Seminar target = seminars.FirstOrDefault((p) => p.Id == seminarId);
-            if (target == null)
-                return NotFound();
-            else
-            {
-                seminars.Remove(target);
-                return NoContent();
-            }
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            //Delete seminar from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // GET: /seminar/{seminarId}/detail
