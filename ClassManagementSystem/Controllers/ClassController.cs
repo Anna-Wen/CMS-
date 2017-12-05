@@ -28,8 +28,8 @@ namespace ClassManagementSystem.Controllers
                 classList = classList.FindAll((p) => p.CourseTeacher.Name.StartsWith(courseTeacher));
 
             // If class not found
-            //if (classList == null)
-            //  return NotFound();
+            if (classList == null)
+                return NotFound();
             
             // Success
             return Json(classList);

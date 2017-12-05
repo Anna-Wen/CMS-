@@ -67,6 +67,10 @@ namespace ClassManagementSystem.Controllers
 
             // Get user info from database
             curUser.Id = 3486;
+            if (curUser.Phone == "18999999999")
+                curUser.Type = "teacher";
+            else
+                curUser.Type = "student";
 
             // Create Token
             // Get key from configuration
