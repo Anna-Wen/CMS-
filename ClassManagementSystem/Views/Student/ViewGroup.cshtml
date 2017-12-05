@@ -24,53 +24,61 @@
                 window.history.go(-1);
             };
 
-            ////添加的学生传递给后台
-            //var addGroupMembers = function (data) { 
-            //    $.ajax({
-            //        type: 'PUT',
-            //        url: '/class/'+classId+'/classgroup/add',
-            //        contentType: "application/json;charset=utf-8",
-            //        data:data,
-            //        success: function (data, status) { 
+            //添加的学生传递给后台
+            var addGroupMembers = function (data) {
+                alert(1);
+                $.ajax({
+                    type: 'PUT',
+                    url: '/class/'+classId+'/classgroup/add',
+                    contentType: "application/json;charset=utf-8",
+                    data:data,
+                    success: function (data, status) { 
 
-            //        }
-            //    });
-            //};
+                    }
+                });
+            };
 
-            ////删除的队员传递给后台
-            //var removeGroupMembers = function (data) {
-            //    $.ajax({
-            //        type: 'PUT',
-            //        url: '/class/' + classId + '/classgroup/remove',
-            //        contentType: "application/json;charset=utf-8",
-            //        data: data,
-            //        success: function (data, status) {
+            //删除的队员传递给后台
+            var removeGroupMembers = function (data) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/class/' + classId + '/classgroup/remove',
+                    contentType: "application/json;charset=utf-8",
+                    data: data,
+                    success: function (data, status) {
 
-            //        }
-            //    });
-            //};
+                    }
+                });
+            };
 
-            //点击查询后动态生成下方学生名单
+            //动态生成下方学生名单
             var a = function (u) {
-
-               
+                
                 $.ajax({
                     type: 'GET',
                     url: u,
                     contentType: "application/json;charset=utf-8",
                     success: function (data, status) {
-                        alert(data);
+                        
                         $("#studenttable2").remove();
-                        $('#content').append("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr>");
-
-                        for (var i = 0; i < data.length; i++) {
+                        $('#check').after("<div class='item'><table class='studenttable' id='studenttable2'><tr><th class='studenttableth'>学号</th><th class='studenttableth'>姓名</th><th class='studenttableth'>操作</th></tr></table>");
+                        var rowNO= 1;
+                        for (var i = 0; i < data.length; i++,rowNO++) {
                             if (i % 2 == 1)//单行双行颜色不一样
-                                $('#studenttable2').append("<tr class='studenttabletralt'><td class='studenttabletd'>" + data[i].number + "</td><td class='studenttabletd'>" + data[i].name + "</td><td class='studenttabletd'><img id='add' src='.\home.png'></td></tr>");
+                                $('#studenttable2').append("<tr class='studenttabletralt'><td class='studenttabletd' name='tdnumber'>" + data[i].number + "</td><td class='studenttabletd'>" + data[i].name + "</td><td class='studenttabletd'><img id='add" + rowNO+"' src='.\home.png'></td></tr>");
                             else
-                                $('#studenttable2').append("<tr><td class='studenttabletd'>" + data[i].number + "</td><td class='studenttabletd'>" + data[i].name + "</td><td class='studenttabletd'><img id='add' src='.\home.png'></td></tr>");
+                                $('#studenttable2').append("<tr><td class='studenttabletd'>" + data[i].number + "</td><td class='studenttabletd'>" + data[i].name + "</td><td class='studenttabletd'><img id='add" + rowNO +"' src='.\home.png'></td></tr>");
 
+
+                            var Imid= "#add" + rowNO;
                             //下方学生名单的添加事件
-                            $('#add').on('click', function () {
+                            $(Imid).on('click', function () {
+                                var mytable = document.getElementById('studenttable2');
+                                var a = mytable.rows[rowNO].cells[0].getElementsByTagName("tdnumber");
+                                alert(a);
+
+
+
 
                                 //上方学生表格添加学生
                                 var tab = document.getElementById("studenttable1");
@@ -111,16 +119,16 @@
                     $('#delete').on('click', function () { $(id).remove();});
                 }
 
-                $('#content').append("<div class='block'><div class='title'>添加队员</div><div class='line'></div><div class='itemBody'><div class='item'><label class='itemName'>学号：</label><input type='text'id='NumberInput'><label class='itemName'>姓名：</label><input type='text' id='NameInput'><div class='returnButton' id='check'>查询</div></div></div>");
+                $('#content').append("<div class='block' id='block2'><div class='title'>添加队员</div><div class='line'></div><div class='itemBody'><div class='item'><label class='itemName'>学号：</label><input type='text'id='NumberInput'><label class='itemName'>姓名：</label><input type='text' id='NameInput'><div class='returnButton' id='check'>查询</div></div></div></div>");
 
                 a("/class/" + classId + "/student");
 
                    //点击查询按钮
                 $('#check').on('click', function () {
-                    var numberInput = $("#NumberInput").text();
-                    var nameInput = $("#NameInput").text();
-
-                    var url = "/class/" + classId + "/student?nameBeginWith=张" ;
+                    var numberInput = $("#NumberInput").val();
+                    var nameInput = $("#NameInput").val();
+                    
+                    var url = "/class/" + classId + "/student?nameBeginWith=" + nameInput;
                     a(url);
                 });
                

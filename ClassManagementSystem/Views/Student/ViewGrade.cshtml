@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>学生查看成绩</title>
+    <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+            returnbtn.onclick = function () {
+                window.history.go(-1);
+            };
+
+
+            //显示表格里每一节讨论课成绩
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId+'/grade',
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    for (var i = 0; i < data.length; i++)   
+                    {
+                        if (i % 2)                                    //实际下面应是讨论课序号
+                            $('#studenttable').append("<tr class='alt'><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
+                                + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
+                        else
+                            $('#studenttable').append("<tr><td>" + (i + 1) + "</td><td>" + data[i].groupName + "</td><td>" + data[i].leaderName
+                                + "</td><td>" + data[i].presentationGrade + "</td><td>" + data[i].reportGrade + "</td><td>" + data[i].grade + "</td></tr>");
+                    }
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src=".\home.png">首页
+            <img src=".\help.png">帮助
+            <img src=".\exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">学生成绩</div>
+                <div class="returnButton" id="returnbtn">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <table class="studenttable" id="studenttable">
+                            <tr>
+                                <th>讨论课</th>
+                                <th>组名</th>
+                                <th>组长</th>
+                                <th>课堂讨论课得分</th>
+                                <th>报告分数</th>
+                                <th>总分</th>
+                            </tr>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

@@ -37,5 +37,9 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult ViewGrade()
+        {
+            return View();
+        }
     }
 }
