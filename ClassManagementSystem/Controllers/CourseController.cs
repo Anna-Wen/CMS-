@@ -48,7 +48,7 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetCourseByCourseId(int courseId)
         {
             // Fetch data from database
-            Course course = new Course { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
+            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
 
             //If not found
             if (course == null)
@@ -83,11 +83,11 @@ namespace ClassManagementSystem.Controllers
             //Authentication
             //When user's permission denied
             //if(false)
-                //return Forbid();
+            //  return Forbid();
 
             //Delete course from database
             //if not found
-                //return NotFound();
+            //    return NotFound();
 
             //Success
             return NoContent();
@@ -97,16 +97,37 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{courseId}/class")]
         public IActionResult GetClassList(int courseId)
         {
+            // Fetch data from database
+            List<Class> classes = new List<Class>();
+            classes.Add(new Class { Id = 45, Name = "周三1-2节" });
+            classes.Add(new Class { Id = 48, Name = "周三3-4节" });
 
-            
-            return Ok();
+            // If not found
+            if (classes == null)
+                return NotFound();
+
+            // Success
+            return Json(classes);
         }
 
         // POST: /course/{courseId}/class
         [HttpPost("{courseId}/class")]
         public IActionResult PostNewClass(int courseId, [FromBody]dynamic json)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //return Forbid();
+
+            //Get information from json
+            GradeProportion proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
+            Class newClass = new Class { Name = json.Name, Site = json.Site, Time = json.Time, Proportions = proportions };
+
+            // Store course information in server and generate a id for this new course
+            newClass.Id = 45;
+
+            // Return course id
+            return Created("/Class/" + newClass.Id, newClass);
         }
 
         // GET: /course/{courseId}/seminar

@@ -12,7 +12,7 @@ namespace ClassManagementSystem.Controllers
     [Route("/class")]
     public class ClassController : Controller
     {
-        // GET: /class?courseName={courseName}&&courseTeacher={courseTeacher}
+        // GET: /class?courseName={courseName}&courseTeacher={courseTeacher}
         [HttpGet]
         public IActionResult GetClassListFromQuery([FromQuery]string courseName, [FromQuery]string courseTeacher)
         {
@@ -40,11 +40,27 @@ namespace ClassManagementSystem.Controllers
             return Ok();
         }
 
-        // GET: /class/{classId}/student
+        // GET: /class/{classId}/student?numBeginWith={numBeginWith}&nameBeginWith={nameBeginWith}
         [HttpGet("{classId}/student")]
-        public IActionResult GetStudentListUnderClass(int classId)
+        public IActionResult GetStudentListUnderClass(int classId, [FromQuery]string numBeginWith, [FromQuery]string nameBeginWith)
         {
-            return Ok();
+            // Fetch selected class student list from database
+            List<Student> studentList = new List<Student>();
+            studentList.Add(new Student { Id = 233, Name = "张三", Number = "24320152202333" });
+            studentList.Add(new Student { Id = 245, Name = "张八", Number = "24320152202334" });
+            studentList.Add(new Student { Id = 248, Name = "李四", Number = "24320152202345" });
+            studentList.Add(new Student { Id = 256, Name = "王五", Number = "24320152202356" });
+            if (numBeginWith != null && numBeginWith != "")
+                studentList = studentList.FindAll((p) => p.Number.StartsWith(numBeginWith));
+            if (nameBeginWith != null && nameBeginWith != "")
+                studentList = studentList.FindAll((p) => p.Name.StartsWith(nameBeginWith));
+
+            // If class not found
+            if (studentList == null)
+                return NotFound();
+            
+            // Success
+            return Json(studentList);
         }
 
         // Post: /class/{classId}/student
@@ -65,7 +81,23 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{classId}/classgroup")]
         public IActionResult GetClassGroup(int classId)
         {
-            return Ok();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //return Forbid();
+
+            // Fetch class group from database
+            Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
+            Student s1 = new Student { Id = 248, Name = "李四", Number = "24320152202345" };
+            Student s2 = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
+            List<Student> memberList = new List<Student>();
+            memberList.Add(s1);
+            memberList.Add(s2);
+
+            ClassGroup classGroup = new ClassGroup { Leader = leader, Members = memberList};
+
+            // Success
+            return Json(classGroup);
         }
 
         // PUT: /class/{classId}/classgroup/add
