@@ -66,14 +66,14 @@
 
     <div class="top">
         <div class="item1">
-            <label class="itemName" id="seminarName">讨论课3</label>
-            <label class="itemName" id="groupName">1-A-1组</label>
-            <label class="itemName" id="leader">组长：……</label>
+            <label class="itemName" id="seminarName"></label>
+            <label class="itemName" id="groupName"></label>
+            <label class="itemName" id="leader"></label>
         </div>
         <div class="item2">
             <label class="itemName">评分:</label>
             <input type="text" placeholder="3-5" id="inputScore" />
-            <button class="itemName">确认打分</button>
+            <button class="itemName" onclick="scoreReport">确认打分</button>
         </div>
     </div>
     @*<div class="body">
@@ -92,42 +92,57 @@
     <script>PDFObject.embed("/pdf/sample-3pp.pdf", "#example1");</script> -->*@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script>
-        <div class="top">
-            <div class="item1">
-                <label class="itemName" id="seminarName">讨论课3</label>
-                <label class="itemName" id="groupName">1-A-1组</label>
-                <label class="itemName" id="leader">组长：……</label>
-            </div>
-            <div class="item2">
-                <label class="itemName">评分:</label>
-                <input type="text" placeholder="3-5" id="inputScore" />
-                <button class="itemName">确认打分</button>
-            </div>
-        </div>
         $(document).ready(function () {
-            var groupId =;  //获得上一个页面传来的小组ID
+            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
             $.ajax({
                 type: "GET",
                 url: "/group/{groupId}",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
-
-                    $("#pic").attr("src", data.avatar);
-                    $("#userName").text(data.id);
-                    $("#studentId").text(data.number);
-                    $("#studentName").text(data.name);
-                    if (data.gender == "male")
-                        $("#studentGender").text("男");
-                    else
-                        $("#studentGender").text("女");
-                    $("#studentSchool").text(data.school.name);
-                    $("#studentEducation").text(data.title);
-                    $("#studentEmail").text(data.email);
-                    $("#studentPhone").text(data.phone);
+                    $("#seminarName").text("讨论课");
+                    $("#groupName").text(data.name);
+                    $("#leader").text(data.leader.name);
                 }
             });
         });
+    </script>
+    <script>
+        //取的url中对应名的参数
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        function scoreReport() {
+            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
+            var score = $("#inputScore").val();
+            if (score >= 3 && score <= 5)  //输入合法???
+            {
+                var reportGrade = { reportGrade: score };
+                $.ajax({
+                    url: "/group/{groupId}/grade",
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(reportGrade),
+                    success: function (data, status) {
+                        if (status == 204) //成功???
+                        {
+                            alert("报告分数已提交！");
+                            window.history.back();
+                        }
+                    }
+                    //error:
+                });
+            }
+            else
+                alert("您的报告打分不符规定！（3-5分）");
+        }
     </script>
 </body>
 </html>

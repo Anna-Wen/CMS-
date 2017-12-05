@@ -32,7 +32,7 @@
         <div class="content">
             <div class="contentBlock">
                 <div class="title">评分</div>
-                <div class="returnButton">返回上一页</div>
+                <div class="returnButton" onclick="javascript:window.history.back()">返回上一页</div>
                 <div class="line"></div>
                 <div class="itemBody">
                     <table class="table table-striped">
@@ -73,10 +73,10 @@
                                 <td>5</td>
                                 <td>5</td>
                                 <td>
-                                    <a href="/Teacher/TeacherScoreReportPage" style="text-decoration:none;">
+                                    <a href="/Teacher/TeacherScoreReportPage?groupId=" style="text-decoration:none;">
                                         <img src="~/images/view.png" alt="预览">
                                     </a>
-                                    <img src="~/images/download.png" alt="下载">  @*???*@
+                                    <img src="~/images/download.png" alt="下载">
                                 </td>
                             </tr>
 
@@ -104,23 +104,27 @@
                          //对每个小组，获取小组详情
                          $.ajax({
                              type: "GET",
-                             url: "/group/{groupId}",  //直接写进去???{groupId} 传参
+                             url: "/group/{groupId}",
                              contentType: "application/json;charset=utf-8",
                              dataType: "json",
                              success: function (data, status)
-                             {   //SeminarGradeDetail  Group Topic ???
-                                 $("#tableBody").append(" <tr >< td >'+data.serial+'</td>");  //???
-                                 $("#tableBody").append(" <td>'+data.groupName+'</td> < td > '+data.leaderName+'</td > <td>'+data.presentationGrade+'</td>");
-                                 if (!data.report)  //NULL???
+                             {
+                                 for (var t = 0; t < data.topics.length; t++)
                                  {
-                                     $("#tableBody").append(" <td>未提交</td>");  //???
+                                     $("#tableBody").append(" <tr >< td >'+data.topics[t].serial+'</td>");
+                                     $("#tableBody").append(" <td>'+data.name+'</td> < td > '+data.leader.name+'</td > <td>'+data.grade.presentationGrade[t]+'</td>");
+                                     if (!data.report)
+                                     {
+                                         $("#tableBody").append(" <td>未提交</td>");
+                                     }
+                                     else {
+                                         $("#tableBody").append(" <td>已提交</td>");
+                                     }
+                                     $("#tableBody").append(" <td>'+data.grade.reportGrade+'</td> <td>'+data.grade.grade+'</td>");
+                                     var ur = "/Teacher/TeacherScoreReportPage?groupId=" + data.id;
+                                     $("#tableBody").append(" <td> <a href='+ur+' style='text- decoration:none;'>< img src= '~/images/view.png' alt= '预览' ></a> <a href='+data.report+' text- decoration:none;'> <img src='~/images/download.png' alt='下载'></a> </td>");
+                                     $("#tableBody").append(" </tr>");
                                  }
-                                 else {
-                                     $("#tableBody").append(" <td>已提交</td>");
-                                 }
-                                 $("#tableBody").append(" <td>'data.reportGrade'</td> <td>'data.grade'</td>");
-                                 $("#tableBody").append(" <td> <a href=' / Teacher / TeacherScoreReportPage' style='text- decoration:none;'>< img src= '~/images/view.png' alt= '预览' ></a> <a href=' / Teacher / ' style='text- decoration:none;'> <img src='~/images/download.png' alt='下载'></a> </td>");
-                                 $("#tableBody").append(" </tr>");
                              }
                          });
                      }
@@ -130,7 +134,6 @@
     </script>
     <script>
         //返回上一页操作
-
     </script>
 </body>
 </html>
