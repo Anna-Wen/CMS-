@@ -12,5 +12,10 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult TeacherScoreHome()
+        {
+            return View();
+        }
     }
 }

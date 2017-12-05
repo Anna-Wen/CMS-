@@ -1,0 +1,129 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>教师打分主页</title>
+    <link rel="stylesheet" href="/css/Common/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/Teacher/content.css">
+</head>
+<body>
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="~/images/home.png">首页
+            <img src="~/images/help.png">帮助
+            <img src="~/images/exit.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName">OOAD</div>
+            <div class="line"></div>
+            <div class="courseIntroduction">ooad is xxx</div>
+        </div>
+        <div class="content">
+            <div class="contentBlock">
+                <div class="title">评分</div>
+                <div class="returnButton">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <table class="table table-striped">
+                        <thead class="tableTitle">
+                            <tr>
+                                <th>Topic</th>
+                                <th>组名</th>
+                                <th>组长</th>
+                                <th>课堂讨论得分</th>
+                                <th>报告提交情况</th>
+                                <th>报告分数</th>
+                                <th>总分</th>
+                                <th>报告</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tableContent" id="tableBody">
+                            
+
+                            <tr>
+                                <td>A</td>
+                                <td>Bangalore</td>
+                                <td>xxx</td>
+                                <td>5</td>
+                                <td>已提交</td>
+                                <td>5</td>
+                                <td>5</td>
+                                <td>
+                                    <img src="../../Img/view.png" alt="预览">
+                                    <img src="../../Img/download.png" alt="下载">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>A</td>
+                                <td>Bangalore</td>
+                                <td>xxx</td>
+                                <td>5</td>
+                                <td>已提交</td>
+                                <td>5</td>
+                                <td>5</td>
+                                <td>
+                                    <img src="~/images/view.png" alt="预览">预览 @*alt无法显示???*@
+                                    <img src="~/images/download.png" alt="下载">下载
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                 type: "GET",
+                 url: "/seminar/{seminarId}/group",
+                 contentType: "application/json;charset=utf-8",
+                 dataType: "json",
+                 success: function (data, status)  //发两次请求???
+                 {
+                     for (var i = 0; i < data.length; i++)
+                     {
+                         var groupId = data[i].id;
+                         //对每个小组，获取小组详情
+                         $.ajax({
+                             type: "GET",
+                             url: "/group/groupId",  //直接写进去???{groupId} 传参
+                             contentType: "application/json;charset=utf-8",
+                             dataType: "json",
+                             success: function (data, status)
+                             {   //SeminarGradeDetail  Group Topic ???
+                                 $("#tableBody").append(" <tr >< td >'+data.serial+'</td>");  //???
+                                 $("#tableBody").append(" <td>'+data.groupName+'</td> < td > '+data.leaderName+'</td > <td>'+data.presentationGrade+'</td>");
+                                 if (!data.report)  //NULL???
+                                 {
+                                     $("#tableBody").append(" <td>'data.未提交'</td>");  //???
+
+                                 }
+                                 $("#tableBody").append(" <td>'data.已提交'</td>"); //???
+                                 $("#tableBody").append(" <td>'data.reportGrade'</td> <td>'data.grade'</td>");
+                                 $("#tableBody").append(" <td> < img src= '~/images/view.png' alt= '预览' >预览 <img src='~/images/download.png' alt='下载'>下载 </td>");
+                                 $("#tableBody").append(" </tr>");
+                             }
+                         });
+                     }
+                 }
+           });
+       });
+    </script>
+</body>
+</html>
