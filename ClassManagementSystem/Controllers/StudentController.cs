@@ -13,7 +13,7 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult CourseInfo()
+        public IActionResult StudentCourseHome()
         {
             return View();
         }

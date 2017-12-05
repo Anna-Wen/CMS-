@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>教师查看学生报告</title>
+    <link rel="stylesheet" href="{$base}/raffle/bootstrap.min.css">
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .top {
+            width: 90%;
+            height: 8%;
+            margin-top: 3%;
+        }
+
+        .body {
+            width: 90%;
+            height: 92%;
+            margin-left: 5%;
+        }
+
+        .file {
+            width: 100%;
+            height: 100%;
+            border-style: solid;
+            border-width: %1;
+            border-color: black;
+        }
+
+        .pdfFile {
+            font-family: YouYuan;
+            padding-left: 5%;
+        }
+
+        .item1 {
+            width: 40%;
+            height: 5%;
+            margin-left: 5%;
+        }
+
+        .item2 {
+            width: 40%;
+            height: 5%;
+            margin-left: 85%;
+        }
+
+        .itemName {
+            font-family: YouYuan;
+            font-size: 20px;
+            padding-left: 3%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top">
+        <div class="item1">
+            <label class="itemName" id="seminarName"></label>
+            <label class="itemName" id="groupName"></label>
+            <label class="itemName" id="leader"></label>
+        </div>
+        <div class="item2">
+            <label class="itemName">评分:</label>
+            <input type="text" placeholder="3-5" id="inputScore" />
+            <button class="itemName" onclick="scoreReport">确认打分</button>
+        </div>
+    </div>
+    @*<div class="body">
+        <div class="file">
+            <object class="pdfFile" data="/Student/233.pdf" type="application/pdf">学生的报告</object>
+        </div>
+    </div>*@
+    <div class="body"> @*???*@
+        <object class="file" data="/report/233.pdf" type="application/pdf"></object>
+    </div>
+    @*<div class="body">
+        <object class="file" data="./233.pdf" type="application/pdf"></object>
+    </div>
+    <!-- Tell PDFObject which PDF to embed, and where to embed it -->
+    <!-- <script src="/js/pdfobject.js"></script>
+    <script>PDFObject.embed("/pdf/sample-3pp.pdf", "#example1");</script> -->*@
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
+            $.ajax({
+                type: "GET",
+                url: "/group/{groupId}",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    $("#seminarName").text("讨论课报告");
+                    $("#groupName").text(data.name);
+                    $("#leader").text(data.leader.name);
+                }
+            });
+        });
+    </script>
+    <script>
+        //取的url中对应名的参数
+        function getQueryString(name) {
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        function scoreReport() {
+            var groupId = GetQueryString("groupId");  //获得上一个页面传来的小组ID
+            var score = $("#inputScore").val();
+            if (score >= 3 && score <= 5)  //输入合法???
+            {
+                var reportGrade = { reportGrade: score };
+                $.ajax({
+                    url: "/group/{groupId}/grade/report",
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(reportGrade),
+                    success: function (data, status) {
+                        if (status == 204) //成功???
+                        {
+                            alert("报告分数已提交！");
+                            window.history.back();
+                        }
+                    }
+                    //error:
+                });
+            }
+            else
+                alert("您的报告打分不符规定！（3-5分）");
+        }
+    </script>
+</body>
+</html>
