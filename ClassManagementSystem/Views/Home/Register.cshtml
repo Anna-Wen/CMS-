@@ -5,13 +5,13 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0,
                                      user-scalable=no">
     <title>ClassManage</title>
-    <link href="../../css/Teacher/TeacherBindPage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/Common/RegisterPage.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -25,21 +25,20 @@
     <div class="phoneNum">手机号:<input type="text" name="phoneNum" id="phone"/></div>
     <div class="password">密码:<input type="text" name="password" id="password"/></div>
     <div class="name">姓名:<input type="text" name="name" id="name"/></div>
-    <div class="province">省:<select class="provinceSelect" id="province"></select></div>        <!-- onclick="getProvince()"--->
+    <div class="province">省:<select class="provinceSelect" id="province"></select></div>
     <div class="city">市:<select class="citySelect" id="city" onclick="getCity()"></select></div>
     <div class="school">学校:<select class="schoolSelect" id="school" onclick="getSchool()"></select><div class="createSchool" onclick="createSchool()">创建学校</div></div>
-    
     <div class="gender">性别:</div>
     <div class="male">男<input type="radio" value="男" name="gender" checked="checked" id="male"/></div>
-    <div class="female">女<input type="radio" value="女" name="gender" id="female"/></div>
-
+    <div class="female">女<input type="radio" value="女" name="gender" id="female" /></div>
+ 
     <div class="role">角色:</div>
     <div class="student">学生<input type="radio" value="学生" name="role" checked="checked" id="student"/></div>
     <div class="teacher">教师<input type="radio" value="教师" name="role" id="teacher"/></div>
-
+   
     <div class="stuffNum">教工号:<input type="text" name="stuffNum" id="number"/></div>
     <div class="eMail">邮箱:<input type="text" name="eMail" id="email"/></div>
-    <div class="submit" id="submit" onclick="submitInfo()">提交</div>
+    <div class="submit" onclick="submitInfo()">提交</div>
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
@@ -51,20 +50,19 @@
                 url: "/school/province",
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
-                success: function(data,status){//首先加载省份信息
-                    for (var i = 0; i < data.length; i++)
-                   {
-                        $('#province').append("<option value='province"+ i + "'>" + data[i]+"</option>");//动态添加省份信息
+                success: function (data, status) {//首先加载省份信息
+                    for (var i = 0; i < data.length; i++) {
+                        $('#province').append("<option value='province" + i + "'>" + data[i] + "</option>");//动态添加省份信息
 
-                   }
+                    }
                 }
             });
-         
+
         });//初始化end
 
         //获取城市
         function getCity() {
-            document.write("city");//=====================
+            //document.write("city");//=====================
             var province = $("#province").text();
             $.ajax({
                 url: "/school/city?province=" + province,
@@ -82,7 +80,7 @@
 
         function getSchool() {
             var city = $("#city").text();
-            document.write("school");//=====================
+            //document.write("school");//=====================
             $.ajax({
                 url: "/school?city=" + city,
                 type: "GET",
@@ -156,13 +154,12 @@
 
     </script>
     <script type="text/javascript">
-        function createSchool() { 
-            var urlSkip = "/Teacher/CreateSchool";
+        function createSchool() {
+            var urlSkip = "../Teacher/CreateSchool";
             window.location.href = urlSkip;//跳转到个人首页
         }
-     </script>
+    </script>
 
 </body>
 
 </html>
-

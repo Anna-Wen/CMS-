@@ -81,8 +81,8 @@
                         <button class="selectFile" onclick="download()">下载文件</button>
                     </div>
                     <div class="item">
-                        <button class="submit" id="up_sub" onclick="update_submit">修改</button>
-                        <button class="reset" id="delete" onclick="delete_class">删除班级</button>
+                        <button class="submit" id="up_sub" onclick="update_submit()">修改</button>
+                        <button class="reset" id="delete" onclick="delete_class()">删除班级</button>
                         <div class="clear"></div>
                     </div>
                     <div class="item">
@@ -111,11 +111,11 @@
                     $('#className').text(data.name);
                     $('#classTime').text(data.time);
                     $('#classSite').text(data.site);
-                    $('#classReport').text(data.proportions[0]);//是这样写吗？？？取数组某一个数
-                    $('#classPresentation').text(data.proportions[1]);
-                    $('#classC').text(data.proportions[2]);
-                    $('#classB').text(data.proportions[3]);
-                    $('#classA').text(data.proportions[4]);
+                    $('#classReport').text(data.proportions.report);//是这样写吗？？？取数组某一个数
+                    $('#classPresentation').text(data.proportions.presentation);
+                    $('#classC').text(data.proportions.c);
+                    $('#classB').text(data.proportions.b);
+                    $('#classA').text(data.proportions.a);
 
                 }
             });//初始化结束
@@ -125,7 +125,7 @@
     <script type="text/javascript">
        
         function update_submit() {
-            document.write("update");//--------------------
+           // document.write("update");//--------------------
             var courseId = window.location.href.split("=")[1];//当前班级号
             if ($("#up_sub").text() == "修改") {
                 var classInfo = {
@@ -140,6 +140,7 @@
                         A: $("#classA").text()
                     }
                 };
+                document.write();//-----------------
                 $("[id^='class']").hide();
                 $("[id^='input']").show();
                 $("#up_sub").text("提交");
@@ -204,11 +205,11 @@
                 $("#classB").text(classInfo.Proportions.B);
                 $("#classA").text(classInfo.Proportions.A);
             }//else end
-            document.write("update");//--------------
+            //document.write("update");//--------------
         }//修改/确认点击结束
     </script>
     <script type="text/javascript">
-        document.write("delete");//--------------------
+        //document.write("delete");//--------------------
         var classId = window.location.href.split("=")[1];//classId
         var courseId = window.location.href.split("=")[1];//courseId
         var urlSkip = "/Teacher/CourseInfo/" + courseId;//跳转到课程内页首页？？？-------------------
@@ -223,7 +224,7 @@
                 }
 
             });
-            document.write("delete");//--------------
+            //document.write("delete");//--------------
 
         }
     </script>

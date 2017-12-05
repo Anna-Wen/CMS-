@@ -46,7 +46,8 @@ namespace ClassManagementSystem
                     //template: "{controller=Teacher}/{action=CheckClassInfo}/{id?}");
                     //template: "{controller=Teacher}/{action=CreateClass}/{id?}");
                     //template: "{controller=Teacher}/{action=CreateCourse}/{id?}");
-                    template: "{controller=Teacher}/{action=Bind}/{id?}");
+                    //template: "{controller=Teacher}/{action=CheckTopicBeforeClass}/{id?}");
+                    template: "{controller=Teacher}/{action=NewSeminar}/{id?}");
             });
         }
     }
