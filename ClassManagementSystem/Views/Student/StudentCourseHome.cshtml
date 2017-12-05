@@ -6,7 +6,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>学生主页（课程信息）</title>
-    <link href="/css/student/StudentCourseHomePage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/Student/StudentCourseHomePage.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -45,9 +45,9 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
-                         $("#mainContent").append("<div class='main_box_right_content'>< h3 class='classtitle' >");
+                         $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(data[i].courseId)' id=data[i].id>< h3 class='classtitle' >");
                          $("#mainContent").append("<span id='course'>'+data[i].courseName+'</span>");
-                         $("#mainContent").append("<button id='+i+' onclick='quit()'>退选课程</button></h3 ><div class='divideline'></div><div class='classinfo'><table class='table'><tr>");
+                         $("#mainContent").append("<button onclick='quit(data[i].id)'>退选课程</button></h3 ><div class='divideline'></div><div class='classinfo'><table class='table'><tr>");
                          $("#mainContent").append("<td class='tabletext'>班级：<span id='name'>'+data[i].time+'</span></td>< td class='tabletext' id= 'site' > 课程地点：'+data[i].site+'</td ></tr ><tr>");
                          $("#mainContent").append("<td class='tabletext' id='teacher'>教师：'+data[i].courseTeacher.name+'</td>< td class='tabletext' ></td ></tr ></table ></div >");
                          $("#mainContent").append("</div>");
@@ -58,24 +58,26 @@
     </script>
     <script>
         //点击退选课程按钮
-        function quit()
+        function quit(classId)
         {
-            var obj = event.srcElement;
-            if (obj.id == "button") {
-                $.ajax({
-                    type: "DELETE",
-                    url: "/class/{classId}/student/{studentId}",  //???
-                    contentType: "application/json;charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(),  //???
-                    success: function (data, status) {
-                        //删除怎么办???
-                    }
-                });
-            }
+            //var obj = event.srcElement;
+            $.ajax({
+                type: "DELETE",
+                url: "/class/classId/student/1",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    //在页面上删除
+                    var block = "#" + classId;
+                    $(block).hide();
+                }
+            });
         }
 
-
+        function detailedInfo(courseId)
+        {
+            window.location.href = "/Student/CourseHome?courseId=" + courseId; 
+        }
     </script>
 </body>
 </html>
