@@ -37,7 +37,7 @@
                     $('#title').text(data.name);
                     $('#desc').text(data.description);
                     $('#limitg').text(data.groupLimit);
-                    $('#limitm').text(data.groupMemberLimit);              组内人数限制
+                    $('#limitm').text(data.groupMemberLimit);
                 
                 }
             });
@@ -53,6 +53,22 @@
                 }
             });
         })
+        function whenSelectTopic() {
+            var topicId = window.location.href.split("=")[2];//当前话题号
+            var groupId = 233;
+            var topic = { Id: topicId };
+            $.ajax({
+                type: 'POST',
+                url: '/group/' + groupId + '/topic',
+                dataType: "json",
+                data: JSON.stringify(topic),
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+                    alert("选择话题操作成功！");
+                    window.history.back();
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -96,7 +112,7 @@
                         <label class="itemName" id="limitm"></label>
                     </div>
                     <div class="item">
-                        <div class="modifyButton"> 选择话题 </div>
+                        <div class="modifyButton" id="selectTopic" onclick="whenSelectTopic()"> 选择话题 </div>
                     </div>
                 </div>
             </div>

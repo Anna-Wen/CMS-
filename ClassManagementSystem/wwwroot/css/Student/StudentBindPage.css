@@ -7,7 +7,7 @@ body
 {
 height:100%;
 margin:0; 
-background-image:url(../../Img/back.png);
+background-image:url(~/images/back.png);
 background-repeat:no-repeat;
 background-size:cover;
 }
@@ -23,7 +23,7 @@ margin: 0 auto;
 font-style:normal;
 font-family:YouYuan;
 font-size:40px;
-font-weight:blod;
+font-weight:bold;
 display:block;
 position:absolute;
 left:40%;top:20px;
