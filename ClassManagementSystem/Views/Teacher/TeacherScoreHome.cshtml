@@ -86,20 +86,34 @@
                  {
                      for (var i = 0; i < data.length; i++)
                      {
-                         var ur = "/Teacher/TeacherScoreReportPage?groupId=" + data[i].id;
-                         var topicName;
+                         var ur = "/Teacher/TeacherScoreReport?groupId=" + data[i].id;
+                         var topicName, preGrade;
                          for (var t = 0; t < data[i].topics.length; t++) {
                              if (t == 0)
+                             {
                                  topicName = data[i].topics[t].serial;
+                                 preGrade = data[i].grade.presentationGrade[t];
+                             }
                              else
-                                 topicName +=" & "+ data[i].topics[t].serial;
+                             {
+                                 topicName += " & " + data[i].topics[t].serial;
+                                 preGrade += " & " + data[i].grade.presentationGrade[t];
+                             }
                          }
-                             if (!data[i].report) 
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + data[i].grade.presentationGrade[t] + "</td><td>未提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
-                             
+                         if (!data[i].report)
+                         {
+                             if (data[i].grade.reportGrade)
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
                              else
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + data[i].grade.presentationGrade[t] + "</td><td>已提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
-                         
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                         }                             
+                         else
+                         {
+                             if (data[i].grade.reportGrade)
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                             else
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                         }                         
                      }
                  }
            });

@@ -148,7 +148,8 @@
     </script>
     <script type="text/javascript">
         $('#delete').click(function () {
-            var seminarId = window.location.href.split("=")[1];
+            var courseId = window.location.href.split("=")[1];//当前课程id
+            var seminarId = window.location.href.split("=")[2];
             $ajax({
                 type: "DELETE",
                 url: "/seminar/" + seminarId,
@@ -163,7 +164,8 @@
             });
         });
             $("#score").click(function () {
-                
+                var courseId = window.location.href.split("=")[1];//当前课程id
+                var seminarId = window.location.href.split("=")[2];
                 var url = "/Teacher/TeacherScoreHome?index=" + courseId+"=" + seminarId;
                 window.location.href = url;
         });
