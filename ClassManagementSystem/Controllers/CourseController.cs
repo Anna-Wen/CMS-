@@ -16,9 +16,11 @@ namespace ClassManagementSystem.Controllers
         [HttpGet]
         public IActionResult GetCourses()
         {
-            List<Course> courses = new List<Course>();
-            courses.Add(new Course { Id = 1, Name = "OOAD", NumClass = 3, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" });
-            courses.Add(new Course { Id = 2, Name = "J2EE", NumClass = 1, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" });
+            List<Course> courses = new List<Course>
+            {
+                new Course { Id = 1, Name = "OOAD", NumClass = 3, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" },
+                new Course { Id = 2, Name = "J2EE", NumClass = 1, NumStudent = 60, StartTime = "1/9/2017", EndTime = "1/1/2018" }
+            };
 
             return Json(courses);
         }
@@ -99,9 +101,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetClassList(int courseId)
         {
             // Fetch data from database
-            List<Class> classes = new List<Class>();
-            classes.Add(new Class { Id = 45, Name = "周三1-2节" });
-            classes.Add(new Class { Id = 48, Name = "周三3-4节" });
+            List<Class> classes = new List<Class>
+            {
+                new Class { Id = 45, Name = "周三1-2节" },
+                new Class { Id = 48, Name = "周三3-4节" }
+            };
 
             // If not found
             if (classes == null)
@@ -183,9 +187,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetStudentGradeUnderAllSeminar(int courseId)
         {
             // Fetch data from database
-            List<SeminarGradeDetail> seminarGrades = new List<SeminarGradeDetail>();
-            seminarGrades.Add(new SeminarGradeDetail { SeminarName = "需求分析", GroupName = "3A2", LeaderName = "张三", PresentationGrade = 4, ReportGrade = 4, Grade = 4 });
-            seminarGrades.Add(new SeminarGradeDetail { SeminarName = "界面原型设计", GroupName = "3A3", LeaderName = "张三", PresentationGrade = 5, ReportGrade = 5, Grade = 5 });
+            List<SeminarGradeDetail> seminarGrades = new List<SeminarGradeDetail>
+            {
+                new SeminarGradeDetail { SeminarName = "需求分析", GroupName = "3A2", LeaderName = "张三", PresentationGrade = 4, ReportGrade = 4, Grade = 4 },
+                new SeminarGradeDetail { SeminarName = "界面原型设计", GroupName = "3A3", LeaderName = "张三", PresentationGrade = 5, ReportGrade = 5, Grade = 5 }
+            };
 
             // If not found
             if (seminarGrades == null)

@@ -17,9 +17,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetClassListFromQuery([FromQuery]string courseName, [FromQuery]string courseTeacher)
         {
             // Fetch selected class list from database
-            List<CourseClass> classList = new List<CourseClass>();
-            classList.Add(new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } });
-            classList.Add(new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } });
+            List<CourseClass> classList = new List<CourseClass>
+            {
+                new CourseClass { Id = 23, Name = "周一1-2节", NumStudent = 60, Time = "周三1-2节、周五1-2节", Site = "学生公寓405", CourseName = "OOAD", CourseTeacher = new Teacher { Name = "邱明" } },
+                new CourseClass { Id = 42, Name = ".NET一班", NumStudent = 60, Time = "周三3-4节、周四1-2节", Site = "海韵教学楼204", CourseName = ".Net 平台开发", CourseTeacher = new Teacher { Name = "杨律青" } }
+            };
             if (courseName != null && courseName != "")
                 classList = classList.FindAll((p) => p.CourseName.StartsWith(courseName));
             if (courseTeacher != null && courseTeacher != "")
@@ -92,11 +94,13 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetStudentListUnderClass(int classId, [FromQuery]string numBeginWith, [FromQuery]string nameBeginWith)
         {
             // Fetch selected class student list from database
-            List<Student> studentList = new List<Student>();
-            studentList.Add(new Student { Id = 233, Name = "张三", Number = "24320152202333" });
-            studentList.Add(new Student { Id = 245, Name = "张八", Number = "24320152202334" });
-            studentList.Add(new Student { Id = 248, Name = "李四", Number = "24320152202345" });
-            studentList.Add(new Student { Id = 256, Name = "王五", Number = "24320152202356" });
+            List<Student> studentList = new List<Student>
+            {
+                new Student { Id = 233, Name = "张三", Number = "24320152202333" },
+                new Student { Id = 245, Name = "张八", Number = "24320152202334" },
+                new Student { Id = 248, Name = "李四", Number = "24320152202345" },
+                new Student { Id = 256, Name = "王五", Number = "24320152202356" }
+            };
             if (numBeginWith != null && numBeginWith != "")
                 studentList = studentList.FindAll((p) => p.Number.StartsWith(numBeginWith));
             if (nameBeginWith != null && nameBeginWith != "")
@@ -120,7 +124,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClass = new Student { Id = json.Id };
+            Student newStudentInClass = new Student { Id = int.Parse(json.Id) };
 
             // Judge and store class-student information in server
             
@@ -163,9 +167,11 @@ namespace ClassManagementSystem.Controllers
             Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
             Student s1 = new Student { Id = 248, Name = "李四", Number = "24320152202345" };
             Student s2 = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
-            List<Student> memberList = new List<Student>();
-            memberList.Add(s1);
-            memberList.Add(s2);
+            List<Student> memberList = new List<Student>
+            {
+                s1,
+                s2
+            };
 
             ClassGroup classGroup = new ClassGroup { Leader = leader, Members = memberList};
 
@@ -183,7 +189,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = json.Id };
+            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
 
             // Add student in classgroup database
 
@@ -204,7 +210,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
             
             // Get information from json
-            Student newStudentInClassGroup = new Student { Id = json.Id };
+            Student newStudentInClassGroup = new Student { Id = int.Parse(json.Id) };
 
             // Remove student from this classgroup database
 

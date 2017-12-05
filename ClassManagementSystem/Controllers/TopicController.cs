@@ -40,27 +40,8 @@ namespace ClassManagementSystem.Controllers
             //if(false)
             //  return Forbid();
 
-            // Update this edited topic info
-
-            // Fetch info from database....
-            Topic topic = new Topic { Id = 257, Serial = "A", Name = "领域模型与模块划分", Description = "Domain Model 与模块划分", GroupLimit = 6, GroupMemberLimit = 6, GroupLeft = 2 };
-
-            if (topic == null)
-                return BadRequest();
-            else
-            {
-                topic.Name = json.Name;
-                topic.Description = json.Description;
-                topic.GroupLimit = json.GroupLimit;
-                topic.GroupMemberLimit = json.GroupMemberLimit;
-
-                // Update database...
-
-                return NoContent();
-            }
-
             //Get information from json
-            Topic editedTopic = new Topic { Id = 257, Serial = "A", Name = "领域模型与模块划分", Description = "Domain Model 与模块划分", GroupLimit = 6, GroupMemberLimit = 6, GroupLeft = 2 };
+            Topic editedTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = int.Parse(json.GroupLimit), GroupMemberLimit = int.Parse(json.GroupMemberLimit) };
 
             //Change information in database
             //if not found
@@ -74,10 +55,17 @@ namespace ClassManagementSystem.Controllers
         [HttpDelete("{topicId}")]
         public IActionResult DeleteTopic(int topicId)
         {
-            // Delete topic from database and return action result....
-            IActionResult deleteResult = NoContent();
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
 
-            return deleteResult;
+            //Delete topic from database
+            //if not found
+            //    return NotFound();
+
+            //Success
+            return NoContent();
         }
 
         // GET: /topic/{topicId}/group
@@ -87,16 +75,19 @@ namespace ClassManagementSystem.Controllers
             //错误的Id格式返回400怎么写？？？
 
             // Fetch groups belongs to this topic via topicId from database...
-            List<Group> groups = new List<Group>();
-            groups.Add(new Group { Name = "1-A-1" });
-            groups.Add(new Group { Name = "1-A-2" });
-            groups.Add(new Group { Name = "1-A-3" });
-            groups.Add(new Group { Name = "1-A-4" });
+            List<Group> groups = new List<Group>
+            {
+                new Group { Name = "1-A-1" },
+                new Group { Name = "1-A-2" },
+                new Group { Name = "1-A-3" },
+                new Group { Name = "1-A-4" }
+            };
 
             // No topics found
             if (groups == null)
                 return NotFound();
 
+            // Success
             return Json(groups);
         }
     }

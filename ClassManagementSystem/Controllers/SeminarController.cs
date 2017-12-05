@@ -20,8 +20,10 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetSeminar(int seminarId)
         {
             // Fetch data from database
-            List<Topic> topics = new List<Topic>();
-            topics.Add(new Topic { Id = 257, Name = "领域模型与模块" });
+            List<Topic> topics = new List<Topic>
+            {
+                new Topic { Id = 257, Name = "领域模型与模块" }
+            };
             Seminar seminar = new Seminar { Id = 32, Name = "概要设计", Description = "本节讨论课的主要内容针对第一二章", GroupingMethod = "fixed", StartTime = "10/10/2017", EndTime = "24/10/2017", Topics = topics };
 
             // If seminar not found
@@ -90,9 +92,11 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetSeminarTopics(int seminarId)
         {
             // Fetch data from database
-            List<Topic> topics = new List<Topic>();
-            topics.Add(new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 });
-            topics.Add(new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 });
+            List<Topic> topics = new List<Topic>
+            {
+                new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 },
+                new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 }
+            };
 
 
             // If seminar not found
@@ -113,7 +117,7 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
+            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = int.Parse(json.GroupLimit), GroupMemberLimit = int.Parse(json.GroupMemberLimit) };
 
             // Store topic information in server and generate a id for this new topic
             newTopic.Id = 257;
@@ -128,8 +132,22 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetSeminarGroups(int seminarId, [FromQuery]bool gradeable, [FromQuery]int classId)
         {
             // Fetch data from database
-            List<Group> groups = new List<Group>();
+            Student l1 = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
+            Student s1 = new Student { Id = 248, Name = "李四", Number = "24320152202345" };
+            Student s2 = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
+            Student l2 = new Student { Id = 233, Name = "小红", Number = "24320152202456" };
+            Student l3 = new Student { Id = 233, Name = "小紫", Number = "24320152202478" };
+            Student l4 = new Student { Id = 233, Name = "小明", Number = "24320152202499" };
+            List<Student> memberList = new List<Student> { s1, s2 };
+            List<Topic> t1 = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 } };
+            List<Topic> t2 = new List<Topic> { new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 } };
+            List<Topic> t3 = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 }
+                                                    new Topic { Id = 258, Serial = "B", Name = "数据库设计", Description = "XXXXXXXX", GroupLimit = 5, GroupMemberLimit = 5, GroupLeft = 1 } };
 
+            Group g1 = new Group { Id = 28, Name = "1-A-1", Leader = l1, Members = memberList, Topics = t1 };
+
+            List<Group> groups = new List<Group>();
+            groups.Add
 
             // If seminar not found
             if (groups == null)
@@ -143,8 +161,24 @@ namespace ClassManagementSystem.Controllers
         [HttpGet("{seminarId}/group/my")]
         public IActionResult GetMySeminarGroup(int seminarId)
         {
-            Group myGroup = groups.FirstOrDefault((p) => p.Id == "1A1");
-          
+            //Authentication
+            //When user's permission denied
+            //if(false)
+            //  return Forbid();
+
+            // Fetch data from database
+            Student leader = new Student { Id = 233, Name = "张三", Number = "24320152202333" };
+            Student s1 = new Student { Id = 248, Name = "李四", Number = "24320152202345" };
+            Student s2 = new Student { Id = 256, Name = "王五", Number = "24320152202356" };
+            List<Student> memberList = new List<Student> { s1, s2 };
+            List<Topic> topics = new List<Topic> { new Topic { Id = 257, Serial = "A", Name = "领域模型与模块", Description = "Domain model 与模块划分", GroupLimit = 5, GroupMemberLimit = 6, GroupLeft = 2 } };
+            Group myGroup = new Group { Id = 28, Name = "1-A-1", Leader = leader, Members = memberList, Topics = topics };
+
+            // If seminar not found or no groups yet
+            if (myGroup == null)
+                return NotFound();
+
+            // Success
             return Json(myGroup);
         }
 
