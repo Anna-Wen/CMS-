@@ -22,5 +22,10 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult BasicInfo()
+        {
+            return View();
+        }
     }
 }
