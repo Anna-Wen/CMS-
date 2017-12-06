@@ -15,9 +15,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="/Imags/home.png">首页
-            <img src="/Imags/help.png">帮助
-            <img src="/Imags/exit.png">退出
+            <img src="/images/home.png">首页
+            <img src="/images/help.png">帮助
+            <img src="/images/exit.png">退出
         </div>
         <div class="clear"></div>
     </div>
@@ -27,13 +27,12 @@
             <div class="line"></div>
             <div class="courseIntroduction">
                 <a class="guidefont" href="~/Teacher/BasicInfo">基本信息</a>
-                <a class="guidefont" href="~/Teacher/TeacherCourseHome">课程信息</a>
-                <a class="guidefont" href="#">新建课程</a>
+                <a class="guidefont" href="~/Teacher/TeacherCourseHomePage">课程信息</a>
+                <a class="guidefont" href="~/Teacher/CreateCourse">新建课程</a>
             </div>
         </div>
         <div class="content">
-
-            <div class="title">新建课程</div>
+            <div class="title">修改课程</div>
             <hr class="line" />
 
             <br />
@@ -46,7 +45,7 @@
                     开始时间*：<input type="date" name="begintime" id="startTime"/>  结束时间*：<input type="date" name="endtime" id="endTime"/><br /><br />
 
                     课程介绍：<br />
-                    <textarea name="courseinfo" cols="80" rows="5" id="description"></textarea><br />
+                    <textarea name="courseinfo" cols="80" rows="5" id="description"></textarea><br /><br />
 
 
                     评分规则*： <br />
@@ -61,7 +60,7 @@
                     <br />
                     <div class="buttons">
 
-                        <input class="button" type="submit" id="submit" onclick="submitCourseInfo()"/>
+                        <input class="button" type="submit" id="submit" onclick="submitCourseInfo()" value="提交">
                         <input class="button" type="reset" id="reset" onclick="empty()"/>
 
                     </div>

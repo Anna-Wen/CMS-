@@ -67,5 +67,15 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult ModifyCourse()
+        {
+            return View();
+        }
+
+        public IActionResult CreateCourse()
+        {
+            return View();
+        }
     }
 }
