@@ -49,11 +49,11 @@ namespace ClassManagementSystem
                     //template: "{controller=Teacher}/{action=CheckClassInfo}/{id?}");
                     //template: "{controller=Teacher}/{action=CreateClass}/{id?}");
                     //template: "{controller=Teacher}/{action=CreateCourse}/{id?}");
-                    template: "{controller=Teacher}/{action=CreateSeminar}/{id?}");
+                    //template: "{controller=Teacher}/{action=CreateSeminar}/{id?}");
                 //template: "{controller=Teacher}/{action=CheckTopicBeforeClass}/{id?}");
                 //template: "{controller=Teacher}/{action=Bind}/{id?}");
                 //template: "{controller=Home}/{action=AccountLoginPage}/{id?}");
-                //template: "{controller=Home}/{action=Register}/{id?}");
+                template: "{controller=Home}/{action=Register}/{id?}");
                 //template: "{controller=Home}/{action=AccountLogin}/{id?}");
 
             });

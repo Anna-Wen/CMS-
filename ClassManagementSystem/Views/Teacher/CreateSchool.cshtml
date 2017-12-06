@@ -39,7 +39,7 @@
                 success: function(data,status){//首先加载省份信息
                     for (var i = 0; i < data.length; i++)
                    {
-                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
+                        $("#province").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加省份信息
                    }
                 }
             });
@@ -58,11 +58,12 @@
                     for (var i = 0; i < data.length; i++) {
                         if (i == 0) {
                             $("#city").empty();
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
+                            $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
                         }
                         else
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
+                            $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加城市信息
                     }
+                    
 
                 }
             });
