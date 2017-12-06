@@ -1,0 +1,155 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>创建讨论课</title>
+    <link rel="stylesheet" href="../../css/Teacher/content.css">
+</head>
+<body>
+
+    <div class="top">
+        <div class="font">
+            课堂管理系统
+        </div>
+        <div class="icon">
+            <img src="../../images/home.png">首页
+            <img src="../../images/home.png">帮助
+            <img src="../../images/home.png">退出
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="body">
+        <div class="navigation">
+            <div class="courseName" id="courseName"></div>
+            <div class="line"></div>
+            <div class="courseIntroduction" id="courseIntroduction"></div>
+        </div>
+        <div class="content">
+            <div class="block">
+                <div class="title">创建讨论课</div>
+                <div class="returnButton" id="returnbtn" onclick="returnBack()">返回上一页</div>
+                <div class="line"></div>
+                <div class="itemBody">
+                    <div class="item">
+                        <label class="itemName">讨论课名称:</label>
+                        <input type="text" name="seminarName" class="bigInput" id="name">
+                    </div>
+                    <div class="item" style="height:40%;">
+                        <label class="itemName">讨论课说明:</label>
+                        <textarea class="textStyle" id="description"></textarea>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">分组方式: </label>
+                        <select class="bigSelect" id="groupingMethod">
+                        <option value="fixed">固定分组</option>
+                        <option value="random">随机分组</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <label class="itemName">开始时间: </label>
+                        <input type="date" id="startTime" class="timeStyle">
+                        <label class="itemName" style="margin-left: 15%">结束时间: </label>
+                        <input type="date" id="endTime" class="timeStyle">
+                    </div>
+                    <div class="item">
+                        <label class="itemName">评分规则:</label>
+                        <label class="itemName">讨论课分数占比</label>
+                        <input type="text" id="presentation" name="seminarGrade" class="smallInput">
+                        <label class="itemName">报告分数占比</label>
+                        <input type="text" id="report" name="seminarGrade" class="smallInput">
+                    </div>
+                    <div class="item" style="margin-left: 18%">
+                        <label class="itemName">5分占比</label>
+                        <input type="text" id="c" name="seminarGrade" class="smallInput">
+                        <label class="itemName">4分占比</label>
+                        <input type="text" id="b" name="seminarGrade" class="smallInput">
+                        <label class="itemName">3分占比</label>
+                        <input type="text" id="a" name="seminarGrade" class="smallInput">
+                    </div>
+                    <div class="item">
+                        <button class="submit" id="submit" onclick="submitSeminarInfo()">提 交</button>
+                        <button class="reset" id="reset" onclick="empty()">重 置</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var courseId = window.location.href.split("=")[1];//当前课程id
+
+            //返回上一页按钮
+            var returnbtn = document.getElementById('returnbtn');
+
+    
+            //初始化   左侧
+            $.ajax({
+                type: 'GET',
+                url: '/course/' + courseId,
+                contentType: "application/json;charset=utf-8",
+                success: function (data, status) {
+
+                    $('#courseName').text(data.name);
+                    $('#courseIntroduction').text(data.description);
+                }
+            });
+        });
+        function returnBack() {
+            //alert("back");//------
+            window.history.go(-1);
+        }
+            //提交新建讨论课信息
+            function submitSeminarInfo() {
+            var urlSkip = "/Teacher/TeacherCourseInfomation";
+            var seminarInfo = {
+                Name: $("#name").val(),
+                StartTime: $("#startTime").val(),
+                EndTime: $("#endTime").val(),
+                Description: $("#description").val(),
+                GroupingMethod: ($("#groupingMethod").find('option:selected').attr('value')),
+                Proportions: {
+                    Report: $("#report").val(),
+                    Presentation: $("#presentation").val(),
+                    C: $("#c").val(),
+                    B: $("#b").val(),
+                    A: $("#a").val()
+                }
+            };
+            //alert(seminarInfo.GroupingMethod);//--------------------------
+            var couseId = window.location.href.split("=")[1];//获取当前courseId
+            $.ajax({
+                url:"/course/"+courseId+"/seminar",
+                type:"POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(seminarInfo),
+                success: function (data, status) {
+                    window.location.href = urlSkip;
+                }
+            });
+        }//提交新建课程信息end
+
+        //重置课程信息
+            function empty() {
+            $("#name").val("");
+            $("#startTime").val("");
+            $("#endTime").val("");
+            $("#description").val("");
+            $("#report").val("");
+            $("#presentation").val("");
+            $("#c").val("");
+            $("#b").val("");
+            $("#a").val("");
+        }//重置课程信息end
+
+    </script>
+</body>
+</html>
+

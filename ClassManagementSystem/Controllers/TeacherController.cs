@@ -81,5 +81,10 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateSeminar()
+        {
+            return View();
+        }
     }
 }
