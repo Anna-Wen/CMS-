@@ -13,7 +13,9 @@
     <title>学生查看讨论课（固定）</title>
     <link rel="stylesheet" href="@Url.Content("~/css/Student/content.css")" type="text/css"/>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    
+    <script src="~/js/dropzone.js"></script>
+
+
     <script>
         
         $(document).ready(function () {
@@ -27,11 +29,15 @@
             };
             
             //上传报告按钮
-            var uploadReport = document.getElementById('uploadReport');
-            uploadReport.onclick = function () {
-                $('#uploadReport').append("<input type='button'></");
 
-            };
+            $("#uploadReport").dropzone({
+                url: "/Student/DiscussionClass",
+                maxFiles: 10,
+                maxFilesize: 512,
+                acceptedFiles: ".js,.obj,.dae"
+            });
+
+
 
 
 
