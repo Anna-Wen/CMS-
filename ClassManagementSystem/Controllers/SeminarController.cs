@@ -154,12 +154,12 @@ namespace ClassManagementSystem.Controllers
             SeminarGrade sg5 = new SeminarGrade { PresentationGrade = new List<int> {5, 4} };
             
             List<Group> groups = new List<Group> {
-                new Group { Id = 28, Name = "1-A-1", Leader = l1, Members = memberList, Topics = t1, Report = "/report/28.pdf", Grade = sg1 },
-                new Group { Id = 29, Name = "1-A-2", Leader = s1, Members = memberList, Topics = t1, Report = "/report/29.pdf", Grade = sg2 },
-                new Group { Id = 30, Name = "1-B-1", Leader = s2, Members = memberList, Topics = t2, Report = "/report/30.pdf", Grade = sg3 },
-                new Group { Id = 31, Name = "2-A-1", Leader = l2, Members = memberList, Topics = t1, Report = "/report/31.pdf", Grade = sg4 },
+                new Group { Id = 28, Name = "1-A-1", Leader = l1, Members = memberList, Topics = t1, Report = "/report/233.pdf", Grade = sg1 },
+                new Group { Id = 29, Name = "1-A-2", Leader = s1, Members = memberList, Topics = t1, Report = "/report/233.pdf", Grade = sg2 },
+                new Group { Id = 30, Name = "1-B-1", Leader = s2, Members = memberList, Topics = t2, Report = "/report/233.pdf", Grade = sg3 },
+                new Group { Id = 31, Name = "2-A-1", Leader = l2, Members = memberList, Topics = t1, Report = "/report/233.pdf", Grade = sg4 },
                 new Group { Id = 32, Name = "2-A-2", Leader = l3, Members = memberList, Topics = t1, Report = "", Grade = sg3 },
-                new Group { Id = 33, Name = "3-A-1", Leader = l4, Members = memberList, Topics = t3, Report = "/report/33.pdf", Grade = sg5 }
+                new Group { Id = 33, Name = "3-A-1", Leader = l4, Members = memberList, Topics = t3, Report = "/report/233.pdf", Grade = sg5 }
             };
 
             // If seminar not found
