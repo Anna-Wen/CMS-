@@ -17,9 +17,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="~/images/home.png">首页
-            <img src="~/images/help.png">帮助
-            <img src="~/images/exit.png">退出
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -103,16 +103,16 @@
                          if (!data[i].report)
                          {
                              if (data[i].grade.reportGrade)
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
                              else
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>未提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
                          }                             
                          else
                          {
                              if (data[i].grade.reportGrade)
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td>" + data[i].grade.reportGrade + "</td><td>" + data[i].grade.grade + "</td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
                              else
-                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='~/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='~/images/download.png' alt='下载'></a></td></tr>");
+                                 $("#tableBody").append("<tr><td>" + topicName + "</td><td>" + data[i].name + "</td><td>" + data[i].leader.name + "</td><td>" + preGrade + "</td><td>已提交</td><td></td><td></td><td><a href=" + ur + " style='text- decoration:none;'><img src='/images/view.png' alt= '预览'></a><a href=" + data[i].report + " text- decoration:none;><img src='/images/download.png' alt='下载'></a></td></tr>");
                          }                         
                      }
                  }

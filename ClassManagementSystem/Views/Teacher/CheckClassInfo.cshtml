@@ -20,9 +20,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="../../Img/home.png">首页
-            <img src="../../Img/help.png">帮助
-            <img src="../../Img/exit.png">退出
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -195,7 +195,7 @@
 
                     }
                 };
-
+                
                 $.ajax({
 
                     url: "/class/" + classId,
@@ -211,11 +211,11 @@
                         $("#className").text(classInfo.Name);
                         $("#classSite").text(classInfo.Site);
                         $("#classTime").text(classInfo.Time);
-                        $("#classReport").text(classInfo.Proportions[0]);
-                        $("#classPresentation").text(classInfo.Proportions[1]);
-                        $("#classC").text(classInfo.Proportions[2]);
-                        $("#classB").text(classInfo.Proportions[3]);
-                        $("#classA").text(classInfo.Proportions[4]);
+                        $("#classReport").text(classInfo.Proportions.Report);
+                        $("#classPresentation").text(classInfo.Proportions.Presentation);
+                        $("#classC").text(classInfo.Proportions.C);
+                        $("#classB").text(classInfo.Proportions.B);
+                        $("#classA").text(classInfo.Proportions.A);
                     }
                     //error:
                 });
@@ -249,6 +249,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (data, status) {
+                    alert("您已成功删除该班级！");
                     //window.location.href = urlSkip;//删除班级之后跳转到课程内页首页
                     window.history.go(-1);
                 }

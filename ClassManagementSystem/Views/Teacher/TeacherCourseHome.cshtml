@@ -15,9 +15,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="/images/home.png">首页
-            <img src="/images/help.png">帮助
-            <img src="/images/exit.png">退出
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -34,7 +34,7 @@
         <div class="content" id="mainContent">
             <div class="title">课程信息</div>
             <hr class="line" />
-        <div class="clear"></div>  @*???*@
+        <div class="clear"></div>
     </div>
         </div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -48,58 +48,50 @@
                 dataType: "json",
                 success: function (data, status) {
                     for (var i = 0; i < data.length; i++) {
-                        $('#mainContent').append("<div class='main_box_right_content' id='table" + data[i].id + "'></div></br>");
-                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].name + "<button id='" + data[i].id + "' onclick='modify(this.id)'>修改课程</button><button class='" + data[i].id +"' onclick='deleteCourse(this.id)'>删除课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级数：<span>" + data[i].numClass + "</span></td>" +
+                        $("#mainContent").append("<br/>");
+                        $('#mainContent').append("<div class='main_box_right_content' onclick='detailedInfo(" + data[i].id + ")' id=" + data[i].id + ">"
+                            + "<h3 class='classtitle'>" + data[i].name + "<button onclick='modify(event," + data[i].id+")'>修改课程</button><button onclick='deleteCourse(event," + data[i].id +")'>删除课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级数：<span>" + data[i].numClass + "</span></td>" +
                             "<td class='tabletext'> 学生人数：" + data[i].numStudent + "</td ></tr><tr><td class='tabletext'>开始时间：" + data[i].startTime + "</td><td class='tabletext'>结束时间:" + data[i].endTime + "</td></tr></table ></div ></div >");
                     }
-                    $('#mainContent').append("<div class='main_box_right_content'><img class='addcourse' src= '/images/add.png' ></div ></div >");
+                    $('#mainContent').append("<br/><div class='main_box_right_content' onclick='add()'><img class='addcourse' src= '/images/add.png' ></div ></div >");
                 }
             });
         });
     </script>
     <script>
         //修改课程
-        function modify(courseId)
+        function modify(event,courseId)
         {
-            //var
-            $.ajax({
-                type: 'PUT',
-                url: "/course/"+courseId,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(courseInfo),
-                success: function (data, status) {
-                    for (var i = 0; i < data.length; i++) {
-                        $('#mainContent').append("<div class='main_box_right_content' id='table" + data[i].id + "'></div></br>");
-                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].name + "<button id='" + data[i].id + "'>修改课程</button><button class='" + data[i].id + "'>删除课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级数：<span>" + data[i].numClass + "</span></td>" +
-                            "< td class='tabletext' > 学生人数：" + numStudent + "</td ></tr ><tr><td class='tabletext'>开始时间：" + data[i].startTime + "</td><td class='tabletext'>结束时间:" + data[i].endTime + "</td></tr></table ></div ></div >");
-                    }
-                    $('#mainContent').append("<div class='main_box_right_content'>< img class='addcourse' src= '/images/add.png' ></div ></div >");
-                }
-            });
-
+            event.stopPropagation();
+            window.location.href = "/Teacher/ModifyCourse?courseId=" + courseId;
         }
 
         //删除课程
-        function deleteCourse(courseId)
+        function deleteCourse(event,courseId)
         {
+            event.stopPropagation();
             $.ajax({
                 type: 'DELETE',
                 url: "/course/"+courseId,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(courseInfo),
                 success: function (data, status) {
-                    alert(data[i].numClass);
-                    for (var i = 0; i < data.length; i++) {
-                        $('#mainContent').append("<div class='main_box_right_content' id='table" + data[i].id + "'></div></br>");
-                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].name + "<button id='" + data[i].id + "'>修改课程</button><button class='" + data[i].id + "'>删除课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级数：<span>" + data[i].numClass + "</span></td>" +
-                            "< td class='tabletext' > 学生人数：" + numStudent + "</td ></tr ><tr><td class='tabletext'>开始时间：" + data[i].startTime + "</td><td class='tabletext'>结束时间:" + data[i].endTime + "</td></tr></table ></div ></div >");
+                    //在页面上删除
+                    if (confirm("确定删除吗？")) {
+                        var block = "#" + courseId;
+                        $(block).hide();
                     }
-                    $('#mainContent').append("<div class='main_box_right_content'>< img class='addcourse' src= '/images/add.png' ></div ></div >");
                 }
             });
+        }
 
+        function detailedInfo(courseId) {
+            window.location.href = "/Teacher/TeacherCourseInformation?courseId=" + courseId;
+        }
+
+        function add()
+        {
+            window.location.href = "/Teacher/CreateCourse";
         }
     </script>
 </body>
