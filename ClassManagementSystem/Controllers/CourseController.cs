@@ -36,7 +36,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -75,7 +75,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -134,7 +134,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -184,7 +184,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
