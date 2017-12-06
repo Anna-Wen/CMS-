@@ -73,11 +73,9 @@
                 dataType: "json",
                 success: function (data, status) {
                     //在页面上删除
-                    if(Confirm("确定删除吗？"))
-                    {
-                        var block = "#" + classId;
-                        $(block).hide();
-                    }
+                    alert("确定删除吗？");
+                    var block = "#" + classId;
+                    $(block).hide();
                 }
             });
         }
