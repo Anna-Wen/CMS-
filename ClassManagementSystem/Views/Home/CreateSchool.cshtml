@@ -39,12 +39,9 @@
                 success: function(data,status){//首先加载省份信息
                     for (var i = 0; i < data.length; i++)
                    {
-<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
-                        $("#province").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加省份信息
-=======
+
                         $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
 
->>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
                    }
                 }
             });
@@ -64,18 +61,11 @@
                     for (var i = 0; i < data.length; i++) {
                         if (i == 0) {
                             $("#city").empty();
-<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
-                            $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
-                        }
-                        else
-                            $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加城市信息
-=======
                             $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
                         }
                         else
                             $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
                         //alert(data[i]);//----------
->>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
                     }
                     
 
@@ -87,19 +77,12 @@
         //提交学校
         function submitInfo() {
             //document.write("submit");//=====================
-<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
-            var urlSkip = "/Home/Register";//跳转到注册页面？？？-------------------
-            var SchoolInfo = {
-                Name: $("#name").text(),
-                Province: ($("#province").find('option:selected').attr('value')),//--------------
-                City: ($("#city").find('option:selected').attr('value'))
-=======
+
             var urlSkip = "/Home/Register";
             var SchoolInfo = {
                 Name: $("#name").val(),
                 Province: $("#province").text(),
                 City: $("#city").text()
->>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
             };
             $.ajax({
                 url: "/school",
