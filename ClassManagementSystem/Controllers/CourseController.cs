@@ -36,7 +36,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions != null && json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -55,7 +55,7 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetCourseByCourseId(int courseId)
         {
             // Fetch data from database
-            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
+            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", StartTime = "2017-09-01", EndTime = "2018-01-01", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
 
             //If not found
             if (course == null)
@@ -75,7 +75,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions != null && json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -134,7 +134,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions != null && json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -184,7 +184,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions != null)
+            if (json.Proportions != null && json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }

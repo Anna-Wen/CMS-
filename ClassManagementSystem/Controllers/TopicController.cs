@@ -41,7 +41,11 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            Topic editedTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
+            Topic editedTopic = new Topic();
+            if (json.GroupLimit != "" && json.GroupMemberLimit != "")
+            {
+                editedTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
+            }
 
             //Change information in database
             //if not found
