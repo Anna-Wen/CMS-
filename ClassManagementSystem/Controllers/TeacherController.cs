@@ -48,6 +48,16 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
+        public IActionResult CreateSeminar()
+        {
+            return View();
+        }
+
+        public IActionResult CreateCourse()
+        {
+            return View();
+        }
+
         public IActionResult TeacherCourseInformation()
         {
             return View();
@@ -59,6 +69,11 @@ namespace ClassManagementSystem.Controllers
         }
 
         public IActionResult CheckSeminar()
+        {
+            return View();
+        }
+
+        public IActionResult CheckTopic()
         {
             return View();
         }
