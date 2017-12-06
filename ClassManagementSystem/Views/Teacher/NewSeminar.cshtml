@@ -21,9 +21,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src=".\home.png">首页
-            <img src=".\help.png">帮助
-            <img src=".\exit.png">退出
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -126,7 +126,7 @@
             });
             $("#score").click(function () {
                 var index = "1";
-                var url = "/Teacher/TeacherScoreReport?index=" + index;//这个页面还没写
+                var url = "/Teacher/TeacherScoreReport?index=" + index;
                 window.location.href = url;
             });
             $("#add").click(function () {//跳转到创建讨论课的地方

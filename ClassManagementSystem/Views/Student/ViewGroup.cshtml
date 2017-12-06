@@ -69,9 +69,9 @@
                         var rowNO= 1;
                         for (var i = 0; i < data.length; i++,rowNO++) {
                             if (i % 2 == 1)//单行双行颜色不一样
-                                $('#studenttable2').append("<tr class='studenttabletralt'><td name='tdnumber'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO+"' src='.\home.png'></td></tr>");
+                                $('#studenttable2').append("<tr class='studenttabletralt'><td name='tdnumber'>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO +"' src='/images/smalladd.png'></td></tr>");
                             else
-                                $('#studenttable2').append("<tr><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO +"' src='.\home.png'></td></tr>");
+                                $('#studenttable2').append("<tr><td>" + data[i].number + "</td><td>" + data[i].name + "</td><td><img id='add" + rowNO +"' src='/images/smalladd.png'></td></tr>");
 
 
                             var Imid= "#add" + rowNO;
@@ -193,9 +193,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src=".\home.png">首页
-            <img src=".\help.png">帮助
-            <img src=".\exit.png">退出
+            <img src="/images/home.png"><a href="~/Student/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
