@@ -78,17 +78,8 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-<<<<<<< HEAD
         public IActionResult ModifyCourse()
         {
             return View();
-        }
-
-        public IActionResult CreateCourse()
-        {
-            return View();
-        }
-=======
->>>>>>> master
-    }
+        }    }
 }

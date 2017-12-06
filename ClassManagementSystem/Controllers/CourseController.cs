@@ -55,12 +55,7 @@ namespace ClassManagementSystem.Controllers
         public IActionResult GetCourseByCourseId(int courseId)
         {
             // Fetch data from database
-<<<<<<< HEAD
-            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn"};
-=======
-            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", StartTime = "1/9/2017", EndTime = "1/1/2018", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
->>>>>>> master
-
+            CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", StartTime = "2017-09-01", EndTime = "2018-01-01", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
             //If not found
             if (course == null)
                 return NotFound();
