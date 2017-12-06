@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ClassManagementSystem.Models;
 
 namespace ClassManagementSystem.Controllers
 {
@@ -14,12 +13,12 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult NewSeminar()
+        public IActionResult TeacherScoreHome()
         {
             return View();
         }
 
-        public IActionResult TeacherScoreHome()
+        public IActionResult TeacherScoreReportPage()
         {
             return View();
         }
@@ -33,11 +32,13 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult CheckTopicAfterClass()
+        public IActionResult BasicInfo()
         {
             return View();
         }
-        public IActionResult BasicInfo()
+
+
+        public IActionResult TeacherCourseHome()
         {
             return View();
         }
@@ -47,12 +48,7 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult TeacherCourseInformation()
-        {
-            return View();
-        }
-        
-        public IActionResult CheckClassInfo()
+        public IActionResult CreateSeminar()
         {
             return View();
         }
@@ -62,27 +58,31 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult Bind()
+        public IActionResult TeacherCourseInformation()
         {
             return View();
         }
-
-        public IActionResult CreateSchool()
+        
+            public IActionResult CheckClassInfo()
         {
-            return View();
+            return View(); 
         }
 
-       
         public IActionResult CheckSeminar()
         {
             return View();
         }
+
         public IActionResult CheckTopic()
         {
             return View();
         }
 
+<<<<<<< HEAD
         public IActionResult CreateSeminar()
+=======
+        public IActionResult TeacherCourseHomePage()
+>>>>>>> master
         {
             return View();
         }

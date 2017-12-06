@@ -107,7 +107,11 @@
         }
             //提交新建讨论课信息
             function submitSeminarInfo() {
+<<<<<<< HEAD
             var urlSkip = "/Teacher/TeacherCourseInfomation";
+=======
+            var urlSkip = "/Teacher/TeacherCourseInformation";
+>>>>>>> master
             var seminarInfo = {
                 Name: $("#name").val(),
                 StartTime: $("#startTime").val(),
@@ -123,7 +127,11 @@
                 }
             };
             //alert(seminarInfo.GroupingMethod);//--------------------------
+<<<<<<< HEAD
             var couseId = window.location.href.split("=")[1];//获取当前courseId
+=======
+            var courseId = window.location.href.split("=")[1];//获取当前courseId
+>>>>>>> master
             $.ajax({
                 url:"/course/"+courseId+"/seminar",
                 type:"POST",
@@ -131,6 +139,10 @@
                 dataType: "json",
                 data: JSON.stringify(seminarInfo),
                 success: function (data, status) {
+<<<<<<< HEAD
+=======
+                    alert("讨论课创建操作成功！");
+>>>>>>> master
                     window.location.href = urlSkip;
                 }
             });

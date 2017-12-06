@@ -51,7 +51,7 @@
                          $("#mainContent").append("<br/>");
                          $("#mainContent").append("<div class='main_box_right_content' onclick='detailedInfo(" + data[i].courseId + ")' id=" + data[i].id + "><h3 class='classtitle'>"
                             +"<span id='course'>"+ data[i].courseName + "</span>"
-                            +"<button onclick='quit("+data[i].id+")'>退选课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr>"
+                            +"<button onclick='quit(event,"+data[i].id+")'>退选课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr>"
                             +"<td class='tabletext'>班级：<span id='name'>"+data[i].time+"</span></td><td class='tabletext' id= 'site'> 课程地点："+data[i].site+"</td></tr><tr>"
                             +"<td class='tabletext' id='teacher'>教师："+data[i].courseTeacher.name+"</td><td class='tabletext' ></td></tr></table></div>"
                             +"</div>");
@@ -62,8 +62,9 @@
     </script>
     <script>
         //点击退选课程按钮
-        function quit(classId)
+        function quit(event,classId)
         {
+            event.stopPropagation();
             //var obj = event.srcElement;
             $.ajax({
                 type: "DELETE",
@@ -72,9 +73,11 @@
                 dataType: "json",
                 success: function (data, status) {
                     //在页面上删除
-                    alert("确定删除吗？");
-                    var block = "#" + classId;
-                    $(block).hide();
+                    if (confirm("确定删除吗？"))
+                    {
+                        var block = "#" + classId;
+                        $(block).hide();
+                    }
                 }
             });
         }

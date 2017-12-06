@@ -103,18 +103,18 @@
             function submitClassInfo() {
                 var courseId = 1;//window.location.href.split("=")[1];//当前courseId
                 //document.write(courseId);
-                var urlSkip = "/Teacher/CourseInfo" + courseId;//跳转到课程内页首页？？？-------------------
+                var urlSkip = "/Teacher/TeacherCourseInformation?courseId=" + courseId;//跳转到课程内页首页？？？-------------------
             var classInfo = {
-                Name: $("#name").text(),
-                Time: $("#time").text(),
-                Site: $("#site").text(),
-                Roster: $("#roster").text(),
+                Name: $("#name").val(),
+                Time: $("#time").val(),
+                Site: $("#site").val(),
+                Roster: $("#roster").val(),
                 Proportions: {
-                    Report: $("#report").text(),
-                    Presentation: $("#presentation").text(), 
-                    C: $("#c").text(), 
-                    B: $("#b").text(), 
-                    A: $("#a").text()
+                    Report: $("#report").val(),
+                    Presentation: $("#presentation").val(), 
+                    C: $("#c").val(), 
+                    B: $("#b").val(),
+                    A: $("#a").val()
                 }
             };
             $.ajax({
@@ -124,6 +124,7 @@
                 dataType: "json",
                 data: JSON.stringify(classInfo),
                 success: function (data, status) {
+                    alert("班级创建操作成功！");
                     window.location.href = urlSkip;
                 }
             });

@@ -5,7 +5,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>新建课程</title>
+    <title>修改课程</title>
     <link href="/css/Teacher/TeacherCreateCoursePage.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -101,7 +101,6 @@
                 dataType: "json",
                 data: JSON.stringify(courseInfo),
                 success: function (data, status) {
-                    alert("课程创建操作成功！");
                     window.location.href = urlSkip;
                 }
             });

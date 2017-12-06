@@ -119,7 +119,7 @@ namespace ClassManagementSystem.Controllers
         }
 
         // PUT: /group/{groupId}/grade/report
-        [HttpGet("{groupId}/grade/report")]
+        [HttpPut("{groupId}/grade/report")]
         public IActionResult PutGroupReportGrade(int groupId, [FromBody]dynamic json)
         {
             //Authentication

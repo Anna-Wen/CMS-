@@ -41,7 +41,13 @@
 
 
         $("#post").click(function() {
-            var ata = { Id: document.getElementById("serialId"), Name: document.getElementById("Name"), Description: document.getElementById("Description"), GroupLimit: document.getElementById("Name"), GroupLeft: document.getElementById("GroupLeft") }
+            var ata = { 
+                Id: $("#serialId").val(), 
+                Name: $("#Name").val(), 
+                Description: $("#Description").val(), 
+                GroupLimit: $("#GroupLimit").val(), 
+                GroupMemberLimit: $("#GroupLeft").val() 
+                };
             
             
             $.ajax({
@@ -51,6 +57,7 @@
                 contentType: "application/json:charset=utf-8",
                 dataType:"json",
                 success: function (data) {
+                    alert("话题创建操作成功！");
                     window.history.go(-1);
                 },
                 //error: function (err) {
