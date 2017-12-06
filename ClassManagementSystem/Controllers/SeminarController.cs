@@ -45,7 +45,7 @@ namespace ClassManagementSystem.Controllers
 
             //Get information from json
             GradeProportion proportions = null;
-            if (json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
+            if (json.Proportions != null && json.Proportions.Report != "" && json.Proportions.Presentation != "" && json.Proportions.C != "" && json.Proportions.B != "" && json.Proportions.A != "")
             {
                 proportions = new GradeProportion { Report = json.Proportions.Report, Presentation = json.Proportions.Presentation, C = json.Proportions.C, B = json.Proportions.B, A = json.Proportions.A };
             }
@@ -121,7 +121,11 @@ namespace ClassManagementSystem.Controllers
             //  return Forbid();
 
             //Get information from json
-            Topic newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
+            Topic newTopic = new Topic();
+            if (json.GroupLimit != "" && json.GroupMemberLimit != "")
+            {
+                newTopic = new Topic { Serial = json.Serial, Name = json.Name, Description = json.Description, GroupLimit = json.GroupLimit, GroupMemberLimit = json.GroupMemberLimit };
+            }
 
             // Store topic information in server and generate a id for this new topic
             newTopic.Id = 257;
