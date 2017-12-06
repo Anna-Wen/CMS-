@@ -15,7 +15,12 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult RegisterPage()
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult CreateSchool()
         {
             return View();
         }
@@ -25,9 +30,5 @@ namespace ClassManagementSystem.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Register()
-        {
-            return View();
-        }
     }
 }

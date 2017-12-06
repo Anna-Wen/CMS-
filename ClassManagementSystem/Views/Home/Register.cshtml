@@ -25,9 +25,9 @@
     <div class="phoneNum">手机号:<input type="text" name="phoneNum" id="phone"/></div>
     <div class="password">密码:<input type="text" name="password" id="password"/></div>
     <div class="name">姓名:<input type="text" name="name" id="name"/></div>
-    <div class="province">省:<select class="provinceSelect" id="province"></select></div>
-    <div class="city">市:<select class="citySelect" id="city" onclick="getCity()"></select></div>
-    <div class="school">学校:<select class="schoolSelect" id="school" onclick="getSchool()"></select><div class="createSchool" onclick="createSchool()">创建学校</div></div>
+    <div class="province">省:<select class="provinceSelect" id="province" onclick="getCity()"></select></div>
+    <div class="city">市:<select class="citySelect" id="city" onclick="getSchool()"></select></div>
+    <div class="school">学校:<select class="schoolSelect" id="school"></select><div class="createSchool" onclick="createSchool()">创建学校</div></div>
     <div class="gender">性别:</div>
     <div class="male">男<input type="radio" value="男" name="gender" checked="checked" id="male"/></div>
     <div class="female">女<input type="radio" value="女" name="gender" id="female" /></div>
@@ -153,7 +153,7 @@
     </script>
     <script type="text/javascript">
         function createSchool() {
-            var urlSkip = "../Teacher/CreateSchool";
+            var urlSkip = "../Home/CreateSchool";
             window.location.href = urlSkip;//跳转到个人首页
         }
     </script>
@@ -165,21 +165,19 @@
             //document.write("school");//=====================
             $.ajax({
                 //url: "/school?city=" + city,
-                url: "/school?city=" + "",
+                url: "/school?city=" + city,
                 type: "GET",
                 contentType: "application/json:charset=utf-8",
                 success: function (data, status) {//加载学校信息
-                    alter(data.length);//==================
                     for (var i = 0; i < data.length; i++) {
-                        alter(data.length);//==================
-                        $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-                        //if (i == 0)
-                        //{
-                        //    $('#school').empty();
-                        //    $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
-                        //}
-                        //else
-                        //    $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
+                        //$('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
+                        if (i == 0)
+                        {
+                            $('#school').empty();
+                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
+                        }
+                        else
+                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
 
                     }
 
