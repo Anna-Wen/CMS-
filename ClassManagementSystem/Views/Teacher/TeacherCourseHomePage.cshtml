@@ -61,23 +61,7 @@
         //修改课程
         function modify(courseId)
         {
-            //var
-            $.ajax({
-                type: 'PUT',
-                url: "/course/"+courseId,
-                contentType: "application/json;charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(courseInfo),
-                success: function (data, status) {
-                    for (var i = 0; i < data.length; i++) {
-                        $('#mainContent').append("<div class='main_box_right_content' id='table" + data[i].id + "'></div></br>");
-                        $('#table' + data[i].id).append("<h3 class='classtitle'>" + data[i].name + "<button id='" + data[i].id + "'>修改课程</button><button class='" + data[i].id + "'>删除课程</button></h3><div class='divideline'></div><div class='classinfo'><table class='table'><tr><td class='tabletext'>班级数：<span>" + data[i].numClass + "</span></td>" +
-                            "< td class='tabletext' > 学生人数：" + numStudent + "</td ></tr ><tr><td class='tabletext'>开始时间：" + data[i].startTime + "</td><td class='tabletext'>结束时间:" + data[i].endTime + "</td></tr></table ></div ></div >");
-                    }
-                    $('#mainContent').append("<div class='main_box_right_content'>< img class='addcourse' src= '/images/add.png' ></div ></div >");
-                }
-            });
-
+            window.location.href = "/Teacher/ModifyCourse?courseId=" + courseId;
         }
 
         //删除课程

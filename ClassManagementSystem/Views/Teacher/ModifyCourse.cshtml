@@ -42,21 +42,10 @@
 
                     <br />
                     <br />
-                    开始时间*：<input type="date" name="begintime" id="startTime"/>  结束时间*：<input type="date" name="endtime" id="endTime"/><br /><br />
+                    开始时间*：<input type="date" name="begintime" id="startTime"/> <br/><br/> 结束时间*：<input type="date" name="endtime" id="endTime"/><br /><br />
 
                     课程介绍：<br />
                     <textarea name="courseinfo" cols="80" rows="5" id="description"></textarea><br /><br />
-
-
-                    评分规则*： <br />
-
-                    <div class="scorerule">
-                        <p> 讨论课分数占比:<input type="text" name="seminarscore" id="presentation">报告分数占比：<input type="text" name="reportscore" id="report"></p>
-
-                        <p>五分占比:<input type="text" name="five" id="c">四分占比：<input type="text" name="four" id="b">三分占比：<input type="text" name="three" id="a"></p>
-                    </div>
-
-
                     <br />
                     <div class="buttons">
 
@@ -70,16 +59,31 @@
 
 
     </div>
-
-
     <div class="clear"></div>
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () { 
+            var courseId = getQueryString("courseId");
+            $.ajax({
+                type: 'GET',
+                url: "/course/" + courseId,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data, status) {
+                    $("#name").val(data.name);
+                    $("#startTime").val(data.startTime);
+                    $("#endTime").val(data.endTime);
+                    $("#description").val(data.description);
+                }
+            });
+         });
+    </script>
     <script type="text/javascript">
 
             //提交新建课程信息
             function submitCourseInfo() {
-            var urlSkip = "/Teacher/TeacherCourseHome";
+            var urlSkip = "/Teacher/TeacherCourseHomePage";
             var courseInfo = {
                 Name: $("#name").val(),
                 StartTime: $("#startTime").val(),
@@ -93,13 +97,16 @@
                     A: $("#a").val()
                 }
             };
+
+            //var courseId = getQueryString(courseId);
             $.ajax({
-                url:"/course",
-                type:"POST",
+                type: 'POST',
+                url: "/course",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(courseInfo),
                 success: function (data, status) {
+                    alert("233");
                     window.location.href = urlSkip;
                 }
             });
@@ -116,8 +123,16 @@
             $("#c").val("");
             $("#b").val("");
             $("#a").val("");
-        }//重置课程信息end
+            }//重置课程信息end
 
+            function getQueryString(name) {
+                var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) {
+                    return unescape(r[2]);
+                }
+                return null;
+            }
     </script>
 </body>
 </html>
