@@ -5,40 +5,41 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="viewport" content="width=device-width,
                                      initial-scale=1.0,
                                      maximum-scale=1.0,
                                      user-scalable=no">
-    <title>注册</title>
-    <link href="/css/Common/RegisterPage.css" rel="stylesheet" type="text/css" />
+    <title>ClassManage</title>
+    <link href="../../css/Teacher/TeacherBindPage.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <div class="titleBackground"></div>
     <div class="title">课程管理系统</div>
     <div class="icon">
-        <img src="../../images/home.png"><a href="~/Home/AccountLogin">首页</a>
-        <img src="../../images/help.png"><a href="#">帮助</a>
-        <img src="../../images/exit.png"><a href="~/Home/AccountLogin">退出</a>
+        <img src="/images/home.png"><a href="~/Student/BasicInfo">首页</a>
+        <img src="/images/help.png"><a href="#">帮助</a>
+        <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
     </div>
     <div class="phoneNum">手机号:<input type="text" name="phoneNum" id="phone"/></div>
     <div class="password">密码:<input type="text" name="password" id="password"/></div>
     <div class="name">姓名:<input type="text" name="name" id="name"/></div>
-    <div class="province">省:<select class="provinceSelect" id="province" onclick="getCity()"></select></div>
-    <div class="city">市:<select class="citySelect" id="city" onclick="getSchool()"></select></div>
-    <div class="school">学校:<select class="schoolSelect" id="school"></select><div class="createSchool" onclick="createSchool()">创建学校</div></div>
+    <div class="province">省:<select class="provinceSelect" id="province"></select></div>        <!-- onclick="getProvince()"--->
+    <div class="city">市:<select class="citySelect" id="city" onclick="getCity()"></select></div>
+    <div class="school">学校:<select class="schoolSelect" id="school" onclick="getSchool()"></select><div class="createSchool" onclick="createSchool()">创建学校</div></div>
+    
     <div class="gender">性别:</div>
     <div class="male">男<input type="radio" value="男" name="gender" checked="checked" id="male"/></div>
-    <div class="female">女<input type="radio" value="女" name="gender" id="female" /></div>
- 
+    <div class="female">女<input type="radio" value="女" name="gender" id="female"/></div>
+
     <div class="role">角色:</div>
     <div class="student">学生<input type="radio" value="学生" name="role" checked="checked" id="student"/></div>
     <div class="teacher">教师<input type="radio" value="教师" name="role" id="teacher"/></div>
-   
+
     <div class="stuffNum">教工号:<input type="text" name="stuffNum" id="number"/></div>
     <div class="eMail">邮箱:<input type="text" name="eMail" id="email"/></div>
-    <div class="submit" onclick="submitInfo()">提交</div>
+    <div class="submit" id="submit" onclick="submitInfo()">提交</div>
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript">
@@ -50,48 +51,56 @@
                 url: "/school/province",
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
-                success: function (data, status) {//首先加载省份信息
-                    for (var i = 0; i < data.length; i++) {
-                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
+                success: function(data,status){//首先加载省份信息
+                    for (var i = 0; i < data.length; i++)
+                   {
+                        $('#province').append("<option value='province"+ i + "'>" + data[i]+"</option>");//动态添加省份信息
 
-                    }
+                   }
                 }
             });
-
+         
         });//初始化end
 
         //获取城市
         function getCity() {
-            //alert("city");//=====================
-            //var province = $("#province").val();
-            //var province = ("#province  option:selected").text();
-            var province = ($('#province').find('option:selected').attr('value'));//--------------
+            document.write("city");//=====================
+            var province = $("#province").text();
             $.ajax({
                 url: "/school/city?province=" + province,
                 type: "GET",
                 contentType: "application/json:charset=utf-8",
                 success: function (data, status) {//加载城市信息
-                    //alert(data[1]);//----------
                     for (var i = 0; i < data.length; i++) {
-                        if (i == 0)
-                        {
-                            $("#city").empty();
-                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
-                        }
-                        else
-                        $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
-                        //alert(data[i]);//----------
+                        $('#city').append("<option value='city" + i + "'>" + data[i] + "</option>");//动态添加城市信息
+
                     }
 
                 }
             });
         }//获取城市end
 
+        function getSchool() {
+            var city = $("#city").text();
+            document.write("school");//=====================
+            $.ajax({
+                url: "/school?city=" + city,
+                type: "GET",
+                contentType: "application/json:charset=utf-8",
+                success: function (data, status) {//加载学校信息
+                    for (var i = 0; i < data.length; i++) {
+                        $('#school').append("<option value='school" + i + "'>" + data[i] + "</option>");//动态添加学校信息
+
+                    }
+
+                }
+            });
+        }//获取城市end
 
         //提交绑定信息
         function putInfo() {
             //document.write("putInfo");//=====================
-
+            var urlSkip = "/Teacher/HomePage";//跳转到个人首页？？？-------------------
             var g;//性别变量
             if (document.getElementById("male").checked)//可以通过这样来判断选择的那个性别？
                 g = "male";
@@ -103,11 +112,6 @@
                 r = "student";
             else
                 r = "teacher";
-            var urlSkip;
-            if (r == "teacher")
-                urlSkip = "/Teacher/BasicInfo";//跳转到个人首页？？？-------------------
-            else
-                urlSkip = "/Student/BasicInfo";
 
             var Info = {
                 Name: $("#name").text(),
@@ -133,7 +137,7 @@
         //提交所有信息
         function submitInfo() {
             //document.write("submit");//=====================
-
+            var urlSkip = "/Teacher/HomePage";//跳转到个人首页？？？-------------------
             var PersonInfo = {
                 Password: $("#password").text(),
                 Phone: $("#phone").text()
@@ -152,40 +156,13 @@
 
     </script>
     <script type="text/javascript">
-        function createSchool() {
-            var urlSkip = "../Home/CreateSchool";
+        function createSchool() { 
+            var urlSkip = "/Teacher/CreateSchool";
             window.location.href = urlSkip;//跳转到个人首页
         }
-    </script>
-    <script type="text/javascript">
-        function getSchool() {
-            //var city = $("#city").val();
-            var city = ($("#city").find('option:selected').attr('value'));//--------------
-            //alert(city);
-            //document.write("school");//=====================
-            $.ajax({
-                //url: "/school?city=" + city,
-                url: "/school?city=" + city,
-                type: "GET",
-                contentType: "application/json:charset=utf-8",
-                success: function (data, status) {//加载学校信息
-                    for (var i = 0; i < data.length; i++) {
-                        //$('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-                        if (i == 0)
-                        {
-                            $('#school').empty();
-                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");
-                        }
-                        else
-                            $('#school').append("<option value=" + data[i].name + ">" + data[i].name + "</option>");//动态添加学校信息
-
-                    }
-
-                }//加载学校信息
-            });
-        }//获取学校end
-        </script>
+     </script>
 
 </body>
 
 </html>
+

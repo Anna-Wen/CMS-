@@ -35,7 +35,7 @@
                     }
 
                     var url = "/Teacher/CreateClass?courseId=" + courseId ;  //
-                    $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+                    $('#classButton').append("<div class='block' onClick=(window.location.href='" + url + "')><img class='addImg' src= '/images/smalladd.png' alt= '添加'></div >");
 
                 }
             });
@@ -53,7 +53,7 @@
                         $('#seminarButton').append("<div class='block' onClick=(window.location.href='" + url + "')><div class='blockFont'>讨论课" + (i+1) + "</div></div>");
                     }
                     var url = "/Teacher/CreateSeminar?courseId=" + courseId;
-                    $('#seminarButton').append("<div class='block' onClick=(window.location.href='"+ url + "')><img class='addImg' src= '../../Img/smalladd.png' alt= '添加'></div >");
+                    $('#seminarButton').append("<div class='block' onClick=(window.location.href='" + url + "')><img class='addImg' src= '/images/smalladd.png' alt= '添加'></div >");
 
                 }
             });
@@ -78,9 +78,9 @@
             课堂管理系统
         </div>
         <div class="icon">
-            <img src="../../Img/home.png">首页
-            <img src="../../Img/help.png">帮助
-            <img src="../../Img/exit.png">退出
+            <img src="/images/home.png"><a href="~/Teacher/BasicInfo">首页</a>
+            <img src="/images/help.png"><a href="#">帮助</a>
+            <img src="/images/exit.png"><a href="~/Home/AccountLogin">退出</a>
         </div>
         <div class="clear"></div>
     </div>
