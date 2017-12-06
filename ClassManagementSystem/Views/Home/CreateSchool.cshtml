@@ -11,7 +11,7 @@
                                      maximum-scale=1.0,
                                      user-scalable=no">
     <title>ClassManage</title>
-    <link href="../../css/teacher/TeacherCreateSchool.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/Teacher/TeacherCreateSchool.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -22,8 +22,8 @@
         <img src="../../images/help.png">帮助
         <img src="../../images/exit.png">退出
     </div>
-    <div class="province">所在省份:<select class="provinceSelect" id="province"></select></div>
-    <div class="city">所在城市:<select class="citySelect" id="city" onclick="getCity()"></select></div>
+    <div class="province">所在省份:<select class="provinceSelect" id="province" onclick="getCity()"></select></div>
+    <div class="city">所在城市:<select class="citySelect" id="city"></select></div>
     <div class="school">学校名称:<input type="text" name="school" id="name"/></div>
     <div class="submit" id="submit" onclick="submitInfo()">提交</div>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -39,7 +39,12 @@
                 success: function(data,status){//首先加载省份信息
                     for (var i = 0; i < data.length; i++)
                    {
+<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
                         $("#province").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加省份信息
+=======
+                        $("#province").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加省份信息
+
+>>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
                    }
                 }
             });
@@ -55,13 +60,22 @@
                 type: "GET",
                 contentType: "application/json:charset=utf-8",
                 success: function (data, status) {//加载城市信息
+                    //alert(data[1]);//----------
                     for (var i = 0; i < data.length; i++) {
                         if (i == 0) {
                             $("#city").empty();
+<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
                             $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
                         }
                         else
                             $("#city").append("<option value='" + data[i] + "'>" + data[i] + "</option>");//动态添加城市信息
+=======
+                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");
+                        }
+                        else
+                            $("#city").append("<option value=" + data[i] + ">" + data[i] + "</option>");//动态添加城市信息
+                        //alert(data[i]);//----------
+>>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
                     }
                     
 
@@ -73,11 +87,19 @@
         //提交学校
         function submitInfo() {
             //document.write("submit");//=====================
+<<<<<<< HEAD:ClassManagementSystem/Views/Teacher/CreateSchool.cshtml
             var urlSkip = "/Home/Register";//跳转到注册页面？？？-------------------
             var SchoolInfo = {
                 Name: $("#name").text(),
                 Province: ($("#province").find('option:selected').attr('value')),//--------------
                 City: ($("#city").find('option:selected').attr('value'))
+=======
+            var urlSkip = "/Home/Register";
+            var SchoolInfo = {
+                Name: $("#name").val(),
+                Province: $("#province").text(),
+                City: $("#city").text()
+>>>>>>> master:ClassManagementSystem/Views/Home/CreateSchool.cshtml
             };
             $.ajax({
                 url: "/school",
@@ -86,10 +108,10 @@
                 dataType: "json",
                 data: JSON.stringify(SchoolInfo),
                 success: function (data, status) {
-                    //window.location.href = urlSkip;//跳转注册页面   post写了就可以跳转了
+                    alert("新建学校操作成功");
+                    window.location.href = urlSkip;     //跳转注册页面
                 }
             });
-            window.location.href = urlSkip;//跳转注册页面//
         }//提交新建课程信息end
 
 

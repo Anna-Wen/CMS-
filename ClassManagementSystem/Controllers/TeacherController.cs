@@ -79,6 +79,7 @@ namespace ClassManagementSystem.Controllers
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public IActionResult CreateSeminar()
 =======
         public IActionResult TeacherCourseHomePage()
@@ -86,5 +87,7 @@ namespace ClassManagementSystem.Controllers
         {
             return View();
         }
+=======
+>>>>>>> master
     }
 }
