@@ -56,10 +56,6 @@ namespace ClassManagementSystem.Controllers
         {
             // Fetch data from database
             CourseDetail course = new CourseDetail { Id = 1, Name = "OOAD", Description = "面向对象分析与设计", StartTime = "2017-09-01", EndTime = "2018-01-01", TeacherName = "邱明", TeacherEmail = "mingqiu@xmu.edu.cn" };
-<<<<<<< HEAD
-=======
-
->>>>>>> master
             //If not found
             if (course == null)
                 return NotFound();
