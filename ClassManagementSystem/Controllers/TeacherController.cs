@@ -78,9 +78,5 @@ namespace ClassManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult TeacherCourseHomePage()
-        {
-            return View();
-        }
     }
 }
